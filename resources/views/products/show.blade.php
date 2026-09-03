@@ -17,20 +17,29 @@
 <div x-data="{
         colors: {{ Illuminate\Support\Js::from($colors) }},
         active: 0,
-        get current() { return this.colors[this.active]; }
+        lightbox: false,
+        get current() { return this.colors[this.active]; },
+        select(i) { this.active = (i + this.colors.length) % this.colors.length; },
      }"
+     @keydown.window.escape="lightbox = false"
+     @keydown.window.arrow-right="select(active + 1)"
+     @keydown.window.arrow-left="select(active - 1)"
      class="container-site pb-16 grid md:grid-cols-2 gap-12">
 
     {{-- Gallery --}}
     <div>
-        <div class="relative bg-brand-gray border border-gray-200 rounded-lg p-8">
+        <button type="button" @click="lightbox = true"
+                class="relative block w-full bg-brand-gray border border-gray-200 rounded-lg p-8 group cursor-zoom-in">
             <span class="badge-new">New</span>
             <img :src="'{{ asset('') }}' + current.image" :alt="current.name + ' {{ $product['name'] }}'"
                  class="w-full max-w-md mx-auto aspect-square object-contain">
-        </div>
+            <span class="absolute bottom-3 right-3 h-9 w-9 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-brand-dark opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"/></svg>
+            </span>
+        </button>
         <div class="mt-4 grid grid-cols-5 sm:grid-cols-6 gap-2">
             <template x-for="(c, i) in colors" :key="c.slug">
-                <button type="button" @click="active = i"
+                <button type="button" @click="active = i" @mouseenter="active = i"
                         :class="active === i ? 'border-brand-orange' : 'border-gray-200 hover:border-gray-400'"
                         class="border rounded-md p-1 bg-brand-gray transition-colors">
                     <img :src="'{{ asset('') }}' + c.image" :alt="c.name" class="w-full aspect-square object-contain">
@@ -50,16 +59,18 @@
 
         <p class="text-gray-600 mt-5 leading-relaxed">{{ $product['description'] }}</p>
 
-        {{-- Colors --}}
+        {{-- Colours (FLEXFIT-style: swatch + label + code) --}}
         <div class="mt-7">
-            <div class="text-sm font-bold uppercase tracking-wide">
-                Colour: <span class="text-gray-500 font-medium normal-case" x-text="current.name"></span>
-            </div>
-            <div class="mt-3 flex flex-wrap gap-2">
+            <div class="text-sm font-bold uppercase tracking-wide mb-3">Colours</div>
+            <div class="flex flex-wrap gap-x-4 gap-y-3">
                 <template x-for="(c, i) in colors" :key="c.slug">
-                    <button type="button" @click="active = i" :title="c.name"
-                            :class="active === i ? 'ring-2 ring-brand-orange ring-offset-2' : 'ring-1 ring-black/10'"
-                            class="h-8 w-8 rounded-full" :style="'background-color:' + c.hex"></button>
+                    <button type="button" @click="active = i" class="text-left group">
+                        <span :class="active === i ? 'border-brand-orange ring-2 ring-brand-orange/30' : 'border-gray-300 group-hover:border-gray-500'"
+                              class="block h-12 w-12 rounded border-2" :style="'background-color:' + c.hex"></span>
+                        <span class="block text-[11px] font-semibold mt-1 leading-tight" x-text="c.name"
+                              :class="active === i ? 'text-brand-dark' : 'text-gray-500'"></span>
+                        <span class="block text-[10px] text-gray-400 leading-tight" x-text="c.code || ''"></span>
+                    </button>
                 </template>
             </div>
         </div>
@@ -97,6 +108,29 @@
             <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Fast shipping across Pakistan</p>
             <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Bulk / corporate pricing — <a href="{{ route('contact') }}" class="text-brand-orange hover:underline">contact us</a></p>
             <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Custom embroidery &amp; printing available</p>
+        </div>
+    </div>
+
+    {{-- Lightbox --}}
+    <div x-show="lightbox" x-cloak
+         class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+         @click.self="lightbox = false" x-transition.opacity>
+        <button type="button" @click="lightbox = false" aria-label="Close"
+                class="absolute top-4 right-4 h-11 w-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <button type="button" @click="select(active - 1)" aria-label="Previous"
+                class="absolute left-2 sm:left-6 h-12 w-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+            <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+        </button>
+        <button type="button" @click="select(active + 1)" aria-label="Next"
+                class="absolute right-2 sm:right-6 h-12 w-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+            <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        </button>
+        <div class="text-center">
+            <img :src="'{{ asset('') }}' + current.image" :alt="current.name"
+                 class="max-h-[80vh] max-w-[90vw] object-contain mx-auto">
+            <div class="mt-3 text-white text-sm font-semibold" x-text="current.name"></div>
         </div>
     </div>
 </div>
