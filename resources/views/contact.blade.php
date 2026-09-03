@@ -54,10 +54,10 @@
         <div class="bg-brand-gray rounded-lg p-8 h-fit">
             <h2 class="text-xl font-bold mb-4">Head Office</h2>
             <div class="text-gray-600 space-y-4 text-sm">
-                <p class="flex gap-3"><span class="text-brand-orange font-bold">Address</span> 8700 8th Ave., Montreal, Quebec H1Z 2W9</p>
-                <p class="flex gap-3"><span class="text-brand-orange font-bold">Phone</span> 514-326-6700 · 1-800-419-8491</p>
+                <p class="flex gap-3"><span class="text-brand-orange font-bold">Address</span> Lahore, Pakistan</p>
+                <p class="flex gap-3"><span class="text-brand-orange font-bold">Phone</span> +92 300 0000000</p>
                 <p class="flex gap-3"><span class="text-brand-orange font-bold">Email</span> sales@tonkit.pro</p>
-                <p class="flex gap-3"><span class="text-brand-orange font-bold">Hours</span> Mon–Sat, 9:00 – 21:00</p>
+                <p class="flex gap-3"><span class="text-brand-orange font-bold">Hours</span> Mon–Sat, 10:00 – 19:00</p>
             </div>
         </div>
     </div>

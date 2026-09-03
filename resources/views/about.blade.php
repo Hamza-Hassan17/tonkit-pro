@@ -26,7 +26,7 @@
         <div class="relative">
             <div class="absolute -inset-4 md:-right-10 bg-brand-orange/10 rounded-2xl"></div>
             <div class="relative bg-brand-gray border border-gray-200 rounded-2xl p-10">
-                <img src="{{ asset('images/products/yp-classics-5-panel-snapback-braided-rope/black.png') }}" alt="TonKit.Pro cap" class="mx-auto max-w-[240px] drop-shadow-xl">
+                <img src="{{ asset('images/products/yp-classics-5-panel-snapback-braided-rope/navy.webp') }}" alt="TonKit.Pro cap" class="mx-auto max-w-[280px] drop-shadow-xl">
             </div>
         </div>
     </section>
@@ -34,7 +34,7 @@
     {{-- ── Stats ──────────────────────────────────────────────── --}}
     <section class="bg-brand-gray">
         <div class="container-site py-14 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            @foreach ([['9+', 'Cap Styles'], ['100%', 'Authentic Products'], ['24h', 'Order Processing'], ['CA / US', 'Fast Shipping']] as [$n, $l])
+            @foreach ([['9', 'Cap Styles'], ['40+', 'Colour Options'], ['24h', 'Order Processing'], ['Pakistan', 'Nationwide Shipping']] as [$n, $l])
                 <div>
                     <div class="text-3xl md:text-4xl font-extrabold text-brand-orange">{{ $n }}</div>
                     <div class="text-sm text-gray-500 mt-1">{{ $l }}</div>
