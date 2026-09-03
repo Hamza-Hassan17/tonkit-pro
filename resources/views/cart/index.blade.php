@@ -19,7 +19,7 @@
                 <div class="mt-14 text-left">
                     <div class="text-center text-brand-orange text-xs font-bold uppercase tracking-[0.3em] mb-6">Popular Right Now</div>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        @foreach (collect(config('products.list'))->take(4) as $product)
+                        @foreach (\App\Http\Controllers\ProductController::all()->take(4) as $product)
                             <x-product-card :product="$product" />
                         @endforeach
                     </div>
@@ -36,21 +36,29 @@
                     @foreach ($items as $item)
                         <div class="grid sm:grid-cols-[1fr_120px_120px_40px] gap-4 items-center px-6 py-5 border-t border-gray-100 first:border-t-0 sm:first:border-t">
                             <div class="flex items-center gap-4">
-                                <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" class="w-16 h-16 object-contain bg-brand-gray rounded">
+                                <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" class="w-16 h-16 object-contain bg-brand-gray rounded shrink-0">
                                 <div>
                                     <a href="{{ route('products.show', $item['slug']) }}" class="font-semibold hover:text-brand-orange leading-snug">{{ $item['name'] }}</a>
-                                    <div class="text-brand-orange font-bold text-sm mt-0.5">${{ number_format($item['price'], 2) }}</div>
+                                    @if ($item['color_name'])
+                                        <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-1.5">
+                                            <span class="h-3 w-3 rounded-full ring-1 ring-black/10" style="background-color: {{ $item['color_hex'] }}"></span>
+                                            {{ $item['color_name'] }}
+                                        </div>
+                                    @endif
+                                    <div class="text-brand-orange font-bold text-sm mt-0.5"><x-price :amount="$item['price']" /></div>
                                 </div>
                             </div>
                             <form method="POST" action="{{ route('cart.update', $item['slug']) }}" class="flex items-center justify-center gap-2">
                                 @csrf @method('PATCH')
+                                <input type="hidden" name="color" value="{{ $item['color'] }}">
                                 <input type="number" name="qty" value="{{ $item['qty'] }}" min="1"
                                        class="w-16 rounded border-gray-300 text-sm text-center focus:border-brand-orange focus:ring-brand-orange">
                                 <button type="submit" class="text-xs text-gray-400 hover:text-brand-orange underline">Update</button>
                             </form>
-                            <div class="text-right font-bold sm:pr-0">${{ number_format($item['price'] * $item['qty'], 2) }}</div>
+                            <div class="text-right font-bold"><x-price :amount="$item['price'] * $item['qty']" /></div>
                             <form method="POST" action="{{ route('cart.remove', $item['slug']) }}" class="text-right">
                                 @csrf @method('DELETE')
+                                <input type="hidden" name="color" value="{{ $item['color'] }}">
                                 <button type="submit" aria-label="Remove" class="text-gray-300 hover:text-red-500">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                                 </button>
@@ -67,22 +75,18 @@
                     <div class="border border-gray-200 rounded-lg p-6">
                         <h2 class="font-extrabold text-lg mb-4">Order Summary</h2>
                         <div class="space-y-2 text-sm">
-                            <div class="flex justify-between"><span class="text-gray-500">Subtotal</span><span class="font-semibold">${{ number_format($total, 2) }}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">Subtotal</span><span class="font-semibold"><x-price :amount="$total" /></span></div>
                             <div class="flex justify-between"><span class="text-gray-500">Shipping</span><span class="text-gray-500">Calculated at checkout</span></div>
                         </div>
                         <div class="flex justify-between pt-4 mt-4 border-t border-gray-200 font-bold text-lg">
-                            <span>Estimated Total</span><span class="text-brand-orange">${{ number_format($total, 2) }}</span>
+                            <span>Estimated Total</span><span class="text-brand-orange"><x-price :amount="$total" /></span>
                         </div>
-                        @auth
-                            <a href="{{ route('checkout.index') }}" class="btn-orange w-full mt-5">Proceed to Checkout</a>
-                        @else
-                            <a href="{{ route('login') }}" class="btn-orange w-full mt-5">Login to Order</a>
-                            <p class="text-xs text-gray-500 mt-2 text-center">You'll need an account to complete checkout.</p>
-                        @endauth
+                        <a href="{{ route('checkout.index') }}" class="btn-orange w-full mt-5">Proceed to Checkout</a>
+                        <p class="text-xs text-gray-500 mt-2 text-center">No account required — checkout as a guest.</p>
                     </div>
 
                     <div class="border border-gray-200 rounded-lg p-5 space-y-3 text-xs text-gray-500">
-                        @foreach (['Secure PayPal checkout', 'Fast shipping across Canada & USA', '100% authentic products'] as $t)
+                        @foreach (['Secure card payment via Stripe', 'Fast shipping across Pakistan', '100% authentic products'] as $t)
                             <div class="flex items-center gap-2">
                                 <svg class="h-4 w-4 text-brand-orange shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75"/></svg>
                                 {{ $t }}

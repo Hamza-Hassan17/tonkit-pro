@@ -21,7 +21,7 @@
             </div>
             <div class="relative">
                 <div class="absolute -inset-6 md:-right-16 bg-brand-orange rounded-[40%_60%_55%_45%/55%_45%_60%_40%] -z-0"></div>
-                <img src="{{ asset('images/products/navy-a-town-trucker.svg') }}" alt="TonKit.Pro Cap"
+                <img src="{{ asset('images/products/yp-classics-retro-trucker-cap/navy.webp') }}" alt="TonKit.Pro Cap"
                      class="relative z-10 mx-auto max-w-xs md:max-w-sm drop-shadow-2xl">
             </div>
         </div>

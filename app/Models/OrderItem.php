@@ -14,6 +14,8 @@ class OrderItem extends Model
         'order_id',
         'product_slug',
         'product_name',
+        'color',
+        'color_name',
         'price',
         'qty',
     ];
@@ -31,6 +33,17 @@ class OrderItem extends Model
     // Falls back gracefully if the product was later removed from the catalog.
     public function product(): ?array
     {
-        return collect(config('products.list'))->firstWhere('slug', $this->product_slug);
+        return \App\Http\Controllers\ProductController::find($this->product_slug);
+    }
+
+    // Image for the purchased color, falling back to the product default.
+    public function image(): ?string
+    {
+        $product = $this->product();
+        if (! $product) {
+            return null;
+        }
+
+        return \App\Http\Controllers\ProductController::color($product, $this->color)['image'] ?? $product['image'];
     }
 }

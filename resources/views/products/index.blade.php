@@ -8,7 +8,7 @@
     <section class="hero-banner">
         <div class="container-site py-12 relative z-10">
             <h1 class="text-3xl md:text-4xl font-extrabold">ONLINE <span class="text-brand-orange">INVENTORY</span></h1>
-            <p class="text-gray-300 mt-2 max-w-xl">TonKit.Pro: Your trusted source for Flexfit, Mitchell &amp; Ness, Crep Protect, and more.</p>
+            <p class="text-gray-300 mt-2 max-w-xl">Quality YP Classics and Flexfit caps — in stock, ready to brand.</p>
         </div>
     </section>
 
@@ -19,7 +19,7 @@
             <span class="mx-1">/</span>
             <a href="{{ route('products.index') }}" class="hover:text-brand-orange">Shop</a>
             <span class="mx-1">/</span>
-            <span class="text-brand-orange">TonKit Headwear</span>
+            <span class="text-brand-orange">All Caps</span>
         </nav>
         <p class="text-sm text-gray-500">Showing all {{ $products->count() }} result{{ $products->count() === 1 ? '' : 's' }}</p>
     </div>
@@ -35,12 +35,12 @@
                     Filters
                 </div>
                 <form action="{{ route('products.index') }}" method="GET" class="mt-4">
-                    <label class="text-xs text-gray-500">Category</label>
-                    <select name="cat" class="mt-1 w-full rounded border-gray-300 text-sm focus:border-brand-orange focus:ring-brand-orange">
-                        <option>TonKit Headwear ({{ count(config('products.list')) }})</option>
-                    </select>
+                    <label class="text-xs text-gray-500">Search</label>
+                    <input type="text" name="q" value="{{ $query }}" placeholder="Trucker, snapback, Flexfit…"
+                           class="mt-1 w-full rounded border-gray-300 text-sm focus:border-brand-orange focus:ring-brand-orange">
+                    <button type="submit" class="btn-orange w-full mt-3 !py-2">Search</button>
                     @if ($query !== '')
-                        <input type="hidden" name="q" value="{{ $query }}">
+                        <a href="{{ route('products.index') }}" class="block text-center text-xs text-gray-400 hover:text-brand-orange mt-2">Clear search</a>
                     @endif
                 </form>
             </div>
@@ -56,7 +56,7 @@
 
             <div class="border border-gray-200 rounded-md p-5 space-y-4">
                 @foreach ([
-                    ['t' => 'Fast Shipping', 'd' => 'Across Canada & USA'],
+                    ['t' => 'Fast Shipping', 'd' => 'Across Pakistan'],
                     ['t' => 'Quality Guaranteed', 'd' => '100% Authentic Products'],
                     ['t' => 'Bulk Orders', 'd' => 'Corporate & Team Orders'],
                     ['t' => 'Customer Support', 'd' => 'We\'re Here to Help'],

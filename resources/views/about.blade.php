@@ -26,7 +26,7 @@
         <div class="relative">
             <div class="absolute -inset-4 md:-right-10 bg-brand-orange/10 rounded-2xl"></div>
             <div class="relative bg-brand-gray border border-gray-200 rounded-2xl p-10">
-                <img src="{{ asset('images/products/navy-lightly-structured-corduroy-5-panel-snapback.svg') }}" alt="TonKit.Pro cap" class="mx-auto max-w-[240px] drop-shadow-xl">
+                <img src="{{ asset('images/products/yp-classics-5-panel-snapback-braided-rope/black.png') }}" alt="TonKit.Pro cap" class="mx-auto max-w-[240px] drop-shadow-xl">
             </div>
         </div>
     </section>

@@ -26,13 +26,17 @@
                         <div class="text-sm text-gray-500 mb-3">{{ $order->created_at->format('M j, Y g:ia') }}</div>
                         @foreach ($order->items as $item)
                             <div class="flex justify-between text-sm py-1">
-                                <span>{{ $item->product_name }} <span class="text-gray-400">× {{ $item->qty }}</span></span>
-                                <span>${{ number_format($item->price * $item->qty, 2) }}</span>
+                                <span>
+                                    {{ $item->product_name }}
+                                    @if ($item->color_name)<span class="text-gray-400">({{ $item->color_name }})</span>@endif
+                                    <span class="text-gray-400">× {{ $item->qty }}</span>
+                                </span>
+                                <span><x-price :amount="$item->price * $item->qty" /></span>
                             </div>
                         @endforeach
                         <div class="flex justify-between pt-3 mt-2 border-t border-gray-200 font-bold">
                             <span>Total</span>
-                            <span class="text-brand-orange">${{ number_format($order->total, 2) }}</span>
+                            <span class="text-brand-orange"><x-price :amount="$order->total" /></span>
                         </div>
                     </div>
                 @endforeach

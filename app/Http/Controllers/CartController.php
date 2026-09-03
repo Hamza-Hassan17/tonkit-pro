@@ -22,52 +22,71 @@ class CartController extends Controller
         $product = ProductController::find($slug);
         abort_if(! $product, Response::HTTP_NOT_FOUND);
 
-        $qty = max(1, (int) $request->input('qty', 1));
+        $color = ProductController::color($product, $request->input('color'));
+        $qty   = max(1, (int) $request->input('qty', 1));
+        $key   = $this->key($slug, $color['slug']);
 
         $cart = Session::get(self::SESSION_KEY, []);
-        $cart[$slug] = ($cart[$slug] ?? 0) + $qty;
+        $cart[$key] = [
+            'slug'  => $slug,
+            'color' => $color['slug'],
+            'qty'   => ($cart[$key]['qty'] ?? 0) + $qty,
+        ];
         Session::put(self::SESSION_KEY, $cart);
 
-        return back()->with('success', "{$product['name']} added to cart.");
+        return back()->with('success', "{$product['name']} ({$color['name']}) added to your cart.");
     }
 
     public function update(Request $request, string $slug)
     {
+        $key = $this->key($slug, $request->input('color'));
         $qty = max(1, (int) $request->input('qty', 1));
 
         $cart = Session::get(self::SESSION_KEY, []);
-        if (array_key_exists($slug, $cart)) {
-            $cart[$slug] = $qty;
+        if (array_key_exists($key, $cart)) {
+            $cart[$key]['qty'] = $qty;
             Session::put(self::SESSION_KEY, $cart);
         }
 
         return back()->with('success', 'Cart updated.');
     }
 
-    public function remove(string $slug)
+    public function remove(Request $request, string $slug)
     {
+        $key = $this->key($slug, $request->input('color'));
+
         $cart = Session::get(self::SESSION_KEY, []);
-        unset($cart[$slug]);
+        unset($cart[$key]);
         Session::put(self::SESSION_KEY, $cart);
 
-        return back()->with('success', 'Item removed from cart.');
+        return back()->with('success', 'Item removed from your cart.');
     }
 
     /**
-     * Merge the session's slug=>qty pairs with live product data (price, name, image).
-     * Used by the cart page and by checkout.
+     * Merge the session's cart lines with live product data
+     * (price, name, and the image for the chosen color).
      */
     public function cartWithProductData(): array
     {
-        $cart = Session::get(self::SESSION_KEY, []);
+        $cart  = Session::get(self::SESSION_KEY, []);
         $items = [];
 
-        foreach ($cart as $slug => $qty) {
-            $product = ProductController::find($slug);
+        foreach ($cart as $line) {
+            $product = ProductController::find($line['slug']);
             if (! $product) {
-                continue; // product was removed from catalog since being added
+                continue; // product left the catalog since being added
             }
-            $items[] = array_merge($product, ['qty' => $qty]);
+
+            $color = ProductController::color($product, $line['color'] ?? null);
+
+            $items[] = array_merge($product, [
+                'qty'        => $line['qty'],
+                'color'      => $color['slug'],
+                'color_name' => $color['name'],
+                'color_hex'  => $color['hex'] ?? null,
+                'image'      => $color['image'] ?? $product['image'],
+                'cart_key'   => $this->key($line['slug'], $color['slug']),
+            ]);
         }
 
         return $items;
@@ -76,5 +95,10 @@ class CartController extends Controller
     public function total(array $items): float
     {
         return round(array_sum(array_map(fn ($i) => $i['price'] * $i['qty'], $items)), 2);
+    }
+
+    private function key(string $slug, ?string $colorSlug): string
+    {
+        return $slug.'::'.($colorSlug ?: 'default');
     }
 }

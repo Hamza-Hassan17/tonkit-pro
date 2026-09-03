@@ -6,7 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,14 +26,12 @@ Route::post('/cart/{slug}', [CartController::class, 'add'])->name('cart.add');
 Route::patch('/cart/{slug}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/{slug}', [CartController::class, 'remove'])->name('cart.remove');
 
-// ── Checkout (login required — this is the "LOGIN TO ORDER" gate) ─
-Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout/paypal', [PayPalController::class, 'create'])->name('checkout.paypal');
-});
+// ── Checkout (guest checkout — no login required) ───────────────
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
-Route::get('/checkout/success', [PayPalController::class, 'success'])->name('checkout.success');
-Route::get('/checkout/cancel', [PayPalController::class, 'cancel'])->name('checkout.cancel');
+Route::get('/checkout/success', [StripeController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/cancel', [StripeController::class, 'cancel'])->name('checkout.cancel');
 
 // ── Order history for logged-in customers ───────────────────────
 Route::middleware('auth')->get('/my-orders', [CheckoutController::class, 'orders'])->name('orders.index');
