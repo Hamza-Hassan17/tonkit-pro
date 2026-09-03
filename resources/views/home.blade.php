@@ -4,75 +4,42 @@
 
 @section('content')
 
-    <section class="bg-gray-50 border-b overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-8 items-center">
-            <div>
-                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+    {{-- ── Hero ───────────────────────────────────────────────── --}}
+    <section class="bg-white overflow-hidden">
+        <div class="container-site grid md:grid-cols-2 gap-8 items-center py-12 md:py-16 relative">
+            <div class="relative z-10">
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-[1.05]">
                     QUALITY CAPS<br>
-                    <span class="text-orange-600">BUILT FOR EVERYDAY</span>
+                    <span class="text-brand-orange">BUILT FOR EVERYDAY</span>
                 </h1>
-                <p class="mt-4 text-gray-600">Comfortable. Durable. Customizable to your brand.</p>
-                <div class="mt-6 flex gap-4">
-                    <a href="{{ route('products.index') }}" class="bg-orange-600 text-white font-semibold px-6 py-3 rounded hover:bg-orange-700">
-                        View Catalog
-                    </a>
-                    <a href="{{ route('contact') }}" class="border border-gray-900 font-semibold px-6 py-3 rounded hover:bg-gray-900 hover:text-white">
-                        Request a Quote
-                    </a>
+                <p class="mt-5 text-gray-600 text-lg">Comfortable. Durable. Customizable to your brand.</p>
+                <p class="mt-1 text-gray-500">Discover our selection of caps tailored to your image.</p>
+                <div class="mt-7 flex flex-wrap gap-4">
+                    <a href="{{ route('products.index') }}" class="btn-orange">View Catalog</a>
+                    <a href="{{ route('contact') }}" class="btn-outline-dark">Request a Quote</a>
                 </div>
             </div>
-            <div class="text-center">
-                <img src="{{ asset('images/products/navy-a-town-trucker.svg') }}" alt="TonKit.Pro Cap" class="mx-auto max-w-sm">
+            <div class="relative">
+                <div class="absolute -inset-6 md:-right-16 bg-brand-orange rounded-[40%_60%_55%_45%/55%_45%_60%_40%] -z-0"></div>
+                <img src="{{ asset('images/products/navy-a-town-trucker.svg') }}" alt="TonKit.Pro Cap"
+                     class="relative z-10 mx-auto max-w-xs md:max-w-sm drop-shadow-2xl">
             </div>
         </div>
     </section>
 
-    <section class="bg-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-            <div>
-                <div class="font-bold">Fast Shipping</div>
-                <div class="text-gray-400">Across Canada & USA</div>
-            </div>
-            <div>
-                <div class="font-bold">Quality Guaranteed</div>
-                <div class="text-gray-400">100% Authentic Products</div>
-            </div>
-            <div>
-                <div class="font-bold">Bulk Orders</div>
-                <div class="text-gray-400">Corporate & Team Orders</div>
-            </div>
-            <div>
-                <div class="font-bold">Customer Support</div>
-                <div class="text-gray-400">We're Here to Help</div>
-            </div>
-        </div>
-    </section>
+    @include('partials.feature-strip')
 
-    <section class="max-w-7xl mx-auto px-4 py-14">
+    {{-- ── Popular caps ───────────────────────────────────────── --}}
+    <section class="container-site py-16">
         <div class="text-center mb-10">
-            <div class="text-orange-600 text-xs font-bold uppercase tracking-widest">Our Selection</div>
-            <h2 class="text-3xl font-extrabold mt-1">Popular Caps</h2>
+            <div class="text-brand-orange text-xs font-bold uppercase tracking-[0.3em]">Our Selection</div>
+            <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Popular Caps</h2>
+            <div class="mx-auto mt-3 h-1 w-16 bg-brand-orange rounded"></div>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             @foreach ($products as $product)
-                <div class="border rounded-lg p-4 hover:shadow-lg transition bg-white flex flex-col">
-                    <a href="{{ route('products.show', $product['slug']) }}">
-                        <img src="{{ asset($product['image']) }}" alt="{{ $product['name'] }}" class="w-full h-36 object-contain">
-                    </a>
-                    <div class="mt-3 flex-1">
-                        <a href="{{ route('products.show', $product['slug']) }}" class="text-sm font-semibold hover:text-orange-600">
-                            {{ $product['name'] }}
-                        </a>
-                        <div class="text-orange-600 font-bold mt-1">${{ number_format($product['price'], 2) }}</div>
-                    </div>
-                    <form method="POST" action="{{ route('cart.add', $product['slug']) }}" class="mt-3">
-                        @csrf
-                        <button type="submit" class="w-full border border-orange-600 text-orange-600 text-xs font-bold uppercase py-2 rounded hover:bg-orange-600 hover:text-white transition">
-                            Add to Cart
-                        </button>
-                    </form>
-                </div>
+                <x-product-card :product="$product" />
             @endforeach
         </div>
     </section>

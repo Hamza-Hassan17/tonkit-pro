@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
+        $query = trim((string) $request->input('q', ''));
+
         $products = collect(config('products.list'));
 
-        return view('products.index', compact('products'));
+        if ($query !== '') {
+            $products = $products->filter(fn ($p) => str_contains(
+                strtolower($p['name'].' '.$p['description'].' '.$p['sku']),
+                strtolower($query)
+            ))->values();
+        }
+
+        return view('products.index', compact('products', 'query'));
     }
 
     public function show(string $slug)

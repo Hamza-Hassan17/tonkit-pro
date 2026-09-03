@@ -1,3 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[x-cloak] { display: none !important; }
+
+@layer base {
+    body {
+        @apply font-sans text-brand-dark antialiased;
+    }
+    h1, h2, h3, h4 {
+        @apply font-display;
+    }
+}
+
+@layer components {
+    .container-site {
+        @apply max-w-site mx-auto px-4 sm:px-6;
+    }
+
+    /* Angular dark hero banner with the orange diagonal wedge (Flatsome-style) */
+    .hero-banner {
+        @apply relative overflow-hidden bg-brand-dark text-white;
+    }
+    .hero-banner::after {
+        content: '';
+        @apply absolute top-0 right-0 h-full bg-brand-orange;
+        width: 220px;
+        clip-path: polygon(45% 0, 100% 0, 100% 100%, 0% 100%);
+        opacity: .95;
+    }
+    @media (max-width: 768px) {
+        .hero-banner::after { display: none; }
+    }
+
+    .btn-orange {
+        @apply inline-flex items-center justify-center gap-2 bg-brand-orange text-white font-semibold uppercase tracking-wide text-sm px-6 py-3 rounded transition-colors hover:bg-brand-orange-dark;
+    }
+    .btn-outline-dark {
+        @apply inline-flex items-center justify-center gap-2 border border-brand-dark text-brand-dark font-semibold uppercase tracking-wide text-sm px-6 py-3 rounded transition-colors hover:bg-brand-dark hover:text-white;
+    }
+    .btn-outline-orange {
+        @apply inline-flex items-center justify-center gap-2 border border-brand-orange text-brand-orange font-semibold uppercase tracking-wide text-xs px-4 py-2 rounded transition-colors hover:bg-brand-orange hover:text-white;
+    }
+
+    .nav-link {
+        @apply relative text-sm font-semibold uppercase tracking-wide text-brand-dark/80 hover:text-brand-orange transition-colors py-5 inline-flex items-center gap-1;
+    }
+    .nav-link-active {
+        @apply text-brand-dark;
+    }
+    .nav-link-active::after {
+        content: '';
+        @apply absolute left-0 -bottom-px h-[3px] w-full bg-brand-orange;
+    }
+
+    .product-card {
+        @apply relative bg-white border border-gray-200 rounded-md p-4 flex flex-col transition-shadow hover:shadow-xl;
+    }
+    .badge-new {
+        @apply absolute top-3 right-3 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full;
+    }
+    .badge-brand {
+        @apply absolute top-3 left-3 h-8 w-8 rounded-full bg-brand-dark text-white text-sm font-extrabold flex items-center justify-center ring-2 ring-white;
+    }
+}

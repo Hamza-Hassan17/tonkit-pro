@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <h1 class="text-2xl font-extrabold mb-1">Create your account</h1>
+    <p class="text-sm text-gray-500 mb-6">Register to see pricing and place orders.</p>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

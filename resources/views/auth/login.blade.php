@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <h1 class="text-2xl font-extrabold mb-1">Welcome back</h1>
+    <p class="text-sm text-gray-500 mb-6">Log in to your TonKit.Pro account.</p>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -33,6 +36,12 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
+            @if (Route::has('register'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 me-auto" href="{{ route('register') }}">
+                    {{ __("Don't have an account? Register") }}
+                </a>
+            @endif
+
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}

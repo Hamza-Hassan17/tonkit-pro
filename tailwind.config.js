@@ -12,7 +12,20 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', 'Figtree', ...defaultTheme.fontFamily.sans],
+                display: ['Poppins', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                brand: {
+                    orange: '#f2682c',
+                    'orange-dark': '#d9531b',
+                    dark: '#16181d',
+                    darker: '#0f1115',
+                    gray: '#f4f4f5',
+                },
+            },
+            maxWidth: {
+                site: '1240px',
             },
         },
     },
