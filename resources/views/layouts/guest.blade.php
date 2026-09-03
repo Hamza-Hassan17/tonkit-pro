@@ -35,7 +35,7 @@
                 </div>
                 <p class="mt-6 text-xs text-gray-400">
                     Designed and Developed by
-                    <a href="https://supersofttech.pk" target="_blank" rel="noopener" class="underline hover:text-brand-orange">Supersoft Technologies</a>
+                    <a href="https://supersofttechnology.com/" target="_blank" rel="noopener" class="underline hover:text-brand-orange">Supersoft Technologies</a>
                 </p>
             </div>
         </div>

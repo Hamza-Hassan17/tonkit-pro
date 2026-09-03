@@ -59,7 +59,7 @@
 
         <p class="text-gray-600 mt-5 leading-relaxed">{{ $product['description'] }}</p>
 
-        {{-- Colours (FLEXFIT-style: swatch + label + code) --}}
+        {{-- Colours (swatch + label + code) --}}
         <div class="mt-7">
             <div class="text-sm font-bold uppercase tracking-wide mb-3">Colours</div>
             <div class="flex flex-wrap gap-x-4 gap-y-3">

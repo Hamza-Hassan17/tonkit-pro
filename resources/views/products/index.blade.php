@@ -8,7 +8,7 @@
     <section class="hero-banner">
         <div class="container-site py-12 relative z-10">
             <h1 class="text-3xl md:text-4xl font-extrabold">ONLINE <span class="text-brand-orange">INVENTORY</span></h1>
-            <p class="text-gray-300 mt-2 max-w-xl">Quality YP Classics and Flexfit caps — in stock, ready to brand.</p>
+            <p class="text-gray-300 mt-2 max-w-xl">Quality caps — in stock, ready to brand.</p>
         </div>
     </section>
 
@@ -36,7 +36,7 @@
                 </div>
                 <form action="{{ route('products.index') }}" method="GET" class="mt-4">
                     <label class="text-xs text-gray-500">Search</label>
-                    <input type="text" name="q" value="{{ $query }}" placeholder="Trucker, snapback, Flexfit…"
+                    <input type="text" name="q" value="{{ $query }}" placeholder="Trucker, snapback, retro…"
                            class="mt-1 w-full rounded border-gray-300 text-sm focus:border-brand-orange focus:ring-brand-orange">
                     <button type="submit" class="btn-orange w-full mt-3 !py-2">Search</button>
                     @if ($query !== '')

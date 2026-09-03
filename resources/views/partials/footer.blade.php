@@ -46,7 +46,7 @@
         <div>
             <div class="text-xl font-extrabold"><span class="text-brand-orange">TonKit</span><span class="text-white">.Pro</span></div>
             <p class="text-[10px] tracking-[0.2em] uppercase text-brand-orange mt-1 mb-4">Headwear Specialists</p>
-            <p class="text-sm leading-relaxed">Your trusted source in Pakistan for YP Classics &amp; Flexfit caps — with custom embroidery and printing for teams and businesses.</p>
+            <p class="text-sm leading-relaxed">Your trusted source in Pakistan for quality caps — with custom embroidery and printing for teams and businesses.</p>
             <div class="flex gap-3 mt-5">
                 @foreach ([
                     'M13.5 9H16l.5-3h-3V4.2c0-.9.3-1.5 1.6-1.5H16.6V.1C16.3.1 15.2 0 14 0c-2.5 0-4.2 1.5-4.2 4.3V6H7v3h2.8v9h3.7V9z',
@@ -64,8 +64,8 @@
             <h4 class="text-white font-semibold uppercase text-sm mb-4">Products</h4>
             <ul class="space-y-2.5 text-sm">
                 <li><a href="{{ route('products.index') }}" class="hover:text-brand-orange">Online Inventory</a></li>
-                <li><a href="{{ route('products.index') }}?q=YP Classics" class="hover:text-brand-orange">YP Classics Caps</a></li>
-                <li><a href="{{ route('products.index') }}?q=Flexfit" class="hover:text-brand-orange">Flexfit Caps</a></li>
+                <li><a href="{{ route('products.index') }}?q=trucker" class="hover:text-brand-orange">Trucker Caps</a></li>
+                <li><a href="{{ route('products.index') }}?q=snapback" class="hover:text-brand-orange">Snapback Caps</a></li>
                 <li><a href="{{ route('cart.index') }}" class="hover:text-brand-orange">Your Cart</a></li>
             </ul>
         </div>
@@ -102,6 +102,6 @@
 <div class="bg-white border-t border-gray-100">
     <div class="container-site py-4 text-center text-xs text-gray-400">
         Designed and Developed by
-        <a href="https://supersofttech.pk" target="_blank" rel="noopener" class="underline hover:text-brand-orange">Supersoft Technologies</a>
+        <a href="https://supersofttechnology.com/" target="_blank" rel="noopener" class="underline hover:text-brand-orange">Supersoft Technologies</a>
     </div>
 </div>
