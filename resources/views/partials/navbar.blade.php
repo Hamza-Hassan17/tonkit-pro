@@ -44,20 +44,28 @@
 
         <div class="flex items-center gap-3 ml-auto">
             @auth
-                <div class="hidden sm:flex items-center divide-x divide-gray-200">
-                    <a href="{{ route('orders.index') }}" class="flex items-center gap-2 pr-3 group">
-                        <span class="h-9 w-9 rounded-full bg-gray-100 group-hover:bg-brand-orange/10 flex items-center justify-center transition-colors">
-                            <svg class="h-4 w-4 text-brand-dark group-hover:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
-                        </span>
-                        <span class="text-left leading-tight">
-                            <span class="block text-[10px] uppercase tracking-wide text-gray-400">Account</span>
-                            <span class="block text-xs font-semibold text-brand-dark truncate max-w-[90px]">{{ Auth::user()->name }}</span>
-                        </span>
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}" class="pl-3">
-                        @csrf
-                        <button class="text-[11px] font-semibold uppercase tracking-wide text-gray-400 hover:text-brand-orange">Log out</button>
-                    </form>
+                <div class="hidden sm:flex items-center gap-3" x-data="{ open: false }">
+                    <a href="{{ route('orders.index') }}" class="text-[11px] font-semibold uppercase tracking-wide {{ request()->routeIs('orders.*') ? 'text-brand-orange' : 'text-gray-400 hover:text-brand-orange' }}">Orders</a>
+                    <div class="relative">
+                        <button @click="open = !open" class="flex items-center gap-2 group">
+                            <span class="h-9 w-9 rounded-full bg-gray-100 group-hover:bg-brand-orange/10 flex items-center justify-center transition-colors">
+                                <svg class="h-4 w-4 text-brand-dark group-hover:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                            </span>
+                            <span class="text-left leading-tight">
+                                <span class="block text-[10px] uppercase tracking-wide text-gray-400">Account</span>
+                                <span class="block text-xs font-semibold text-brand-dark truncate max-w-[90px]">{{ Auth::user()->name }}</span>
+                            </span>
+                        </button>
+                        <div x-show="open" x-cloak @click.outside="open = false"
+                             class="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-brand-dark hover:bg-gray-50">My Account</a>
+                            <a href="{{ route('orders.index') }}" class="block px-4 py-2 text-sm text-brand-dark hover:bg-gray-50">My Orders</a>
+                            <form method="POST" action="{{ route('logout') }}" class="border-t border-gray-100 mt-1">
+                                @csrf
+                                <button class="w-full text-left px-4 py-2 text-sm text-brand-dark hover:bg-gray-50">Log out</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             @else
                 <a href="{{ route('login') }}" class="hidden sm:flex items-center gap-2 group">
@@ -117,9 +125,16 @@
             @foreach ($navItems as $item)
                 <a href="{{ route($item['route']) }}" class="py-3 text-sm font-semibold uppercase tracking-wide {{ $item['active'] ? 'text-brand-orange' : 'text-brand-dark/80' }}">{{ $item['label'] }}</a>
             @endforeach
-            @guest
+            @auth
+                <a href="{{ route('orders.index') }}" class="py-3 text-sm font-semibold uppercase tracking-wide text-brand-dark/80">My Orders</a>
+                <a href="{{ route('profile.edit') }}" class="py-3 text-sm font-semibold uppercase tracking-wide text-brand-dark/80">My Account</a>
+                <form method="POST" action="{{ route('logout') }}" class="py-3">
+                    @csrf
+                    <button class="text-sm font-semibold uppercase tracking-wide text-brand-orange">Log out</button>
+                </form>
+            @else
                 <a href="{{ route('login') }}" class="py-3 text-sm font-semibold uppercase tracking-wide text-brand-dark/80">Login / Register</a>
-            @endguest
+            @endauth
         </div>
     </nav>
 </header>

@@ -38,11 +38,7 @@ Route::get('/checkout/cancel', [PayPalController::class, 'cancel'])->name('check
 // ── Order history for logged-in customers ───────────────────────
 Route::middleware('auth')->get('/my-orders', [CheckoutController::class, 'orders'])->name('orders.index');
 
-// ── Breeze: dashboard + profile ──────────────────────────────────
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+// ── Account: profile ────────────────────────────────────────────
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
