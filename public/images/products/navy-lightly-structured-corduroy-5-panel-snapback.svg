@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" fill="#f4f4f4"/>
+  <path d="M 80 220 Q 80 110 200 100 Q 320 110 320 220 L 320 230 Q 200 260 80 230 Z" fill="#242b45" stroke="#00000022" stroke-width="2"/>
+  <circle cx="200" cy="105" r="8" fill="#242b45" stroke="#00000033" stroke-width="2"/>
+  <path d="M 70 225 Q 200 260 330 225 Q 330 250 300 258 Q 200 278 100 258 Q 70 250 70 225 Z" fill="#1a1a1a"/>
+  <line x1="200" y1="102" x2="200" y2="228" stroke="#00000022" stroke-width="2"/>
+  <circle cx="200" cy="175" r="26" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+  <text x="200" y="181" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#242b45" text-anchor="middle">TK</text>
+  <text x="200" y="330" font-family="Arial, sans-serif" font-size="15" fill="#333" text-anchor="middle">Navy Lightly Structured Corduroy 5 Panel Snapback</text>
+  <text x="200" y="355" font-family="Arial, sans-serif" font-size="11" fill="#999" text-anchor="middle">Placeholder — replace with product photo</text>
+</svg>

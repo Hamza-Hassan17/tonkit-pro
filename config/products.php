@@ -1,0 +1,91 @@
+<?php
+
+// Static product catalog. Since there are only 9 products and no admin panel,
+// this file IS the database for product info. To add/edit a product, edit this array.
+// Cart/orders still use the real database (see migrations) since checkout is stateful.
+
+return [
+    'list' => [
+        [
+            'slug'  => 'dark-grey-melton-wool-painter-cap',
+            'name'  => 'Dark Grey Melton Wool Painter Cap',
+            'price' => 24.99,
+            'color' => '#3a3a3a',
+            'image' => 'images/products/dark-grey-melton-wool-painter-cap.svg',
+            'description' => 'A structured 5-panel painter cap in premium melton wool. Warm, durable, and built for everyday wear.',
+            'sku'   => 'TK-CAP-001',
+        ],
+        [
+            'slug'  => 'dark-heather-a-town-trucker',
+            'name'  => 'Dark Heather A-Town Trucker',
+            'price' => 22.99,
+            'color' => '#4a4a4a',
+            'image' => 'images/products/dark-heather-a-town-trucker.svg',
+            'description' => 'Classic mesh-back trucker cap in dark heather with an adjustable snapback closure.',
+            'sku'   => 'TK-CAP-002',
+        ],
+        [
+            'slug'  => 'grey-black-charcoal-a-town-trucker',
+            'name'  => 'Grey/Black/Charcoal A-Town Trucker',
+            'price' => 22.99,
+            'color' => '#8a8a8a',
+            'image' => 'images/products/grey-black-charcoal-a-town-trucker.svg',
+            'description' => 'Two-tone grey and charcoal trucker cap with breathable mesh back panels.',
+            'sku'   => 'TK-CAP-003',
+        ],
+        [
+            'slug'  => 'maroon-painter-cap',
+            'name'  => 'Maroon Painter Cap',
+            'price' => 21.99,
+            'color' => '#6e1f2a',
+            'image' => 'images/products/maroon-painter-cap.svg',
+            'description' => 'Soft unstructured painter cap in a rich maroon finish. Lightweight and packable.',
+            'sku'   => 'TK-CAP-004',
+        ],
+        [
+            'slug'  => 'moss-khaki-a-town-trucker',
+            'name'  => 'Moss/Khaki A-Town Trucker',
+            'price' => 22.99,
+            'color' => '#7a7250',
+            'image' => 'images/products/moss-khaki-a-town-trucker.svg',
+            'description' => 'Earth-tone moss and khaki trucker cap, a versatile everyday neutral.',
+            'sku'   => 'TK-CAP-005',
+        ],
+        [
+            'slug'  => 'navy-a-town-trucker',
+            'name'  => 'Navy A-Town Trucker',
+            'price' => 22.99,
+            'color' => '#1f2a44',
+            'image' => 'images/products/navy-a-town-trucker.svg',
+            'description' => 'Solid navy trucker cap with structured front panels and mesh back.',
+            'sku'   => 'TK-CAP-006',
+        ],
+        [
+            'slug'  => 'navy-lightly-structured-corduroy-5-panel-snapback',
+            'name'  => 'Navy Lightly Structured Corduroy 5 Panel Snapback',
+            'price' => 26.99,
+            'color' => '#242b45',
+            'image' => 'images/products/navy-lightly-structured-corduroy-5-panel-snapback.svg',
+            'description' => 'Corduroy 5-panel snapback with a lightly structured crown for a modern silhouette.',
+            'sku'   => 'TK-CAP-007',
+        ],
+        [
+            'slug'  => 'navy-caramel-a-town-trucker',
+            'name'  => 'Navy/Caramel A-Town Trucker',
+            'price' => 23.99,
+            'color' => '#8a5a2b',
+            'image' => 'images/products/navy-caramel-a-town-trucker.svg',
+            'description' => 'Navy crown with caramel brim and side panels for a bold two-tone look.',
+            'sku'   => 'TK-CAP-008',
+        ],
+        [
+            'slug'  => 'sage-a-town-trucker',
+            'name'  => 'Sage A-Town Trucker',
+            'price' => 22.99,
+            'color' => '#7c8b6e',
+            'image' => 'images/products/sage-a-town-trucker.svg',
+            'description' => 'Muted sage green trucker cap with classic mesh back and snap closure.',
+            'sku'   => 'TK-CAP-009',
+        ],
+    ],
+];
