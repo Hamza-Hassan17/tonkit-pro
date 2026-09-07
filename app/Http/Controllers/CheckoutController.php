@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Support\Pricing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -22,36 +23,34 @@ class CheckoutController extends Controller
         }
 
         return view('checkout.index', [
-            'items'  => $items,
-            'total'  => $cart->total($items),
-            'user'   => Auth::user(),
+            'items'     => $items,
+            'breakdown' => Pricing::breakdown($items),
+            'user'      => Auth::user(),
         ]);
     }
 
     public function store(Request $request, CartController $cart)
     {
         $items = $cart->cartWithProductData();
-        $total = $cart->total($items);
 
         if (empty($items)) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
 
+        $breakdown = Pricing::breakdown($items);
+
         $data = $request->validate([
-            'customer_name'    => ['required', 'string', 'max:120'],
-            'customer_email'   => ['required', 'email', 'max:160'],
-            'customer_phone'   => ['required', 'string', 'max:40'],
-            'address_line'     => ['required', 'string', 'max:200'],
-            'city'             => ['required', 'string', 'max:80'],
-            'postal_code'      => ['nullable', 'string', 'max:20'],
-            'country'          => ['required', 'string', 'max:80'],
+            'customer_name'  => ['required', 'string', 'max:120'],
+            'customer_email' => ['required', 'email', 'max:160'],
+            'customer_phone' => ['required', 'string', 'max:40'],
+            'address_line'   => ['required', 'string', 'max:200'],
+            'city'           => ['required', 'string', 'max:80'],
+            'postal_code'    => ['nullable', 'string', 'max:20'],
+            'country'        => ['required', 'string', 'max:80'],
         ]);
 
         $shippingAddress = trim(implode(', ', array_filter([
-            $data['address_line'],
-            $data['city'],
-            $data['postal_code'] ?? null,
-            $data['country'],
+            $data['address_line'], $data['city'], $data['postal_code'] ?? null, $data['country'],
         ])));
 
         $pending = [
@@ -60,14 +59,11 @@ class CheckoutController extends Controller
             'customer_email'   => $data['customer_email'],
             'customer_phone'   => $data['customer_phone'],
             'shipping_address' => $shippingAddress,
-            'items'            => $items,
-            'total'            => $total,
+            'breakdown'        => $breakdown,
         ];
 
         Session::put('pending_order', $pending);
 
-        // If Stripe isn't configured yet, place the order as unpaid so the
-        // storefront still works. Payment is arranged manually afterwards.
         if (! config('services.stripe.secret')) {
             Log::warning('Stripe secret not set — placing order as unpaid.');
             $order = $this->finalizeOrder($pending, [
@@ -80,23 +76,50 @@ class CheckoutController extends Controller
         }
 
         Stripe::setApiKey(config('services.stripe.secret'));
+        $currency = config('services.stripe.currency', 'cad');
+
+        $lineItems = [];
+        foreach ($breakdown['lines'] as $line) {
+            $name = $line['name']
+                . ($line['color_name'] ? " — {$line['color_name']}" : '')
+                . ($line['decoration'] !== 'none' ? " + {$line['decoration_label']}" : '');
+            $lineItems[] = [
+                'quantity'   => $line['qty'],
+                'price_data' => [
+                    'currency'     => $currency,
+                    'unit_amount'  => (int) round($line['unit_price'] * 100),
+                    'product_data' => ['name' => $name],
+                ],
+            ];
+        }
+        foreach ($breakdown['setup_fees'] as $fee) {
+            $lineItems[] = [
+                'quantity'   => 1,
+                'price_data' => [
+                    'currency'     => $currency,
+                    'unit_amount'  => (int) round($fee['amount'] * 100),
+                    'product_data' => ['name' => $fee['label'].' (one-time)'],
+                ],
+            ];
+        }
+        if ($breakdown['shipping'] > 0) {
+            $lineItems[] = [
+                'quantity'   => 1,
+                'price_data' => [
+                    'currency'     => $currency,
+                    'unit_amount'  => (int) round($breakdown['shipping'] * 100),
+                    'product_data' => ['name' => 'Shipping'],
+                ],
+            ];
+        }
 
         $session = StripeSession::create([
-            'mode'                 => 'payment',
-            'customer_email'       => $data['customer_email'],
-            'client_reference_id'  => Auth::id(),
-            'line_items'           => array_map(fn ($i) => [
-                'quantity'   => $i['qty'],
-                'price_data' => [
-                    'currency'     => config('services.stripe.currency', 'pkr'),
-                    'unit_amount'  => (int) round($i['price'] * 100),
-                    'product_data' => [
-                        'name' => $i['name'].($i['color_name'] ? " — {$i['color_name']}" : ''),
-                    ],
-                ],
-            ], $items),
-            'success_url'          => route('checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url'           => route('checkout.cancel'),
+            'mode'                => 'payment',
+            'customer_email'      => $data['customer_email'],
+            'client_reference_id' => Auth::id(),
+            'line_items'          => $lineItems,
+            'success_url'         => route('checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url'          => route('checkout.cancel'),
         ]);
 
         Session::put('pending_order', array_merge($pending, ['stripe_session_id' => $session->id]));
@@ -105,30 +128,39 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Create the Order + OrderItem rows from a pending-order payload.
+     * Create Order + OrderItem rows from a pending-order payload.
      */
     public function finalizeOrder(array $pending, array $overrides = []): Order
     {
+        $b = $pending['breakdown'];
+
         $order = Order::create(array_merge([
             'user_id'          => $pending['user_id'],
             'customer_name'    => $pending['customer_name'],
             'customer_email'   => $pending['customer_email'],
             'customer_phone'   => $pending['customer_phone'],
             'shipping_address' => $pending['shipping_address'],
-            'total'            => $pending['total'],
+            'items_subtotal'   => $b['items_subtotal'],
+            'setup_fees_total' => $b['setup_total'],
+            'shipping_total'   => $b['shipping'],
+            'pricing_breakdown'=> $b,
+            'total'            => $b['total'],
             'status'           => 'paid',
             'payment_method'   => 'stripe',
         ], $overrides));
 
-        foreach ($pending['items'] as $item) {
+        foreach ($b['lines'] as $line) {
             OrderItem::create([
-                'order_id'     => $order->id,
-                'product_slug' => $item['slug'],
-                'product_name' => $item['name'],
-                'color'        => $item['color'] ?? null,
-                'color_name'   => $item['color_name'] ?? null,
-                'price'        => $item['price'],
-                'qty'          => $item['qty'],
+                'order_id'         => $order->id,
+                'product_slug'     => $line['slug'],
+                'product_name'     => $line['name'],
+                'color'            => $line['color'] ?? null,
+                'color_name'       => $line['color_name'] ?? null,
+                'decoration'       => $line['decoration'] ?? 'none',
+                'decoration_label' => $line['decoration'] !== 'none' ? $line['decoration_label'] : null,
+                'unit_price'       => $line['unit_price'],
+                'price'            => $line['unit_price'],
+                'qty'              => $line['qty'],
             ]);
         }
 

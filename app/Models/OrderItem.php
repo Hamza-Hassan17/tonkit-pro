@@ -16,12 +16,16 @@ class OrderItem extends Model
         'product_name',
         'color',
         'color_name',
+        'decoration',
+        'decoration_label',
+        'unit_price',
         'price',
         'qty',
     ];
 
     protected $casts = [
-        'price' => 'decimal:2',
+        'price'      => 'decimal:2',
+        'unit_price' => 'decimal:2',
     ];
 
     public function order(): BelongsTo

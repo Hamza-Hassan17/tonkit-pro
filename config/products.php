@@ -12,15 +12,23 @@
 | (public/images/products/<slug>/<color-slug>.webp). The first color is
 | used as the product's default/thumbnail image.
 |
-| Prices are in PKR (whole rupees).
+| Blank-cap prices are in CAD, quantity-tiered (see config/pricing.php for
+| the tier bounds, decoration add-ons, setup fees and shipping).
+| `price` is the entry unit price (tier 0), used for "from $X" on cards.
 */
 
 $img = fn (string $slug, string $file) => "images/products/{$slug}/{$file}";
 
+// [12–72, 73–144, 145+] unit prices; repeat the last value where the
+// template only gave one price.
+$tiers = fn (float $a, ?float $b = null, ?float $c = null) => [
+    'tiers' => [$a, $b ?? $a, $c ?? $b ?? $a],
+];
+
 return [
 
-    'currency'        => 'PKR',
-    'currency_symbol' => 'Rs',
+    'currency'        => 'CAD',
+    'currency_symbol' => '$',
 
     'list' => [
 
@@ -29,7 +37,8 @@ return [
             'slug'  => 'yp-classics-retro-trucker-cap',
             'name'  => 'YP Classics Retro Trucker Cap',
             'brand' => 'YP Classics',
-            'price' => 3000,
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5),
             'sku'   => 'YP-6606',
             'description' => 'The classic 6-panel retro trucker. Structured foam front panels, breathable poly-mesh back and a pre-curved visor, finished with a matching snapback closure. An everyday favourite that takes embroidery beautifully.',
             'specs' => [
@@ -59,7 +68,8 @@ return [
             'slug'  => 'yp-classics-retro-trucker-cap-2-tone',
             'name'  => 'YP Classics Retro Trucker Cap — 2-Tone',
             'brand' => 'YP Classics',
-            'price' => 3300,
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5),
             'sku'   => 'YP-6606T',
             'description' => 'The retro trucker in bold two-tone colourways. Contrast crown and mesh back give team kits and merch drops an instant identity, with the same structured fit and snapback closure.',
             'specs' => [
@@ -85,7 +95,8 @@ return [
             'slug'  => 'yp-classics-5-panel-retro-trucker-cap',
             'name'  => 'YP Classics 5-Panel Retro Trucker Cap',
             'brand' => 'YP Classics',
-            'price' => 3200,
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5),
             'sku'   => 'YP-6506',
             'description' => 'A cleaner 5-panel take on the retro trucker. One uninterrupted front panel makes the perfect canvas for a centred logo, paired with a poly-mesh back and pre-curved visor.',
             'specs' => [
@@ -112,7 +123,8 @@ return [
             'slug'  => 'yp-classics-5-panel-retro-trucker-cap-2-tone',
             'name'  => 'YP Classics 5-Panel Retro Trucker Cap — 2-Tone',
             'brand' => 'YP Classics',
-            'price' => 3400,
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5),
             'sku'   => 'YP-6506T',
             'description' => 'The 5-panel retro trucker with a contrast mesh back. Keeps the clean single-panel front for branding while adding a two-tone twist.',
             'specs' => [
@@ -138,7 +150,8 @@ return [
             'slug'  => 'yp-classics-5-panel-snapback-perforated',
             'name'  => 'YP Classics 5-Panel Snapback Cap with Perforation',
             'brand' => 'YP Classics',
-            'price' => 3800,
+            'price' => 13,
+            'pricing' => $tiers(13),
             'sku'   => 'YP-5389AP',
             'description' => 'Made from lightweight polyester with perforated panels for breathability — the perfect cap for everyday use. The large front panel is the ideal canvas for embellishment, with 8 rows of thick stitching on the bill, a matching snapback closure and a black underbill.',
             'specs' => [
@@ -163,7 +176,8 @@ return [
             'slug'  => 'yp-classics-5-panel-snapback-braided-rope',
             'name'  => 'YP Classics 5-Panel Snapback Cap with Perforation & Braided Rope',
             'brand' => 'YP Classics',
-            'price' => 4200,
+            'price' => 15,
+            'pricing' => $tiers(15),
             'sku'   => 'YP-2026BK',
             'description' => 'Crafted from lightweight perforated panels for breathability, with a braided rope trim on the bill, a matching snapback closure and a black underbill. The large flat front panel is ideal for embellishment.',
             'specs' => [
@@ -188,7 +202,8 @@ return [
             'slug'  => 'yp-classics-multicam-retro-trucker-cap',
             'name'  => 'YP Classics MultiCam Retro Trucker Cap',
             'brand' => 'YP Classics',
-            'price' => 4500,
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5),
             'sku'   => 'YP-6606MC',
             'description' => 'The retro trucker in licensed MultiCam® camouflage. Structured front panels, poly-mesh back and a pre-curved visor — a tactical-leaning look for the outdoors crowd.',
             'specs' => [
@@ -215,7 +230,8 @@ return [
             'slug'  => 'yp-classics-multicam-trucker-mesh-cap',
             'name'  => 'YP Classics MultiCam Trucker Mesh Cap',
             'brand' => 'YP Classics',
-            'price' => 4300,
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5),
             'sku'   => 'YP-6006MC',
             'description' => 'A lighter, flat-bill build with a full poly-mesh back for maximum airflow, licensed MultiCam® front panels and a snapback closure.',
             'specs' => [
@@ -242,7 +258,8 @@ return [
             'slug'  => '110-mesh-snapback-cap',
             'name'  => '110 Mesh Snapback Cap',
             'brand' => 'TonKit.Pro',
-            'price' => 2900,
+            'price' => 15,
+            'pricing' => $tiers(15),
             'sku'   => 'TK-110M',
             'description' => 'A structured, mid-profile mesh-back trucker with an adjustable snapback and a pre-curved visor. Comfortable one-size fit with a clean front panel for embellishment.',
             'specs' => [

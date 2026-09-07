@@ -29,10 +29,14 @@
             </div>
         @endif
 
-        <div class="text-brand-orange font-bold mt-2"><x-price :amount="$product['price']" /></div>
+        <div class="mt-2 text-sm">
+            <span class="text-gray-400">from</span>
+            <span class="text-brand-orange font-bold"><x-price :amount="$product['pricing']['tiers'][0] ?? $product['price']" /></span>
+            <span class="text-gray-400">/ cap</span>
+        </div>
     </div>
 
     <div class="mt-3">
-        <a href="{{ route('products.show', $product['slug']) }}" class="btn-outline-orange w-full">View Options</a>
+        <a href="{{ route('products.show', $product['slug']) }}" class="btn-outline-orange w-full">View &amp; Order</a>
     </div>
 </div>

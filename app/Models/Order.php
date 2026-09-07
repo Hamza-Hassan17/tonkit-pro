@@ -17,6 +17,10 @@ class Order extends Model
         'customer_email',
         'customer_phone',
         'shipping_address',
+        'items_subtotal',
+        'setup_fees_total',
+        'shipping_total',
+        'pricing_breakdown',
         'total',
         'status',
         'payment_method',
@@ -26,7 +30,11 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'total' => 'decimal:2',
+        'total'             => 'decimal:2',
+        'items_subtotal'    => 'decimal:2',
+        'setup_fees_total'  => 'decimal:2',
+        'shipping_total'    => 'decimal:2',
+        'pricing_breakdown' => 'array',
     ];
 
     public function contactName(): string

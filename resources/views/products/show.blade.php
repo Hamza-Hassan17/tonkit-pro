@@ -5,6 +5,13 @@
 @section('content')
 
 @php($colors = $product['colors'])
+@php($pricingData = [
+    'moq'         => config('pricing.moq'),
+    'capTiers'    => $product['pricing']['tiers'] ?? [$product['price']],
+    'bounds'      => config('pricing.tier_bounds'),
+    'tierLabels'  => config('pricing.tier_labels'),
+    'decorations' => config('pricing.decoration'),
+])
 
 <div class="container-site py-5 text-xs uppercase tracking-wide text-gray-400">
     <a href="{{ route('home') }}" class="hover:text-brand-orange">Home</a>
@@ -18,12 +25,26 @@
         colors: {{ Illuminate\Support\Js::from($colors) }},
         active: 0,
         lightbox: false,
+        p: {{ Illuminate\Support\Js::from($pricingData) }},
+        qty: {{ $pricingData['moq'] }},
+        decoration: 'none',
         get current() { return this.colors[this.active]; },
         select(i) { this.active = (i + this.colors.length) % this.colors.length; },
+        get tierIdx() {
+            for (let i = 0; i < this.p.bounds.length; i++) {
+                const [mn, mx] = this.p.bounds[i];
+                if (this.qty >= mn && (mx === null || this.qty <= mx)) return i;
+            }
+            return this.qty < this.p.bounds[0][0] ? 0 : this.p.bounds.length - 1;
+        },
+        get capUnit() { return this.p.capTiers[this.tierIdx] ?? this.p.capTiers[this.p.capTiers.length - 1]; },
+        get decoUnit() { return (this.p.decorations[this.decoration].unit || [0,0,0])[this.tierIdx] ?? 0; },
+        get unit() { return this.capUnit + this.decoUnit; },
+        get lineSubtotal() { return this.unit * Math.max(this.qty, 0); },
+        get setup() { return this.p.decorations[this.decoration].setup || 0; },
+        money(n) { return '$' + Number(n).toFixed(2); },
      }"
      @keydown.window.escape="lightbox = false"
-     @keydown.window.arrow-right="select(active + 1)"
-     @keydown.window.arrow-left="select(active - 1)"
      class="container-site pb-16 grid md:grid-cols-2 gap-12">
 
     {{-- Gallery --}}
@@ -39,7 +60,7 @@
         </button>
         <div class="mt-4 grid grid-cols-5 sm:grid-cols-6 gap-2">
             <template x-for="(c, i) in colors" :key="c.slug">
-                <button type="button" @click="active = i" @mouseenter="active = i"
+                <button type="button" @click="active = i"
                         :class="active === i ? 'border-brand-orange' : 'border-gray-200 hover:border-gray-400'"
                         class="border rounded-md p-1 bg-brand-gray transition-colors">
                     <img :src="'{{ asset('') }}' + c.image" :alt="c.name" class="w-full aspect-square object-contain">
@@ -55,11 +76,15 @@
         </div>
         <h1 class="text-3xl font-extrabold leading-tight">{{ $product['name'] }}</h1>
 
-        <div class="text-2xl font-bold text-brand-orange mt-3"><x-price :amount="$product['price']" /></div>
+        <div class="mt-3 text-brand-orange">
+            <span class="text-sm text-gray-500">from</span>
+            <span class="text-2xl font-bold" x-text="money(p.capTiers[0])"></span>
+            <span class="text-sm text-gray-500">/ cap · min {{ $pricingData['moq'] }}</span>
+        </div>
 
         <p class="text-gray-600 mt-5 leading-relaxed">{{ $product['description'] }}</p>
 
-        {{-- Colours (swatch + label + code) --}}
+        {{-- Colours --}}
         <div class="mt-7">
             <div class="text-sm font-bold uppercase tracking-wide mb-3">Colours</div>
             <div class="flex flex-wrap gap-x-4 gap-y-3">
@@ -75,16 +100,53 @@
             </div>
         </div>
 
-        {{-- Add to cart --}}
-        <form method="POST" action="{{ route('cart.add', $product['slug']) }}" class="mt-7 flex flex-wrap items-end gap-4">
+        {{-- Bulk order calculator --}}
+        <form method="POST" action="{{ route('cart.add', $product['slug']) }}" class="mt-8 border border-gray-200 rounded-lg p-5 space-y-5">
             @csrf
             <input type="hidden" name="color" :value="current.slug">
-            <div>
-                <label for="qty" class="block text-sm font-semibold uppercase tracking-wide mb-1">Qty</label>
-                <input type="number" name="qty" id="qty" value="1" min="1"
-                       class="w-20 rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange">
+            <input type="hidden" name="decoration" :value="decoration">
+
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="qty" class="block text-sm font-semibold uppercase tracking-wide mb-1">Quantity</label>
+                    <input type="number" name="qty" id="qty" x-model.number="qty" min="{{ $pricingData['moq'] }}"
+                           class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange">
+                    <p class="text-[11px] text-gray-400 mt-1">Minimum {{ $pricingData['moq'] }} caps per order</p>
+                </div>
+                <div>
+                    <label for="decoration" class="block text-sm font-semibold uppercase tracking-wide mb-1">Decoration</label>
+                    <select id="decoration" x-model="decoration"
+                            class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange">
+                        @foreach ($pricingData['decorations'] as $key => $d)
+                            <option value="{{ $key }}">{{ $d['label'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-            <button type="submit" class="btn-orange">Add to Cart</button>
+
+            {{-- Tier table --}}
+            <div class="text-xs">
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <template x-for="(lbl, i) in p.tierLabels" :key="lbl">
+                        <div :class="tierIdx === i ? 'bg-brand-orange/10 border-brand-orange text-brand-dark' : 'border-gray-200 text-gray-500'"
+                             class="border rounded p-2">
+                            <div class="font-bold" x-text="lbl"></div>
+                            <div x-text="money((p.capTiers[i] ?? p.capTiers[p.capTiers.length-1]) + ((p.decorations[decoration].unit||[0,0,0])[i] ?? 0)) + ' / cap'"></div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            {{-- Live totals --}}
+            <div class="bg-brand-gray rounded p-4 text-sm space-y-1.5">
+                <div class="flex justify-between"><span class="text-gray-500">Unit price (<span x-text="p.tierLabels[tierIdx]"></span>)</span><span class="font-semibold" x-text="money(unit)"></span></div>
+                <div class="flex justify-between" x-show="decoration !== 'none'"><span class="text-gray-500">— includes <span x-text="p.decorations[decoration].label"></span></span><span x-text="'+' + money(decoUnit)"></span></div>
+                <div class="flex justify-between"><span class="text-gray-500"><span x-text="qty"></span> caps</span><span class="font-semibold" x-text="money(lineSubtotal)"></span></div>
+                <div class="flex justify-between text-gray-400 text-xs" x-show="setup > 0"><span x-text="'+ ' + p.decorations[decoration].setup_label + ' (one-time)'"></span><span x-text="money(setup)"></span></div>
+            </div>
+
+            <button type="submit" class="btn-orange w-full">Add to Cart</button>
+            <p class="text-[11px] text-gray-400 text-center">Setup fees &amp; shipping are shown at checkout. Prices in CAD.</p>
         </form>
 
         {{-- Specs --}}
@@ -105,9 +167,9 @@
         @endif
 
         <div class="mt-8 border-t border-gray-200 pt-6 text-sm text-gray-500 space-y-2">
-            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Fast shipping across Pakistan</p>
-            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Bulk / corporate pricing — <a href="{{ route('contact') }}" class="text-brand-orange hover:underline">contact us</a></p>
-            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Custom embroidery &amp; printing available</p>
+            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Custom embroidery &amp; DTF printing in-house</p>
+            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Volume discounts at 73+ and 145+ caps</p>
+            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Free shipping on orders of 145+ caps</p>
         </div>
     </div>
 

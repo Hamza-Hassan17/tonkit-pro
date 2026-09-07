@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn-orange w-full mt-5">
-                        Pay <x-price :amount="$total" /> securely
+                        Pay <x-price :amount="$breakdown['total']" /> securely
                     </button>
                     <div class="mt-3 flex items-center justify-center gap-2 text-xs text-gray-400">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
@@ -99,26 +99,34 @@
                 <div class="px-6 py-4 bg-brand-gray"><h2 class="font-extrabold">Order Summary</h2></div>
                 <div class="p-6">
                     <div class="space-y-4">
-                        @foreach ($items as $item)
+                        @foreach ($breakdown['lines'] as $item)
                             <div class="flex items-center gap-3">
                                 <div class="relative shrink-0">
                                     <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" class="w-12 h-12 object-contain bg-brand-gray rounded">
-                                    <span class="absolute -top-2 -right-2 bg-brand-dark text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ $item['qty'] }}</span>
+                                    <span class="absolute -top-2 -right-2 bg-brand-dark text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center">{{ $item['qty'] }}</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <div class="text-sm font-semibold truncate">{{ $item['name'] }}</div>
-                                    <div class="text-xs text-gray-400">{{ $item['color_name'] ? $item['color_name'].' · ' : '' }}<x-price :amount="$item['price']" /> each</div>
+                                    <div class="text-xs text-gray-400">
+                                        {{ $item['color_name'] ? $item['color_name'].' · ' : '' }}{{ $item['decoration'] !== 'none' ? $item['decoration_label'].' · ' : '' }}<x-price :amount="$item['unit_price']" />/ea
+                                    </div>
                                 </div>
-                                <div class="text-sm font-semibold"><x-price :amount="$item['price'] * $item['qty']" /></div>
+                                <div class="text-sm font-semibold"><x-price :amount="$item['line_subtotal']" /></div>
                             </div>
                         @endforeach
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-200 space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-500">Subtotal</span><span class="font-semibold"><x-price :amount="$total" /></span></div>
-                        <div class="flex justify-between"><span class="text-gray-500">Shipping</span><span class="text-gray-500">Free</span></div>
+                        <div class="flex justify-between"><span class="text-gray-500">Caps &amp; decoration ({{ $breakdown['total_qty'] }})</span><span class="font-semibold"><x-price :amount="$breakdown['items_subtotal']" /></span></div>
+                        @foreach ($breakdown['setup_fees'] as $fee)
+                            <div class="flex justify-between"><span class="text-gray-500">{{ $fee['label'] }}</span><span><x-price :amount="$fee['amount']" /></span></div>
+                        @endforeach
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Shipping</span>
+                            <span>@if ($breakdown['shipping'] > 0)<x-price :amount="$breakdown['shipping']" />@else <span class="text-green-600 font-semibold">Free</span> @endif</span>
+                        </div>
                     </div>
                     <div class="flex justify-between pt-4 mt-4 border-t border-gray-200 font-bold text-lg">
-                        <span>Total</span><span class="text-brand-orange"><x-price :amount="$total" /></span>
+                        <span>Total</span><span class="text-brand-orange"><x-price :amount="$breakdown['total']" /></span>
                     </div>
                 </div>
             </div>

@@ -28,12 +28,20 @@
                         <span>
                             {{ $item->product_name }}
                             @if ($item->color_name)<span class="text-gray-400">({{ $item->color_name }})</span>@endif
+                            @if ($item->decoration_label)<span class="text-gray-400">+ {{ $item->decoration_label }}</span>@endif
                             <span class="text-gray-400">× {{ $item->qty }}</span>
                         </span>
                         <span class="font-semibold"><x-price :amount="$item->price * $item->qty" /></span>
                     </div>
                 @endforeach
-                <div class="flex justify-between pt-4 mt-2 border-t border-gray-200 font-bold text-lg">
+                <div class="pt-3 mt-2 border-t border-gray-200 space-y-1.5 text-sm">
+                    <div class="flex justify-between"><span class="text-gray-500">Caps &amp; decoration</span><span><x-price :amount="$order->items_subtotal" /></span></div>
+                    @if ($order->setup_fees_total > 0)
+                        <div class="flex justify-between"><span class="text-gray-500">Setup fees</span><span><x-price :amount="$order->setup_fees_total" /></span></div>
+                    @endif
+                    <div class="flex justify-between"><span class="text-gray-500">Shipping</span><span>@if ($order->shipping_total > 0)<x-price :amount="$order->shipping_total" />@else Free @endif</span></div>
+                </div>
+                <div class="flex justify-between pt-3 mt-2 border-t border-gray-200 font-bold text-lg">
                     <span>Total</span>
                     <span class="text-brand-orange"><x-price :amount="$order->total" /></span>
                 </div>
