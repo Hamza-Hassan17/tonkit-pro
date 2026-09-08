@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', 'TonKit.Pro — Quality Caps & Headwear')
+@section('title', 'CapBeast — Quality Caps & Headwear')
 
 @section('content')
 
@@ -10,18 +10,18 @@
             <div class="relative z-10">
                 <h1 class="text-4xl md:text-5xl font-extrabold leading-[1.05]">
                     QUALITY CAPS<br>
-                    <span class="text-brand-orange">BUILT FOR EVERYDAY</span>
+                    <span class="text-brand-orange">BUILT FOR YOUR BRAND</span>
                 </h1>
-                <p class="mt-5 text-gray-600 text-lg">Comfortable. Durable. Customizable to your brand.</p>
-                <p class="mt-1 text-gray-500">Discover our selection of caps tailored to your image.</p>
+                <p class="mt-5 text-gray-600 text-lg">Wholesale blanks, in-house embroidery &amp; DTF print.</p>
+                <p class="mt-1 text-gray-500">Volume pricing from 12 caps — bigger discounts at 73+ and 145+.</p>
                 <div class="mt-7 flex flex-wrap gap-4">
-                    <a href="{{ route('products.index') }}" class="btn-orange">View Catalog</a>
+                    <a href="{{ route('products.index') }}" class="btn-orange">Shop Caps</a>
                     <a href="{{ route('contact') }}" class="btn-outline-dark">Request a Quote</a>
                 </div>
             </div>
             <div class="relative">
                 <div class="absolute -inset-6 md:-right-16 bg-brand-orange rounded-[40%_60%_55%_45%/55%_45%_60%_40%] -z-0"></div>
-                <img src="{{ asset('images/products/yp-classics-retro-trucker-cap/navy.webp') }}" alt="TonKit.Pro Cap"
+                <img src="{{ asset('images/products/yp-classics-retro-trucker-cap/navy.webp') }}" alt="CapBeast Cap"
                      class="relative z-10 mx-auto max-w-xs md:max-w-sm drop-shadow-2xl">
             </div>
         </div>

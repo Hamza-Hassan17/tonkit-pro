@@ -17,11 +17,13 @@ export default {
             },
             colors: {
                 brand: {
-                    orange: '#f2682c',
-                    'orange-dark': '#d9531b',
-                    dark: '#16181d',
-                    darker: '#0f1115',
-                    gray: '#f4f4f5',
+                    // "orange" key kept for compatibility — now CapBeast Golden Bronze
+                    orange: '#c6963b',
+                    'orange-dark': '#a87c2c',
+                    gold: '#c6963b',
+                    dark: '#090809',       // CapBeast Black
+                    darker: '#050404',
+                    gray: '#fafafa',       // Bright Snow
                 },
             },
             maxWidth: {

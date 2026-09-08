@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', 'Contact Us — TonKit.Pro')
+@section('title', 'Contact Us — CapBeast')
 
 @section('content')
 
@@ -56,7 +56,7 @@
             <div class="text-gray-600 space-y-4 text-sm">
                 <p class="flex gap-3"><span class="text-brand-orange font-bold">Address</span> Lahore, Pakistan</p>
                 <p class="flex gap-3"><span class="text-brand-orange font-bold">Phone</span> +92 300 0000000</p>
-                <p class="flex gap-3"><span class="text-brand-orange font-bold">Email</span> sales@tonkit.pro</p>
+                <p class="flex gap-3"><span class="text-brand-orange font-bold">Email</span> sales@capbeast.com</p>
                 <p class="flex gap-3"><span class="text-brand-orange font-bold">Hours</span> Mon–Sat, 10:00 – 19:00</p>
             </div>
         </div>

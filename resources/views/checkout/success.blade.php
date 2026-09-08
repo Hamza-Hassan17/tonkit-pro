@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', 'Order Confirmed — TonKit.Pro')
+@section('title', 'Order Confirmed — CapBeast')
 
 @section('content')
 
@@ -51,7 +51,7 @@
                 </div>
             </div>
         @else
-            <p class="text-gray-600 mb-8">Your order has been recorded. Thank you for shopping with TonKit.Pro.</p>
+            <p class="text-gray-600 mb-8">Your order has been recorded. Thank you for shopping with CapBeast.</p>
         @endif
 
         <div class="mt-8 flex flex-wrap justify-center gap-4">

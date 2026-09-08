@@ -1,6 +1,6 @@
 <x-guest-layout>
     <h1 class="text-2xl font-extrabold mb-1">Welcome back</h1>
-    <p class="text-sm text-gray-500 mb-6">Log in to your TonKit.Pro account.</p>
+    <p class="text-sm text-gray-500 mb-6">Log in to your CapBeast account.</p>
 
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />

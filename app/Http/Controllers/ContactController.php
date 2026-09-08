@@ -29,7 +29,7 @@ class ContactController extends Controller
             "Name: {$validated['name']}\nEmail: {$validated['email']}\nPhone: {$validated['phone']}\n\n{$validated['message']}",
             function ($mail) use ($validated) {
                 $mail->to(config('mail.from.address'))
-                    ->subject('New Contact Form Submission — TonKit.Pro')
+                    ->subject('New Contact Form Submission — CapBeast')
                     ->replyTo($validated['email'], $validated['name']);
             }
         );

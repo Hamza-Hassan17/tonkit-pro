@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', 'About Us — TonKit.Pro')
+@section('title', 'About Us — CapBeast')
 
 @section('content')
 
@@ -12,7 +12,7 @@
             <div class="text-brand-orange text-xs font-bold uppercase tracking-[0.3em]">Who We Are</div>
             <h2 class="text-3xl font-extrabold mt-2 leading-tight">Quality headwear, sourced and finished for your brand</h2>
             <p class="text-gray-600 leading-relaxed mt-4">
-                TonKit.Pro is a specialist headwear supplier, offering a curated selection of caps
+                CapBeast is a specialist headwear supplier, offering a curated selection of caps
                 built for comfort, durability, and everyday performance. Whether you're outfitting
                 a team, a company, or just want a quality cap for yourself, we've got you covered.
             </p>
@@ -26,7 +26,7 @@
         <div class="relative">
             <div class="absolute -inset-4 md:-right-10 bg-brand-orange/10 rounded-2xl"></div>
             <div class="relative bg-brand-gray border border-gray-200 rounded-2xl p-10">
-                <img src="{{ asset('images/products/yp-classics-5-panel-snapback-braided-rope/navy.webp') }}" alt="TonKit.Pro cap" class="mx-auto max-w-[280px] drop-shadow-xl">
+                <img src="{{ asset('images/products/yp-classics-5-panel-snapback-braided-rope/navy.webp') }}" alt="CapBeast cap" class="mx-auto max-w-[280px] drop-shadow-xl">
             </div>
         </div>
     </section>
@@ -46,7 +46,7 @@
     {{-- ── Why choose us ──────────────────────────────────────── --}}
     <section class="container-site py-16">
         <div class="text-center mb-10">
-            <div class="text-brand-orange text-xs font-bold uppercase tracking-[0.3em]">Why TonKit.Pro</div>
+            <div class="text-brand-orange text-xs font-bold uppercase tracking-[0.3em]">Why CapBeast</div>
             <h2 class="text-3xl font-extrabold mt-2">Built for teams, made simple</h2>
             <div class="mx-auto mt-3 h-1 w-16 bg-brand-orange rounded"></div>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'TonKit.Pro — Quality Caps & Headwear')</title>
+    <title>@yield('title', 'CapBeast — Quality Caps & Headwear')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Requires Laravel Breeze's Tailwind + Vite setup — see README-SETUP.md --}}

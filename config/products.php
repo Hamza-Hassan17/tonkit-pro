@@ -257,7 +257,7 @@ return [
         [
             'slug'  => '110-mesh-snapback-cap',
             'name'  => '110 Mesh Snapback Cap',
-            'brand' => 'TonKit.Pro',
+            'brand' => 'CapBeast',
             'price' => 15,
             'pricing' => $tiers(15),
             'sku'   => 'TK-110M',

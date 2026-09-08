@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', $product['name'] . ' — TonKit.Pro')
+@section('title', $product['name'] . ' — CapBeast')
 
 @section('content')
 

@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', 'Your Cart — TonKit.Pro')
+@section('title', 'Your Cart — CapBeast')
 
 @section('content')
 
