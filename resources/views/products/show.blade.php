@@ -87,7 +87,7 @@
         {{-- Colours --}}
         <div class="mt-7">
             <div class="text-sm font-bold uppercase tracking-wide mb-3">Colours</div>
-            <div class="flex flex-wrap gap-x-3 gap-y-4">
+            <div class="flex flex-wrap items-start gap-x-3 gap-y-4">
                 <template x-for="(c, i) in colors" :key="c.slug">
                     <button type="button" @click="active = i" class="w-16 shrink-0 text-center group">
                         <span :class="active === i ? 'border-brand-orange ring-2 ring-brand-orange/30' : 'border-gray-300 group-hover:border-gray-500'"
