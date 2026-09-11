@@ -49,10 +49,11 @@
         <div class="bg-brand-gray rounded-lg p-8 h-fit">
             <h2 class="text-xl font-bold mb-4">Head Office</h2>
             <div class="text-gray-600 space-y-4 text-sm">
-                <p class="flex gap-3"><span class="text-brand-orange font-bold">Address</span> Montreal, Quebec, Canada</p>
-                <p class="flex gap-3"><span class="text-brand-orange font-bold">Email</span> sales@capbeast.com</p>
+                <p class="flex gap-3"><span class="text-brand-orange font-bold">Address</span> Montreal</p>
+                <p class="flex gap-3"><span class="text-brand-orange font-bold">Email</span> sales@tonkit.pro</p>
                 <p class="flex gap-3"><span class="text-brand-orange font-bold">Hours</span> Mon–Sat, 10:00 – 19:00</p>
                 <p class="text-xs text-gray-400 pt-2 border-t border-gray-200">We're an email-only team — no phone support. We reply fast, promise.</p>
+                <p class="text-xs text-gray-400">Shipping within Canada only for now.</p>
             </div>
         </div>
     </div>

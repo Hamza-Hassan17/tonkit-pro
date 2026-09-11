@@ -24,9 +24,9 @@
 <section class="bg-white border-t border-gray-100">
     <div class="container-site grid grid-cols-2 md:grid-cols-4 gap-6 py-10 text-sm">
         @foreach ([
-            ['t' => 'Head Office', 'd' => 'Montreal, Quebec, Canada', 'p' => 'M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21'],
-            ['t' => 'Email Us', 'd' => 'sales@capbeast.com', 'p' => 'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'],
-            ['t' => 'Contact', 'd' => 'Email only — we\'ll reply fast', 'p' => 'M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+            ['t' => 'Head Office', 'd' => 'Montreal', 'p' => 'M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21'],
+            ['t' => 'Email Us', 'd' => 'sales@tonkit.pro', 'p' => 'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'],
+            ['t' => 'Shipping', 'd' => 'Canada only, for now', 'p' => 'M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5V8.523m0 0h5.052a17.902 17.902 0 013.213 9.193c.039.62-.469 1.124-1.09 1.124H19.5'],
             ['t' => 'Hours', 'd' => 'Mon–Sat: 10:00 – 19:00', 'p' => 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'],
         ] as $c)
             <div class="flex items-start gap-3">
@@ -75,7 +75,7 @@
             <ul class="space-y-2.5 text-sm">
                 <li><a href="{{ route('about') }}" class="hover:text-brand-orange">About Us</a></li>
                 <li><a href="{{ route('contact') }}" class="hover:text-brand-orange">Contact Us</a></li>
-                <li><a href="mailto:sales@capbeast.com" class="hover:text-brand-orange">Email Us</a></li>
+                <li><a href="mailto:sales@tonkit.pro" class="hover:text-brand-orange">Email Us</a></li>
                 <li><a href="{{ route('contact') }}" class="hover:text-brand-orange">Request a Quote</a></li>
             </ul>
         </div>

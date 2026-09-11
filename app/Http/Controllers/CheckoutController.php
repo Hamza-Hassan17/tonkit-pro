@@ -47,9 +47,10 @@ class CheckoutController extends Controller
             'address_line'   => ['required', 'string', 'max:200'],
             'city'           => ['required', 'string', 'max:80'],
             'postal_code'    => ['nullable', 'string', 'max:20'],
-            'country'        => ['required', 'string', 'max:80'],
+            'country'        => ['required', 'in:Canada'],
             'dtf_ack'        => [$hasPrint ? 'accepted' : 'nullable'],
         ], [
+            'country.in'       => 'We currently ship within Canada only.',
             'dtf_ack.accepted' => 'Please confirm you understand the DTF print notice before continuing.',
         ]);
 

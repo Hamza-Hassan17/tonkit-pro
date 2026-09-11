@@ -57,8 +57,10 @@
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-sm font-semibold mb-1">Country</label>
-                            <input type="text" name="country" value="{{ old('country', 'Canada') }}" required
-                                   class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange @error('country') border-red-400 @enderror">
+                            <input type="text" value="Canada" readonly
+                                   class="w-full rounded border-gray-300 bg-gray-50 text-gray-500 cursor-not-allowed">
+                            <input type="hidden" name="country" value="Canada">
+                            <p class="text-xs text-gray-400 mt-1">We currently ship within Canada only.</p>
                         </div>
                     </div>
 
