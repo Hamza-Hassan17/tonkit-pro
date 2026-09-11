@@ -64,14 +64,14 @@ return [
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Black',                'slug' => 'black',                'hex' => '#1a1a1a', 'image' => $img('a-town', 'black.webp')],
-                ['name' => 'British Racing Green',  'slug' => 'british-racing-green', 'hex' => '#234023', 'image' => $img('a-town', 'british-racing-green.webp')],
-                ['name' => 'Coyote Brown',          'slug' => 'coyote-brown',         'hex' => '#7c5a3a', 'image' => $img('a-town', 'coyote-brown.webp')],
-                ['name' => 'Cream',                 'slug' => 'cream',                'hex' => '#f0e6d2', 'image' => $img('a-town', 'cream.webp')],
-                ['name' => 'Dark Heather',          'slug' => 'dark-heather',         'hex' => '#4a4a4a', 'image' => $img('a-town', 'dark-heather.webp')],
-                ['name' => 'Heather Grey',          'slug' => 'heather-grey',         'hex' => '#9a9a9c', 'image' => $img('a-town', 'heather-grey.webp')],
-                ['name' => 'Navy',                  'slug' => 'navy',                 'hex' => '#1c2a3f', 'image' => $img('a-town', 'navy.webp')],
-                ['name' => 'Sage',                  'slug' => 'sage',                 'hex' => '#9caf88', 'image' => $img('a-town', 'sage.webp')],
+                ['name' => 'Black',                'slug' => 'black',                'hex' => '#1a1a1a', 'image' => $img('a-town', 'black.png')],
+                ['name' => 'British Racing Green',  'slug' => 'british-racing-green', 'hex' => '#234023', 'image' => $img('a-town', 'british-racing-green.png')],
+                ['name' => 'Coyote Brown',          'slug' => 'coyote-brown',         'hex' => '#7c5a3a', 'image' => $img('a-town', 'coyote-brown.png')],
+                ['name' => 'Cream',                 'slug' => 'cream',                'hex' => '#f0e6d2', 'image' => $img('a-town', 'cream.png')],
+                ['name' => 'Dark Heather',          'slug' => 'dark-heather',         'hex' => '#4a4a4a', 'image' => $img('a-town', 'dark-heather.png')],
+                ['name' => 'Heather Grey',          'slug' => 'heather-grey',         'hex' => '#9a9a9c', 'image' => $img('a-town', 'heather-grey.png')],
+                ['name' => 'Navy',                  'slug' => 'navy',                 'hex' => '#1c2a3f', 'image' => $img('a-town', 'navy.png')],
+                ['name' => 'Sage',                  'slug' => 'sage',                 'hex' => '#9caf88', 'image' => $img('a-town', 'sage.png')],
             ],
         ],
 
@@ -94,11 +94,11 @@ return [
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('deadstock-cord', 'black.webp')],
-                ['name' => 'Caramel',  'slug' => 'caramel',  'hex' => '#a4682f', 'image' => $img('deadstock-cord', 'caramel.webp')],
-                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('deadstock-cord', 'charcoal.webp')],
-                ['name' => 'Khaki',    'slug' => 'khaki',    'hex' => '#b6a582', 'image' => $img('deadstock-cord', 'khaki.webp')],
-                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('deadstock-cord', 'navy.webp')],
+                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('deadstock-cord', 'black.png')],
+                ['name' => 'Caramel',  'slug' => 'caramel',  'hex' => '#a4682f', 'image' => $img('deadstock-cord', 'caramel.png')],
+                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('deadstock-cord', 'charcoal.png')],
+                ['name' => 'Khaki',    'slug' => 'khaki',    'hex' => '#b6a582', 'image' => $img('deadstock-cord', 'khaki.png')],
+                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('deadstock-cord', 'navy.png')],
             ],
         ],
 
@@ -120,12 +120,12 @@ return [
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Black',        'slug' => 'black',        'hex' => '#1a1a1a', 'image' => $img('flat-head', 'black.webp')],
-                ['name' => 'Dark Grey',    'slug' => 'dark-grey',    'hex' => '#58585a', 'image' => $img('flat-head', 'dark-grey.webp')],
-                ['name' => 'Heather Grey', 'slug' => 'heather-grey', 'hex' => '#9a9a9c', 'image' => $img('flat-head', 'heather-grey.webp')],
-                ['name' => 'Navy',         'slug' => 'navy',         'hex' => '#1c2a3f', 'image' => $img('flat-head', 'navy.webp')],
-                ['name' => 'Red',          'slug' => 'red',          'hex' => '#b5202c', 'image' => $img('flat-head', 'red.webp')],
-                ['name' => 'Sage',         'slug' => 'sage',         'hex' => '#9caf88', 'image' => $img('flat-head', 'sage.webp')],
+                ['name' => 'Black',        'slug' => 'black',        'hex' => '#1a1a1a', 'image' => $img('flat-head', 'black.png')],
+                ['name' => 'Dark Grey',    'slug' => 'dark-grey',    'hex' => '#58585a', 'image' => $img('flat-head', 'dark-grey.png')],
+                ['name' => 'Heather Grey', 'slug' => 'heather-grey', 'hex' => '#9a9a9c', 'image' => $img('flat-head', 'heather-grey.png')],
+                ['name' => 'Navy',         'slug' => 'navy',         'hex' => '#1c2a3f', 'image' => $img('flat-head', 'navy.png')],
+                ['name' => 'Red',          'slug' => 'red',          'hex' => '#b5202c', 'image' => $img('flat-head', 'red.png')],
+                ['name' => 'Sage',         'slug' => 'sage',         'hex' => '#9caf88', 'image' => $img('flat-head', 'sage.png')],
             ],
         ],
 
@@ -147,10 +147,10 @@ return [
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('king-peak-a-frame', 'black.webp')],
-                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('king-peak-a-frame', 'charcoal.webp')],
-                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('king-peak-a-frame', 'navy.webp')],
-                ['name' => 'Spruce',   'slug' => 'spruce',   'hex' => '#2f4f3f', 'image' => $img('king-peak-a-frame', 'spruce.webp')],
+                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('king-peak-a-frame', 'black.png')],
+                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('king-peak-a-frame', 'charcoal.png')],
+                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('king-peak-a-frame', 'navy.png')],
+                ['name' => 'Spruce',   'slug' => 'spruce',   'hex' => '#2f4f3f', 'image' => $img('king-peak-a-frame', 'spruce.png')],
             ],
         ],
 
@@ -173,13 +173,13 @@ return [
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Black',     'slug' => 'black',     'hex' => '#1a1a1a', 'image' => $img('supreme-cotton', 'black.webp')],
-                ['name' => 'Caramel',   'slug' => 'caramel',   'hex' => '#a4682f', 'image' => $img('supreme-cotton', 'caramel.webp')],
-                ['name' => 'Dark Grey', 'slug' => 'dark-grey', 'hex' => '#58585a', 'image' => $img('supreme-cotton', 'dark-grey.webp')],
-                ['name' => 'Khaki',     'slug' => 'khaki',     'hex' => '#b6a582', 'image' => $img('supreme-cotton', 'khaki.webp')],
-                ['name' => 'Maroon',    'slug' => 'maroon',    'hex' => '#6b1f2a', 'image' => $img('supreme-cotton', 'maroon.webp')],
-                ['name' => 'Navy',      'slug' => 'navy',      'hex' => '#1c2a3f', 'image' => $img('supreme-cotton', 'navy.webp')],
-                ['name' => 'Olive',     'slug' => 'olive',     'hex' => '#6b6b3a', 'image' => $img('supreme-cotton', 'olive.webp')],
+                ['name' => 'Black',     'slug' => 'black',     'hex' => '#1a1a1a', 'image' => $img('supreme-cotton', 'black.png')],
+                ['name' => 'Caramel',   'slug' => 'caramel',   'hex' => '#a4682f', 'image' => $img('supreme-cotton', 'caramel.png')],
+                ['name' => 'Dark Grey', 'slug' => 'dark-grey', 'hex' => '#58585a', 'image' => $img('supreme-cotton', 'dark-grey.png')],
+                ['name' => 'Khaki',     'slug' => 'khaki',     'hex' => '#b6a582', 'image' => $img('supreme-cotton', 'khaki.png')],
+                ['name' => 'Maroon',    'slug' => 'maroon',    'hex' => '#6b1f2a', 'image' => $img('supreme-cotton', 'maroon.png')],
+                ['name' => 'Navy',      'slug' => 'navy',      'hex' => '#1c2a3f', 'image' => $img('supreme-cotton', 'navy.png')],
+                ['name' => 'Olive',     'slug' => 'olive',     'hex' => '#6b6b3a', 'image' => $img('supreme-cotton', 'olive.png')],
             ],
         ],
 
@@ -202,8 +202,8 @@ return [
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Black',     'slug' => 'black',     'hex' => '#1a1a1a', 'image' => $img('supreme-melton-wool', 'black.webp')],
-                ['name' => 'Dark Grey', 'slug' => 'dark-grey', 'hex' => '#58585a', 'image' => $img('supreme-melton-wool', 'dark-grey.webp')],
+                ['name' => 'Black',     'slug' => 'black',     'hex' => '#1a1a1a', 'image' => $img('supreme-melton-wool', 'black.png')],
+                ['name' => 'Dark Grey', 'slug' => 'dark-grey', 'hex' => '#58585a', 'image' => $img('supreme-melton-wool', 'dark-grey.png')],
             ],
         ],
 
@@ -225,10 +225,10 @@ return [
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('the-ace', 'black.webp')],
-                ['name' => 'Caramel',  'slug' => 'caramel',  'hex' => '#a4682f', 'image' => $img('the-ace', 'caramel.webp')],
-                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('the-ace', 'charcoal.webp')],
-                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('the-ace', 'navy.webp')],
+                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('the-ace', 'black.png')],
+                ['name' => 'Caramel',  'slug' => 'caramel',  'hex' => '#a4682f', 'image' => $img('the-ace', 'caramel.png')],
+                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('the-ace', 'charcoal.png')],
+                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('the-ace', 'navy.png')],
             ],
         ],
 
@@ -251,41 +251,22 @@ return [
                 'Closure'  => 'Buckle',
             ],
             'colors' => [
-                ['name' => 'Black',                'slug' => 'black',                'hex' => '#1a1a1a', 'image' => $img('the-cape-garment-wash', 'black.webp')],
-                ['name' => 'British Racing Green',  'slug' => 'british-racing-green', 'hex' => '#234023', 'image' => $img('the-cape-garment-wash', 'british-racing-green.webp')],
-                ['name' => 'Crimson',               'slug' => 'crimson',              'hex' => '#a8192e', 'image' => $img('the-cape-garment-wash', 'crimson.webp')],
-                ['name' => 'Espresso',              'slug' => 'espresso',             'hex' => '#3b2a20', 'image' => $img('the-cape-garment-wash', 'espresso.webp')],
-                ['name' => 'Navy',                  'slug' => 'navy',                 'hex' => '#1c2a3f', 'image' => $img('the-cape-garment-wash', 'navy.webp')],
+                ['name' => 'Black',                'slug' => 'black',                'hex' => '#1a1a1a', 'image' => $img('the-cape-garment-wash', 'black.png')],
+                ['name' => 'British Racing Green',  'slug' => 'british-racing-green', 'hex' => '#234023', 'image' => $img('the-cape-garment-wash', 'british-racing-green.png')],
+                ['name' => 'Crimson',               'slug' => 'crimson',              'hex' => '#a8192e', 'image' => $img('the-cape-garment-wash', 'crimson.png')],
+                ['name' => 'Espresso',              'slug' => 'espresso',             'hex' => '#3b2a20', 'image' => $img('the-cape-garment-wash', 'espresso.png')],
+                ['name' => 'Navy',                  'slug' => 'navy',                 'hex' => '#1c2a3f', 'image' => $img('the-cape-garment-wash', 'navy.png')],
             ],
         ],
 
-        /* ---------------------------------------------------------------- 9 */
-        [
-            'slug'  => '110-mesh-snapback-cap',
-            'name'  => '110 Mesh Snapback Cap',
-            'brand' => 'CapBeast',
-            'price' => 15,
-            'pricing' => $tiers(15), // confirmed — pricing sheet "110M"
-            'sku'   => 'CB-110M', // placeholder pending client SKU
-            'description' => 'A structured, mid-profile mesh-back trucker with an adjustable snapback and a pre-curved visor. Comfortable one-size fit with a clean front panel for embellishment.',
-            'specs' => [
-                'Material' => '63% Polyester / 34% Cotton / 3% Elastane',
-                'Size'     => 'One Size (Adjustable)',
-                'Profile'  => 'Mid',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => 'Structured',
-                'Panels'   => '6',
-                'Closure'  => 'Snapback',
-            ],
-            'colors' => [
-                ['name' => 'Khaki',    'slug' => 'khaki',    'hex' => '#b6a582', 'image' => $img('110-mesh-snapback-cap', 'khaki.webp')],
-                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('110-mesh-snapback-cap', 'charcoal.webp')],
-                ['name' => 'White',    'slug' => 'white',    'hex' => '#f1f1f1', 'image' => $img('110-mesh-snapback-cap', 'white.webp')],
-                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('110-mesh-snapback-cap', 'black.webp')],
-                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('110-mesh-snapback-cap', 'navy.webp')],
-                ['name' => 'Red',      'slug' => 'red',      'hex' => '#b5202c', 'image' => $img('110-mesh-snapback-cap', 'red.webp')],
-            ],
-        ],
+        /* ------------------------------------------------------------------
+         * "110 Mesh Snapback Cap" removed from the live catalog 2026-09-11.
+         * Every photo we have for it carries a printed brand sticker/tag
+         * (either "Your Logo" or a genuine Flexfit "110 Tech" tag) — the
+         * client has repeatedly and explicitly said no stickers on the
+         * site. Re-add once clean photography exists. Pricing sheet has
+         * a confirmed $15 flat rate ("110M") ready to go when it does.
+         * ---------------------------------------------------------------- */
 
     ],
 ];
