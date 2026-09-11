@@ -36,14 +36,14 @@ return [
             'setup_label' => null,
         ],
         'embroidery' => [
-            'label'       => 'Embroidery (up to 7,500 stitches)',
-            'unit'        => [10, 7, 5],
+            'label'       => 'Embroidery (up to 10,000 stitches)',
+            'unit'        => [10, 7.5, 5],
             'setup'       => 30,
             'setup_label' => 'Embroidery digitizing (DST file)',
         ],
         'print' => [
             'label'       => 'DTF / Print',
-            'unit'        => [7, 5, 3],
+            'unit'        => [8, 5, 3],
             'setup'       => 30,
             'setup_label' => 'Print setup',
         ],
