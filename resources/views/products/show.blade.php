@@ -87,14 +87,14 @@
         {{-- Colours --}}
         <div class="mt-7">
             <div class="text-sm font-bold uppercase tracking-wide mb-3">Colours</div>
-            <div class="flex flex-wrap gap-x-4 gap-y-3">
+            <div class="flex flex-wrap gap-x-3 gap-y-4">
                 <template x-for="(c, i) in colors" :key="c.slug">
-                    <button type="button" @click="active = i" class="text-left group">
+                    <button type="button" @click="active = i" class="w-16 shrink-0 text-center group">
                         <span :class="active === i ? 'border-brand-orange ring-2 ring-brand-orange/30' : 'border-gray-300 group-hover:border-gray-500'"
-                              class="block h-12 w-12 rounded border-2" :style="'background-color:' + c.hex"></span>
-                        <span class="block text-[11px] font-semibold mt-1 leading-tight" x-text="c.name"
+                              class="block h-12 w-12 mx-auto rounded border-2" :style="'background-color:' + c.hex"></span>
+                        <span class="block text-[10px] font-semibold mt-1.5 leading-tight" x-text="c.name"
                               :class="active === i ? 'text-brand-dark' : 'text-gray-500'"></span>
-                        <span class="block text-[10px] text-gray-400 leading-tight" x-text="c.code || ''"></span>
+                        <span class="block text-[9px] text-gray-400 leading-tight" x-text="c.code || ''"></span>
                     </button>
                 </template>
             </div>
