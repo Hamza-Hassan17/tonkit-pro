@@ -143,10 +143,13 @@
                 <div class="flex justify-between" x-show="decoration !== 'none'"><span class="text-gray-500">— includes <span x-text="p.decorations[decoration].label"></span></span><span x-text="'+' + money(decoUnit)"></span></div>
                 <div class="flex justify-between"><span class="text-gray-500"><span x-text="qty"></span> caps</span><span class="font-semibold" x-text="money(lineSubtotal)"></span></div>
                 <div class="flex justify-between text-gray-400 text-xs" x-show="setup > 0"><span x-text="'+ ' + p.decorations[decoration].setup_label + ' (one-time)'"></span><span x-text="money(setup)"></span></div>
+                <div class="flex justify-between pt-1.5 mt-1.5 border-t border-gray-200 font-bold" x-show="setup > 0">
+                    <span>Estimated total (this item)</span><span x-text="money(lineSubtotal + setup)"></span>
+                </div>
             </div>
 
             <button type="submit" class="btn-orange w-full">Add to Cart</button>
-            <p class="text-[11px] text-gray-400 text-center">Setup fees &amp; shipping are shown at checkout. Prices in CAD.</p>
+            <p class="text-[11px] text-gray-400 text-center">Shipping is calculated at checkout, on your full order. Prices in CAD.</p>
         </form>
 
         {{-- Specs --}}
