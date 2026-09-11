@@ -37,7 +37,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-semibold mb-1">Phone</label>
-                            <input type="text" name="customer_phone" value="{{ old('customer_phone') }}" required placeholder="03xx xxxxxxx"
+                            <input type="text" name="customer_phone" value="{{ old('customer_phone') }}" required placeholder="(514) 555-0123"
                                    class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange @error('customer_phone') border-red-400 @enderror">
                         </div>
                         <div class="sm:col-span-2">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-sm font-semibold mb-1">Country</label>
-                            <input type="text" name="country" value="{{ old('country', 'Pakistan') }}" required
+                            <input type="text" name="country" value="{{ old('country', 'Canada') }}" required
                                    class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange @error('country') border-red-400 @enderror">
                         </div>
                     </div>
@@ -82,6 +82,21 @@
                             <div class="text-xs text-gray-500">You'll be redirected to Stripe's secure page to complete payment.</div>
                         </div>
                     </div>
+
+                    @php($hasPrint = collect($breakdown['lines'])->contains(fn ($l) => ($l['decoration'] ?? 'none') === 'print'))
+                    @if ($hasPrint)
+                        <label class="mt-5 flex items-start gap-3 border border-red-200 bg-red-50 rounded-lg p-4 cursor-pointer">
+                            <input type="checkbox" name="dtf_ack" value="1" required
+                                   class="mt-0.5 rounded border-red-300 text-brand-orange focus:ring-brand-orange @error('dtf_ack') border-red-500 @enderror">
+                            <span class="text-xs font-semibold text-red-700">
+                                {{ config('pricing.decoration.print.warning') }} I understand and accept this.
+                            </span>
+                        </label>
+                        @error('dtf_ack')
+                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    @endif
+
                     <button type="submit" class="btn-orange w-full mt-5">
                         Pay <x-price :amount="$breakdown['total']" /> securely
                     </button>

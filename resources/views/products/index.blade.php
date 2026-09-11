@@ -56,7 +56,7 @@
 
             <div class="border border-gray-200 rounded-md p-5 space-y-4">
                 @foreach ([
-                    ['t' => 'Fast Shipping', 'd' => 'Across Pakistan'],
+                    ['t' => 'Fast Shipping', 'd' => 'From Montreal, Canada'],
                     ['t' => 'Quality Guaranteed', 'd' => '100% Authentic Products'],
                     ['t' => 'Bulk Orders', 'd' => 'Corporate & Team Orders'],
                     ['t' => 'Customer Support', 'd' => 'We\'re Here to Help'],

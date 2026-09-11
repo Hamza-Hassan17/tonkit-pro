@@ -124,6 +124,9 @@
                 </div>
             </div>
 
+            <p x-show="p.decorations[decoration].warning" x-cloak x-text="p.decorations[decoration].warning"
+               class="text-xs font-semibold text-red-600 -mt-2"></p>
+
             {{-- Tier table --}}
             <div class="text-xs">
                 <div class="grid grid-cols-3 gap-2 text-center">

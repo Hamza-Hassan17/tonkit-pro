@@ -38,6 +38,7 @@ class CheckoutController extends Controller
         }
 
         $breakdown = Pricing::breakdown($items);
+        $hasPrint  = collect($breakdown['lines'])->contains(fn ($l) => ($l['decoration'] ?? 'none') === 'print');
 
         $data = $request->validate([
             'customer_name'  => ['required', 'string', 'max:120'],
@@ -47,6 +48,9 @@ class CheckoutController extends Controller
             'city'           => ['required', 'string', 'max:80'],
             'postal_code'    => ['nullable', 'string', 'max:20'],
             'country'        => ['required', 'string', 'max:80'],
+            'dtf_ack'        => [$hasPrint ? 'accepted' : 'nullable'],
+        ], [
+            'dtf_ack.accepted' => 'Please confirm you understand the DTF print notice before continuing.',
         ]);
 
         $shippingAddress = trim(implode(', ', array_filter([

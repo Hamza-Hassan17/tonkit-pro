@@ -48,6 +48,9 @@
                                     @if ($item['decoration'] !== 'none')
                                         <div class="text-xs text-gray-500 mt-0.5">{{ $item['decoration_label'] }}</div>
                                     @endif
+                                    @if ($item['decoration'] === 'print')
+                                        <div class="text-[11px] font-semibold text-red-600 mt-0.5">{{ config('pricing.decoration.print.warning') }}</div>
+                                    @endif
                                     <div class="text-brand-orange font-bold text-sm mt-0.5">
                                         <x-price :amount="$item['unit_price']" /> <span class="text-gray-400 font-normal">/ cap · {{ $item['tier_label'] }}</span>
                                     </div>

@@ -24,3 +24,7 @@ yarn-error.log
 # Local asset archives
 /Cap Product images.rar
 *.rar
+
+# Raw source assets (large, kept locally only)
+/public/images/ESIDE AUTHENTICS HEADWEAR IMAGES/
+/public/images/ESIDE AUTHENTICS HEADWEAR IMAGES-*.zip

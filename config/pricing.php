@@ -46,6 +46,7 @@ return [
             'unit'        => [8, 5, 3],
             'setup'       => 30,
             'setup_label' => 'Print setup',
+            'warning'     => 'Be aware: if you choose a 6-panel cap, the stitches of the cap can be visible on the print.',
         ],
     ],
 

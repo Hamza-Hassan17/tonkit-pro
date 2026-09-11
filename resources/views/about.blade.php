@@ -34,7 +34,7 @@
     {{-- ── Stats ──────────────────────────────────────────────── --}}
     <section class="bg-brand-gray">
         <div class="container-site py-14 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            @foreach ([['9', 'Cap Styles'], ['40+', 'Colour Options'], ['24h', 'Order Processing'], ['Pakistan', 'Nationwide Shipping']] as [$n, $l])
+            @foreach ([['9', 'Cap Styles'], ['40+', 'Colour Options'], ['24h', 'Order Processing'], ['Canada', 'Ships Nationwide']] as [$n, $l])
                 <div>
                     <div class="text-3xl md:text-4xl font-extrabold text-brand-orange">{{ $n }}</div>
                     <div class="text-sm text-gray-500 mt-1">{{ $l }}</div>
