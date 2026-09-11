@@ -15,12 +15,26 @@
 | Blank-cap prices are in CAD, quantity-tiered (see config/pricing.php for
 | the tier bounds, decoration add-ons, setup fees and shipping).
 | `price` is the entry unit price (tier 0), used for "from $X" on cards.
+|
+| CATALOG SOURCE (2026-09-11): 8 of these 9 products come from the
+| client's "ESIDE Authentics" image drop (Google Drive, top-level images
+| only — 2-tone/3-tone/rope subfolder variants were intentionally excluded
+| per his instruction). Specs below are parsed straight from ESIDE's own
+| filenames (profile/bill/panels/closure/material), which he said was
+| fine to use as the description source.
+|
+| PRICING: only 3 of the 8 have a confirmed price from
+| Product_Pricing_Template_CapBeast_CANADA.xlsx, matched by product name:
+| A-Town, Deadstock Cord (~= "Corduroy"), Supreme Melton Wool (~= "Wool
+| Painter"). The other 5 use a provisional placeholder tier (9/8.50/7.50,
+| the sheet's generic trucker-hat rate) pending his real SKU/price sheet
+| — flagged '@TODO price' below. SKUs are placeholders (CB-*) for the
+| same reason.
 */
 
 $img = fn (string $slug, string $file) => "images/products/{$slug}/{$file}";
 
-// [12–72, 73–144, 145+] unit prices; repeat the last value where the
-// template only gave one price.
+// [12–72, 73–144, 145+] unit prices; repeat the last value where only one price is known.
 $tiers = fn (float $a, ?float $b = null, ?float $c = null) => [
     'tiers' => [$a, $b ?? $a, $c ?? $b ?? $a],
 ];
@@ -34,222 +48,214 @@ return [
 
         /* ---------------------------------------------------------------- 1 */
         [
-            'slug'  => 'yp-classics-retro-trucker-cap',
-            'name'  => 'YP Classics Retro Trucker Cap',
-            'brand' => 'YP Classics',
-            'price' => 9,
-            'pricing' => $tiers(9, 8.5, 7.5),
-            'sku'   => 'YP-6606',
-            'description' => 'The classic 6-panel retro trucker. Structured foam front panels, breathable poly-mesh back and a pre-curved visor, finished with a matching snapback closure. An everyday favourite that takes embroidery beautifully.',
+            'slug'  => 'a-town',
+            'name'  => 'A-Town',
+            'brand' => 'CapBeast',
+            'price' => 7,
+            'pricing' => $tiers(7, 6.75, 6.25), // confirmed — pricing sheet "A-TOWN"
+            'sku'   => 'CB-ATOWN', // placeholder pending client SKU
+            'description' => 'A mid-profile 6-panel mesh-back snapback with a curved brim — a clean, everyday trucker built for comfort and easy branding.',
             'specs' => [
-                'Material' => '47% Cotton / 28% Nylon / 25% Polyester',
+                'Material' => 'Cotton Twill Front / Poly Mesh Back',
                 'Size'     => 'One Size (Adjustable)',
                 'Profile'  => 'Mid',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => 'Structured',
+                'Bill'     => 'Curved',
                 'Panels'   => '6',
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Red',      'slug' => 'red',      'hex' => '#b5202c', 'image' => $img('yp-classics-retro-trucker-cap', 'red.webp')],
-                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('yp-classics-retro-trucker-cap', 'navy.webp')],
-                ['name' => 'Pink',     'slug' => 'pink',     'hex' => '#e6a9bd', 'image' => $img('yp-classics-retro-trucker-cap', 'pink.webp')],
-                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('yp-classics-retro-trucker-cap', 'black.webp')],
-                ['name' => 'Khaki',    'slug' => 'khaki',    'hex' => '#b6a582', 'image' => $img('yp-classics-retro-trucker-cap', 'khaki.webp')],
-                ['name' => 'White',    'slug' => 'white',    'hex' => '#f1f1f1', 'image' => $img('yp-classics-retro-trucker-cap', 'white.webp')],
-                ['name' => 'Silver',   'slug' => 'silver',   'hex' => '#c4c7cc', 'image' => $img('yp-classics-retro-trucker-cap', 'silver.webp')],
-                ['name' => 'Caramel',  'slug' => 'caramel',  'hex' => '#a4682f', 'image' => $img('yp-classics-retro-trucker-cap', 'caramel.webp')],
-                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('yp-classics-retro-trucker-cap', 'charcoal.webp')],
+                ['name' => 'Black',                'slug' => 'black',                'hex' => '#1a1a1a', 'image' => $img('a-town', 'black.webp')],
+                ['name' => 'British Racing Green',  'slug' => 'british-racing-green', 'hex' => '#234023', 'image' => $img('a-town', 'british-racing-green.webp')],
+                ['name' => 'Coyote Brown',          'slug' => 'coyote-brown',         'hex' => '#7c5a3a', 'image' => $img('a-town', 'coyote-brown.webp')],
+                ['name' => 'Cream',                 'slug' => 'cream',                'hex' => '#f0e6d2', 'image' => $img('a-town', 'cream.webp')],
+                ['name' => 'Dark Heather',          'slug' => 'dark-heather',         'hex' => '#4a4a4a', 'image' => $img('a-town', 'dark-heather.webp')],
+                ['name' => 'Heather Grey',          'slug' => 'heather-grey',         'hex' => '#9a9a9c', 'image' => $img('a-town', 'heather-grey.webp')],
+                ['name' => 'Navy',                  'slug' => 'navy',                 'hex' => '#1c2a3f', 'image' => $img('a-town', 'navy.webp')],
+                ['name' => 'Sage',                  'slug' => 'sage',                 'hex' => '#9caf88', 'image' => $img('a-town', 'sage.webp')],
             ],
         ],
 
         /* ---------------------------------------------------------------- 2 */
         [
-            'slug'  => 'yp-classics-retro-trucker-cap-2-tone',
-            'name'  => 'YP Classics Retro Trucker Cap — 2-Tone',
-            'brand' => 'YP Classics',
+            'slug'  => 'deadstock-cord',
+            'name'  => 'Deadstock Cord',
+            'brand' => 'CapBeast',
             'price' => 9,
-            'pricing' => $tiers(9, 8.5, 7.5),
-            'sku'   => 'YP-6606T',
-            'description' => 'The retro trucker in bold two-tone colourways. Contrast crown and mesh back give team kits and merch drops an instant identity, with the same structured fit and snapback closure.',
+            'pricing' => $tiers(9, 8.75, 8), // confirmed — pricing sheet "CORDUROY"
+            'sku'   => 'CB-CORD', // placeholder pending client SKU
+            'description' => 'An unstructured, low-profile 5-panel snapback in deadstock corduroy — soft, broken-in texture with a relaxed curved brim.',
             'specs' => [
-                'Material' => '47% Cotton / 28% Nylon / 25% Polyester',
+                'Material' => 'Corduroy (Deadstock)',
                 'Size'     => 'One Size (Adjustable)',
-                'Profile'  => 'Mid',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => 'Structured',
-                'Panels'   => '6',
+                'Profile'  => 'Low',
+                'Bill'     => 'Curved',
+                'Crown'    => 'Unstructured',
+                'Panels'   => '5',
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Red / Black',    'slug' => 'red-black',    'hex' => '#b5202c', 'image' => $img('yp-classics-retro-trucker-cap-2-tone', 'red-black.webp')],
-                ['name' => 'Red / White',    'slug' => 'red-white',    'hex' => '#b5202c', 'image' => $img('yp-classics-retro-trucker-cap-2-tone', 'red-white.webp')],
-                ['name' => 'Loden / Khaki',  'slug' => 'loden-khaki',  'hex' => '#5c5637', 'image' => $img('yp-classics-retro-trucker-cap-2-tone', 'loden-khaki.webp')],
-                ['name' => 'Navy / White',   'slug' => 'navy-white',   'hex' => '#1c2a3f', 'image' => $img('yp-classics-retro-trucker-cap-2-tone', 'navy-white.webp')],
-                ['name' => 'Black / White',  'slug' => 'black-white',  'hex' => '#1a1a1a', 'image' => $img('yp-classics-retro-trucker-cap-2-tone', 'black-white.webp')],
+                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('deadstock-cord', 'black.webp')],
+                ['name' => 'Caramel',  'slug' => 'caramel',  'hex' => '#a4682f', 'image' => $img('deadstock-cord', 'caramel.webp')],
+                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('deadstock-cord', 'charcoal.webp')],
+                ['name' => 'Khaki',    'slug' => 'khaki',    'hex' => '#b6a582', 'image' => $img('deadstock-cord', 'khaki.webp')],
+                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('deadstock-cord', 'navy.webp')],
             ],
         ],
 
         /* ---------------------------------------------------------------- 3 */
         [
-            'slug'  => 'yp-classics-5-panel-retro-trucker-cap',
-            'name'  => 'YP Classics 5-Panel Retro Trucker Cap',
-            'brand' => 'YP Classics',
+            'slug'  => 'flat-head',
+            'name'  => 'Flat Head',
+            'brand' => 'CapBeast',
             'price' => 9,
-            'pricing' => $tiers(9, 8.5, 7.5),
-            'sku'   => 'YP-6506',
-            'description' => 'A cleaner 5-panel take on the retro trucker. One uninterrupted front panel makes the perfect canvas for a centred logo, paired with a poly-mesh back and pre-curved visor.',
+            'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
+            'sku'   => 'CB-FLATHEAD', // placeholder pending client SKU
+            'description' => 'A high-profile 6-panel snapback with a flat brim for a modern, structured silhouette — a bold canvas for embroidery or print.',
             'specs' => [
-                'Material' => '47% Cotton / 28% Nylon / 25% Polyester',
+                'Material' => 'Cotton Twill',
                 'Size'     => 'One Size (Adjustable)',
-                'Profile'  => 'Mid',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => 'Structured',
-                'Panels'   => '5',
+                'Profile'  => 'High',
+                'Bill'     => 'Flat',
+                'Panels'   => '6',
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Red',      'slug' => 'red',      'hex' => '#b5202c', 'image' => $img('yp-classics-5-panel-retro-trucker-cap', 'red.webp')],
-                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('yp-classics-5-panel-retro-trucker-cap', 'black.webp')],
-                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('yp-classics-5-panel-retro-trucker-cap', 'navy.webp')],
-                ['name' => 'Khaki',    'slug' => 'khaki',    'hex' => '#b6a582', 'image' => $img('yp-classics-5-panel-retro-trucker-cap', 'khaki.webp')],
-                ['name' => 'White',    'slug' => 'white',    'hex' => '#f1f1f1', 'image' => $img('yp-classics-5-panel-retro-trucker-cap', 'white.webp')],
-                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('yp-classics-5-panel-retro-trucker-cap', 'charcoal.webp')],
+                ['name' => 'Black',        'slug' => 'black',        'hex' => '#1a1a1a', 'image' => $img('flat-head', 'black.webp')],
+                ['name' => 'Dark Grey',    'slug' => 'dark-grey',    'hex' => '#58585a', 'image' => $img('flat-head', 'dark-grey.webp')],
+                ['name' => 'Heather Grey', 'slug' => 'heather-grey', 'hex' => '#9a9a9c', 'image' => $img('flat-head', 'heather-grey.webp')],
+                ['name' => 'Navy',         'slug' => 'navy',         'hex' => '#1c2a3f', 'image' => $img('flat-head', 'navy.webp')],
+                ['name' => 'Red',          'slug' => 'red',          'hex' => '#b5202c', 'image' => $img('flat-head', 'red.webp')],
+                ['name' => 'Sage',         'slug' => 'sage',         'hex' => '#9caf88', 'image' => $img('flat-head', 'sage.webp')],
             ],
         ],
 
         /* ---------------------------------------------------------------- 4 */
         [
-            'slug'  => 'yp-classics-5-panel-retro-trucker-cap-2-tone',
-            'name'  => 'YP Classics 5-Panel Retro Trucker Cap — 2-Tone',
-            'brand' => 'YP Classics',
+            'slug'  => 'king-peak-a-frame',
+            'name'  => 'King Peak A-Frame',
+            'brand' => 'CapBeast',
             'price' => 9,
-            'pricing' => $tiers(9, 8.5, 7.5),
-            'sku'   => 'YP-6506T',
-            'description' => 'The 5-panel retro trucker with a contrast mesh back. Keeps the clean single-panel front for branding while adding a two-tone twist.',
+            'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
+            'sku'   => 'CB-KINGPEAK', // placeholder pending client SKU
+            'description' => 'A high-profile A-frame snapback with a curved brim and a tall, peaked crown — the classic silhouette for a bold front-panel logo.',
             'specs' => [
-                'Material' => '47% Cotton / 28% Nylon / 25% Polyester',
+                'Material' => 'Cotton Twill',
                 'Size'     => 'One Size (Adjustable)',
-                'Profile'  => 'Mid',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => 'Structured',
-                'Panels'   => '5',
+                'Profile'  => 'High',
+                'Bill'     => 'Curved',
+                'Crown'    => 'A-Frame',
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Red / White',     'slug' => 'red-white',     'hex' => '#b5202c', 'image' => $img('yp-classics-5-panel-retro-trucker-cap-2-tone', 'red-white.webp')],
-                ['name' => 'Navy / White',    'slug' => 'navy-white',    'hex' => '#1c2a3f', 'image' => $img('yp-classics-5-panel-retro-trucker-cap-2-tone', 'navy-white.webp')],
-                ['name' => 'Black / White',   'slug' => 'black-white',   'hex' => '#1a1a1a', 'image' => $img('yp-classics-5-panel-retro-trucker-cap-2-tone', 'black-white.webp')],
-                ['name' => 'Heather / Black', 'slug' => 'heather-black', 'hex' => '#8f9094', 'image' => $img('yp-classics-5-panel-retro-trucker-cap-2-tone', 'heather-black.webp')],
-                ['name' => 'Heather / White', 'slug' => 'heather-white', 'hex' => '#b9bbbe', 'image' => $img('yp-classics-5-panel-retro-trucker-cap-2-tone', 'heather-white.webp')],
+                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('king-peak-a-frame', 'black.webp')],
+                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('king-peak-a-frame', 'charcoal.webp')],
+                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('king-peak-a-frame', 'navy.webp')],
+                ['name' => 'Spruce',   'slug' => 'spruce',   'hex' => '#2f4f3f', 'image' => $img('king-peak-a-frame', 'spruce.webp')],
             ],
         ],
 
         /* ---------------------------------------------------------------- 5 */
         [
-            'slug'  => 'yp-classics-5-panel-snapback-perforated',
-            'name'  => 'YP Classics 5-Panel Snapback Cap with Perforation',
-            'brand' => 'YP Classics',
-            'price' => 13,
-            'pricing' => $tiers(13),
-            'sku'   => 'YP-5389AP',
-            'description' => 'Made from lightweight polyester with perforated panels for breathability — the perfect cap for everyday use. The large front panel is the ideal canvas for embellishment, with 8 rows of thick stitching on the bill, a matching snapback closure and a black underbill.',
+            'slug'  => 'supreme-cotton',
+            'name'  => 'Supreme Cotton',
+            'brand' => 'CapBeast',
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
+            'sku'   => 'CB-SUPCOTTON', // placeholder pending client SKU
+            'description' => 'An unstructured, high-profile 5-panel snapback in soft cotton twill with a flat brim — relaxed fit, clean lines.',
             'specs' => [
-                'Material' => '95% Polyester / 5% PU Spandex',
-                'Size'     => 'One Size (OSFA)',
+                'Material' => '100% Cotton Twill',
+                'Size'     => 'One Size (Adjustable)',
                 'Profile'  => 'High',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => '4" High',
+                'Bill'     => 'Flat',
+                'Crown'    => 'Unstructured',
                 'Panels'   => '5',
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Navy',         'slug' => 'navy',         'hex' => '#1c2a3f', 'code' => '19-4025', 'image' => $img('yp-classics-5-panel-snapback-perforated', 'navy.webp')],
-                ['name' => 'Black',        'slug' => 'black',        'hex' => '#1a1a1a', 'code' => '19-4203', 'image' => $img('yp-classics-5-panel-snapback-perforated', 'black.webp')],
-                ['name' => 'White',        'slug' => 'white',        'hex' => '#f1f1f1', 'code' => '11-0601', 'image' => $img('yp-classics-5-panel-snapback-perforated', 'white.webp')],
-                ['name' => 'Heather Grey', 'slug' => 'heather-grey', 'hex' => '#9a9a9c', 'code' => '18-5105', 'image' => $img('yp-classics-5-panel-snapback-perforated', 'heather-grey.webp')],
+                ['name' => 'Black',     'slug' => 'black',     'hex' => '#1a1a1a', 'image' => $img('supreme-cotton', 'black.webp')],
+                ['name' => 'Caramel',   'slug' => 'caramel',   'hex' => '#a4682f', 'image' => $img('supreme-cotton', 'caramel.webp')],
+                ['name' => 'Dark Grey', 'slug' => 'dark-grey', 'hex' => '#58585a', 'image' => $img('supreme-cotton', 'dark-grey.webp')],
+                ['name' => 'Khaki',     'slug' => 'khaki',     'hex' => '#b6a582', 'image' => $img('supreme-cotton', 'khaki.webp')],
+                ['name' => 'Maroon',    'slug' => 'maroon',    'hex' => '#6b1f2a', 'image' => $img('supreme-cotton', 'maroon.webp')],
+                ['name' => 'Navy',      'slug' => 'navy',      'hex' => '#1c2a3f', 'image' => $img('supreme-cotton', 'navy.webp')],
+                ['name' => 'Olive',     'slug' => 'olive',     'hex' => '#6b6b3a', 'image' => $img('supreme-cotton', 'olive.webp')],
             ],
         ],
 
         /* ---------------------------------------------------------------- 6 */
         [
-            'slug'  => 'yp-classics-5-panel-snapback-braided-rope',
-            'name'  => 'YP Classics 5-Panel Snapback Cap with Perforation & Braided Rope',
-            'brand' => 'YP Classics',
-            'price' => 15,
-            'pricing' => $tiers(15),
-            'sku'   => 'YP-2026BK',
-            'description' => 'Crafted from lightweight perforated panels for breathability, with a braided rope trim on the bill, a matching snapback closure and a black underbill. The large flat front panel is ideal for embellishment.',
+            'slug'  => 'supreme-melton-wool',
+            'name'  => 'Supreme Melton Wool',
+            'brand' => 'CapBeast',
+            'price' => 10,
+            'pricing' => $tiers(10, 9.5, 9), // confirmed — pricing sheet "WOL PAINTER"
+            'sku'   => 'CB-SUPWOOL', // placeholder pending client SKU
+            'description' => 'The Supreme silhouette in premium melton wool — an unstructured, high-profile 5-panel snapback with real winter weight and texture.',
             'specs' => [
-                'Material' => '95% Polyester / 5% PU Spandex',
-                'Size'     => 'One Size (OSFA)',
+                'Material' => 'Melton Wool',
+                'Size'     => 'One Size (Adjustable)',
                 'Profile'  => 'High',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => '4" High',
+                'Bill'     => 'Flat',
+                'Crown'    => 'Unstructured',
                 'Panels'   => '5',
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'Navy',         'slug' => 'navy',         'hex' => '#1c2a3f', 'image' => $img('yp-classics-5-panel-snapback-braided-rope', 'navy.webp')],
-                ['name' => 'Black',        'slug' => 'black',        'hex' => '#1a1a1a', 'image' => $img('yp-classics-5-panel-snapback-braided-rope', 'black.webp')],
-                ['name' => 'White',        'slug' => 'white',        'hex' => '#f1f1f1', 'image' => $img('yp-classics-5-panel-snapback-braided-rope', 'white.webp')],
-                ['name' => 'Heather Grey', 'slug' => 'heather-grey', 'hex' => '#9a9a9c', 'image' => $img('yp-classics-5-panel-snapback-braided-rope', 'heather-grey.webp')],
+                ['name' => 'Black',     'slug' => 'black',     'hex' => '#1a1a1a', 'image' => $img('supreme-melton-wool', 'black.webp')],
+                ['name' => 'Dark Grey', 'slug' => 'dark-grey', 'hex' => '#58585a', 'image' => $img('supreme-melton-wool', 'dark-grey.webp')],
             ],
         ],
 
         /* ---------------------------------------------------------------- 7 */
         [
-            'slug'  => 'yp-classics-multicam-retro-trucker-cap',
-            'name'  => 'YP Classics MultiCam Retro Trucker Cap',
-            'brand' => 'YP Classics',
+            'slug'  => 'the-ace',
+            'name'  => 'The Ace',
+            'brand' => 'CapBeast',
             'price' => 9,
-            'pricing' => $tiers(9, 8.5, 7.5),
-            'sku'   => 'YP-6606MC',
-            'description' => 'The retro trucker in licensed MultiCam® camouflage. Structured front panels, poly-mesh back and a pre-curved visor — a tactical-leaning look for the outdoors crowd.',
+            'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
+            'sku'   => 'CB-ACE', // placeholder pending client SKU
+            'description' => 'A high-profile 7-panel snapback in perforated fabric for extra breathability, with a semi-curved brim for a sharp, athletic look.',
             'specs' => [
-                'Material' => '60% Cotton / 40% Polyester (Mesh Back)',
+                'Material' => 'Perforated Polyester',
                 'Size'     => 'One Size (Adjustable)',
-                'Profile'  => 'Mid',
-                'Bill'     => 'Pre-Curved',
-                'Crown'    => 'Structured',
-                'Panels'   => '6',
+                'Profile'  => 'High',
+                'Bill'     => 'Semi-Curved',
+                'Panels'   => '7',
                 'Closure'  => 'Snapback',
             ],
             'colors' => [
-                ['name' => 'MultiCam Tropic',     'slug' => 'multicam-tropic',     'hex' => '#5a6b3c', 'image' => $img('yp-classics-multicam-retro-trucker-cap', 'multicam-tropic.webp')],
-                ['name' => 'MultiCam',            'slug' => 'multicam',            'hex' => '#7d7048', 'image' => $img('yp-classics-multicam-retro-trucker-cap', 'multicam.webp')],
-                ['name' => 'MultiCam Black',      'slug' => 'multicam-black',      'hex' => '#2b2b2b', 'image' => $img('yp-classics-multicam-retro-trucker-cap', 'multicam-black.webp')],
-                ['name' => 'MultiCam Arid',       'slug' => 'multicam-arid',       'hex' => '#b1a17c', 'image' => $img('yp-classics-multicam-retro-trucker-cap', 'multicam-arid.webp')],
-                ['name' => 'MultiCam Arid / Black','slug' => 'multicam-arid-black','hex' => '#8a7550', 'image' => $img('yp-classics-multicam-retro-trucker-cap', 'multicam-arid-black.webp')],
-                ['name' => 'MultiCam Alpine',     'slug' => 'multicam-alpine',     'hex' => '#d8d8d4', 'image' => $img('yp-classics-multicam-retro-trucker-cap', 'multicam-alpine.webp')],
+                ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('the-ace', 'black.webp')],
+                ['name' => 'Caramel',  'slug' => 'caramel',  'hex' => '#a4682f', 'image' => $img('the-ace', 'caramel.webp')],
+                ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('the-ace', 'charcoal.webp')],
+                ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('the-ace', 'navy.webp')],
             ],
         ],
 
         /* ---------------------------------------------------------------- 8 */
         [
-            'slug'  => 'yp-classics-multicam-trucker-mesh-cap',
-            'name'  => 'YP Classics MultiCam Trucker Mesh Cap',
-            'brand' => 'YP Classics',
+            'slug'  => 'the-cape-garment-wash',
+            'name'  => 'The Cape Garment Wash',
+            'brand' => 'CapBeast',
             'price' => 9,
-            'pricing' => $tiers(9, 8.5, 7.5),
-            'sku'   => 'YP-6006MC',
-            'description' => 'A lighter, flat-bill build with a full poly-mesh back for maximum airflow, licensed MultiCam® front panels and a snapback closure.',
+            'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
+            'sku'   => 'CB-CAPE', // placeholder pending client SKU
+            'description' => 'A low-profile, unstructured 6-panel cap with a garment-washed finish for a broken-in look and feel, and an adjustable buckle closure.',
             'specs' => [
-                'Material' => '60% Cotton / 40% Polyester (Full Mesh Back)',
+                'Material' => 'Garment-Washed Cotton Twill',
                 'Size'     => 'One Size (Adjustable)',
-                'Profile'  => 'Mid',
-                'Bill'     => 'Flat',
-                'Crown'    => 'Structured',
+                'Profile'  => 'Low',
+                'Bill'     => 'Curved',
+                'Crown'    => 'Unstructured',
                 'Panels'   => '6',
-                'Closure'  => 'Snapback',
+                'Closure'  => 'Buckle',
             ],
             'colors' => [
-                ['name' => 'MultiCam',            'slug' => 'multicam',            'hex' => '#7d7048', 'image' => $img('yp-classics-multicam-trucker-mesh-cap', 'multicam.webp')],
-                ['name' => 'MultiCam Black',      'slug' => 'multicam-black',      'hex' => '#2b2b2b', 'image' => $img('yp-classics-multicam-trucker-mesh-cap', 'multicam-black.webp')],
-                ['name' => 'MultiCam Arid',       'slug' => 'multicam-arid',       'hex' => '#b1a17c', 'image' => $img('yp-classics-multicam-trucker-mesh-cap', 'multicam-arid.webp')],
-                ['name' => 'MultiCam Arid / Black','slug' => 'multicam-arid-black','hex' => '#8a7550', 'image' => $img('yp-classics-multicam-trucker-mesh-cap', 'multicam-arid-black.webp')],
-                ['name' => 'MultiCam Alpine',     'slug' => 'multicam-alpine',     'hex' => '#d8d8d4', 'image' => $img('yp-classics-multicam-trucker-mesh-cap', 'multicam-alpine.webp')],
-                ['name' => 'MultiCam Tropic',     'slug' => 'multicam-tropic',     'hex' => '#5a6b3c', 'image' => $img('yp-classics-multicam-trucker-mesh-cap', 'multicam-tropic.webp')],
+                ['name' => 'Black',                'slug' => 'black',                'hex' => '#1a1a1a', 'image' => $img('the-cape-garment-wash', 'black.webp')],
+                ['name' => 'British Racing Green',  'slug' => 'british-racing-green', 'hex' => '#234023', 'image' => $img('the-cape-garment-wash', 'british-racing-green.webp')],
+                ['name' => 'Crimson',               'slug' => 'crimson',              'hex' => '#a8192e', 'image' => $img('the-cape-garment-wash', 'crimson.webp')],
+                ['name' => 'Espresso',              'slug' => 'espresso',             'hex' => '#3b2a20', 'image' => $img('the-cape-garment-wash', 'espresso.webp')],
+                ['name' => 'Navy',                  'slug' => 'navy',                 'hex' => '#1c2a3f', 'image' => $img('the-cape-garment-wash', 'navy.webp')],
             ],
         ],
 
@@ -259,8 +265,8 @@ return [
             'name'  => '110 Mesh Snapback Cap',
             'brand' => 'CapBeast',
             'price' => 15,
-            'pricing' => $tiers(15),
-            'sku'   => 'TK-110M',
+            'pricing' => $tiers(15), // confirmed — pricing sheet "110M"
+            'sku'   => 'CB-110M', // placeholder pending client SKU
             'description' => 'A structured, mid-profile mesh-back trucker with an adjustable snapback and a pre-curved visor. Comfortable one-size fit with a clean front panel for embellishment.',
             'specs' => [
                 'Material' => '63% Polyester / 34% Cotton / 3% Elastane',
