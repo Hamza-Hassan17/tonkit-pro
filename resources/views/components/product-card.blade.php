@@ -5,8 +5,8 @@
 
 <div class="product-card group flex flex-col">
     <a href="{{ route('products.show', $product['slug']) }}" class="block pt-2 relative">
-        @if (! empty($product['brand']))
-            <span class="absolute top-0 left-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">{{ $product['brand'] }}</span>
+        @if (! empty($product['card_label'] ?? $product['brand'] ?? null))
+            <span class="absolute top-0 left-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">{{ $product['card_label'] ?? $product['brand'] }}</span>
         @endif
         <img src="{{ asset($image) }}" alt="{{ $product['name'] }}"
              class="w-full h-44 object-contain transition-transform group-hover:scale-105">

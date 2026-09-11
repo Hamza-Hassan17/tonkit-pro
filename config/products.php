@@ -65,6 +65,7 @@ return [
             'slug'  => 'a-town',
             'name'  => 'A-Town',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 7,
             'pricing' => $tiers(7, 6.75, 6.25), // confirmed — pricing sheet "A-TOWN"
             'sku'   => 'CB-ATOWN', // placeholder pending client SKU
@@ -94,6 +95,7 @@ return [
             'slug'  => 'deadstock-cord',
             'name'  => 'Deadstock Cord',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 9,
             'pricing' => $tiers(9, 8.75, 8), // confirmed — pricing sheet "CORDUROY"
             'sku'   => 'CB-CORD', // placeholder pending client SKU
@@ -121,6 +123,7 @@ return [
             'slug'  => 'flat-head',
             'name'  => 'Flat Head',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 9,
             'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
             'sku'   => 'CB-FLATHEAD', // placeholder pending client SKU
@@ -148,6 +151,7 @@ return [
             'slug'  => 'king-peak-a-frame',
             'name'  => 'King Peak A-Frame',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 9,
             'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
             'sku'   => 'CB-KINGPEAK', // placeholder pending client SKU
@@ -173,6 +177,7 @@ return [
             'slug'  => 'supreme-cotton',
             'name'  => 'Supreme Cotton',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 9,
             'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
             'sku'   => 'CB-SUPCOTTON', // placeholder pending client SKU
@@ -202,6 +207,7 @@ return [
             'slug'  => 'supreme-melton-wool',
             'name'  => 'Supreme Melton Wool',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 10,
             'pricing' => $tiers(10, 9.5, 9), // confirmed — pricing sheet "WOL PAINTER"
             'sku'   => 'CB-SUPWOOL', // placeholder pending client SKU
@@ -226,6 +232,7 @@ return [
             'slug'  => 'the-ace',
             'name'  => 'The Ace',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 9,
             'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
             'sku'   => 'CB-ACE', // placeholder pending client SKU
@@ -251,6 +258,7 @@ return [
             'slug'  => 'the-cape-garment-wash',
             'name'  => 'The Cape Garment Wash',
             'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
             'price' => 9,
             'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, using default trucker rate
             'sku'   => 'CB-CAPE', // placeholder pending client SKU
