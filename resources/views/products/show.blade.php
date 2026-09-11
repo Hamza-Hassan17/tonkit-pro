@@ -175,7 +175,7 @@
         <div class="mt-8 border-t border-gray-200 pt-6 text-sm text-gray-500 space-y-2">
             <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Custom embroidery &amp; DTF printing in-house</p>
             <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Volume discounts at 73+ and 145+ caps</p>
-            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Free shipping on orders of 145+ caps</p>
+            <p class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Free shipping on orders over $500</p>
         </div>
     </div>
 

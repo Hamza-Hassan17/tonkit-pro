@@ -103,6 +103,10 @@ class Pricing
             ? (float) (config('pricing.shipping')[self::tierIndex($totalQty)] ?? 0)
             : 0.0;
 
+        if ($itemsSubtotal >= config('pricing.free_shipping_threshold', 500)) {
+            $shipping = 0.0;
+        }
+
         return [
             'lines'          => $lines,
             'items_subtotal' => round($itemsSubtotal, 2),

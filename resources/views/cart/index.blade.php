@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="border border-gray-200 rounded-lg p-5 space-y-3 text-xs text-gray-500">
-                        @foreach (['Secure card payment via Stripe', 'In-house embroidery & DTF print', 'Free shipping on 145+ caps'] as $t)
+                        @foreach (['Secure card payment via Stripe', 'In-house embroidery & DTF print', 'Free shipping on orders over $500'] as $t)
                             <div class="flex items-center gap-2">
                                 <svg class="h-4 w-4 text-brand-orange shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75"/></svg>
                                 {{ $t }}

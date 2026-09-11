@@ -50,6 +50,11 @@ return [
         ],
     ],
 
-    // Shipping fee by quantity tier (total units across the order).
-    'shipping' => [30, 40, 0],
+    // Shipping fee by quantity tier (total units across the order). Free
+    // shipping is no longer tied to the 145+ tier -- see free_shipping_threshold.
+    'shipping' => [30, 40, 40],
+
+    // Order subtotal (items only, CAD) at or above which shipping is free,
+    // regardless of quantity tier.
+    'free_shipping_threshold' => 500,
 ];
