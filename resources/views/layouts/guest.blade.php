@@ -15,7 +15,7 @@
             <div class="hidden lg:flex flex-col justify-between bg-brand-dark text-white p-12 relative overflow-hidden">
                 <div class="absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-brand-orange/90"></div>
                 <a href="{{ route('home') }}" class="relative z-10">
-                    <img src="{{ asset('images/capbeast-logo-light.png') }}" alt="CapBeast" class="h-20 w-auto">
+                    <img src="{{ asset('images/logo/capbeast-logo-light.png') }}" alt="CapBeast" class="h-20 w-auto">
                 </a>
                 <div class="relative z-10">
                     <h2 class="text-3xl font-extrabold leading-tight">Quality caps,<br>built for teams.</h2>
@@ -27,7 +27,7 @@
             {{-- Form panel --}}
             <div class="flex flex-col justify-center items-center px-6 py-12 bg-gray-50">
                 <a href="{{ route('home') }}" class="lg:hidden mb-8">
-                    <img src="{{ asset('images/capbeast-logo.png') }}" alt="CapBeast" class="h-14 w-auto">
+                    <img src="{{ asset('images/logo/capbeast-logo.png') }}" alt="CapBeast" class="h-14 w-auto">
                 </a>
                 <div class="w-full sm:max-w-md bg-white shadow-sm border border-gray-100 rounded-lg px-8 py-8">
                     {{ $slot }}

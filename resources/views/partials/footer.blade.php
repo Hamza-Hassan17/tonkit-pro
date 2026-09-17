@@ -44,7 +44,7 @@
 <footer class="bg-brand-dark text-gray-400">
     <div class="container-site grid grid-cols-1 md:grid-cols-4 gap-10 py-14">
         <div>
-            <img src="{{ asset('images/capbeast-logo-light.png') }}" alt="CapBeast" class="h-16 w-auto mb-4">
+            <img src="{{ asset('images/logo/capbeast-logo-light.png') }}" alt="CapBeast" class="h-16 w-auto mb-4">
             <p class="text-[10px] tracking-[0.2em] uppercase text-brand-orange mb-4">Custom Caps &amp; Headwear</p>
             <p class="text-sm leading-relaxed">Your trusted source in Montreal for quality caps — with custom embroidery and printing for teams and businesses.</p>
             <div class="flex gap-3 mt-5">

@@ -24,7 +24,7 @@
 <header x-data="{ mobile: false }" class="bg-white sticky top-0 z-40 shadow-sm">
     <div class="container-site flex items-center gap-6 py-4">
         <a href="{{ route('home') }}" class="shrink-0">
-            <img src="{{ asset('images/capbeast-logo.png') }}" alt="CapBeast" class="h-12 sm:h-14 w-auto">
+            <img src="{{ asset('images/logo/capbeast-logo.png') }}" alt="CapBeast" class="h-12 sm:h-14 w-auto">
         </a>
 
         {{-- Search --}}

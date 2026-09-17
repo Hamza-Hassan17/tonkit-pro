@@ -25,6 +25,8 @@ yarn-error.log
 /Cap Product images.rar
 *.rar
 
-# Raw source assets (large, kept locally only)
-/public/images/ESIDE AUTHENTICS HEADWEAR IMAGES/
-/public/images/ESIDE AUTHENTICS HEADWEAR IMAGES-*.zip
+# Raw source assets (large, kept locally only) -- moved out of public/images/
+# so the deployed site doesn't serve unprocessed client photo drops; public/
+# now holds only the logo and the processed product images actually in use.
+/resources/source-images/ESIDE AUTHENTICS HEADWEAR IMAGES/
+/resources/source-images/ESIDE AUTHENTICS HEADWEAR IMAGES-*.zip
