@@ -35,5 +35,7 @@
 
     @include('partials.footer')
 
+    @include('partials.live-chat')
+
 </body>
 </html>

@@ -41,4 +41,10 @@ return [
         'currency' => env('STRIPE_CURRENCY', 'cad'),
     ],
 
+    // Live chat widget — see resources/views/partials/live-chat.blade.php
+    'tawkto' => [
+        'property_id' => env('TAWKTO_PROPERTY_ID'),
+        'widget_id'   => env('TAWKTO_WIDGET_ID'),
+    ],
+
 ];
