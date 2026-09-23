@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------
 | Static product catalog
 |--------------------------------------------------------------------------
-| There are 18 products and no admin panel, so this file IS the product
+| There are 21 products and no admin panel, so this file IS the product
 | database. Cart/orders still use the real DB (see migrations) because
 | checkout is stateful.
 |
@@ -21,15 +21,19 @@
 | parsed straight from ESIDE's own filenames (profile/bill/panels/closure/
 | material), which he said was fine to use as the description source.
 |
-| CATALOG SOURCE (2026-09-17): the 2-tone/3-tone/rope subfolder variants
-| initially excluded from the above were added in after all: 13 more
-| colours on a-town (2-tone + 3-tone), 3 more on king-peak-a-frame
-| (2-tone). The A-TOWN ROPE subfolder became its own product,
-| a-town-rope, rather than more a-town colours — its filenames describe
-| a "high-profile A-frame" build, a different silhouette from a-town's
-| "mid-profile 6-panel mesh", matching the King Peak A-Frame family
-| instead. Pricing for a-town-rope is matched to base A-TOWN pending
-| client confirmation (not on the sheet under its own name).
+| CATALOG SOURCE (2026-09-17, revised 2026-09-23): the 2-tone/3-tone/rope
+| subfolder variants initially excluded were added in after all. First
+| pass (2026-09-17) folded them in as extra colours on the base a-town /
+| king-peak-a-frame products; client's 2026-09-22 voice note corrected
+| this — each subfolder is its own model/title, not a colour of the
+| base product ("they all should be like on the different categories of
+| their own models by title... it should not be grouped"). Split into
+| separate products: a-town-2-tone, a-town-3-tone, a-town-rope (already
+| separate — its "high-profile A-frame" build differs structurally from
+| a-town's "mid-profile 6-panel mesh", so King Peak A-Frame family
+| naming fits better than a-town naming), king-peak-2-tone-a-frame.
+| None of these variant products have their own confirmed pricing —
+| matched to their base model's rate pending client confirmation.
 |
 | CATALOG SOURCE (2026-09-11, restored): 9 more products — the original
 | YP Classics / Flexfit 110 blanks that were pulled earlier over a visible
@@ -95,25 +99,67 @@ return [
                 ['name' => 'Dark Heather',          'slug' => 'dark-heather',         'hex' => '#4a4a4a', 'image' => $img('a-town', 'dark-heather.png')],
                 ['name' => 'Heather Grey',          'slug' => 'heather-grey',         'hex' => '#9a9a9c', 'image' => $img('a-town', 'heather-grey.png')],
                 ['name' => 'Sage',                  'slug' => 'sage',                 'hex' => '#9caf88', 'image' => $img('a-town', 'sage.png')],
-                // 2-tone
-                ['name' => 'Black / Grey',          'slug' => 'black-grey',          'hex' => '#1a1a1a', 'image' => $img('a-town', 'black-grey.png')],
-                ['name' => 'Caramel / Black',       'slug' => 'caramel-black',       'hex' => '#a4682f', 'image' => $img('a-town', 'caramel-black.png')],
-                ['name' => 'Coyote / Black',        'slug' => 'coyote-black',        'hex' => '#7c5a3a', 'image' => $img('a-town', 'coyote-black.png')],
-                ['name' => 'Heather Grey / Black',  'slug' => 'heather-grey-black',  'hex' => '#9a9a9c', 'image' => $img('a-town', 'heather-grey-black.png')],
-                ['name' => 'Maroon / Black',        'slug' => 'maroon-black',        'hex' => '#6b1f2a', 'image' => $img('a-town', 'maroon-black.png')],
-                ['name' => 'Moss / Khaki',          'slug' => 'moss-khaki',          'hex' => '#6b6b3a', 'image' => $img('a-town', 'moss-khaki.png')],
-                ['name' => 'Navy / Caramel',        'slug' => 'navy-caramel',        'hex' => '#1c2a3f', 'image' => $img('a-town', 'navy-caramel.png')],
-                ['name' => 'Pink / White',          'slug' => 'pink-white',          'hex' => '#e8a0b4', 'image' => $img('a-town', 'pink-white.png')],
-                ['name' => 'Red / Black',           'slug' => 'red-black',           'hex' => '#b5202c', 'image' => $img('a-town', 'red-black.png')],
-                ['name' => 'Sage / Black',          'slug' => 'sage-black',          'hex' => '#9caf88', 'image' => $img('a-town', 'sage-black.png')],
-                ['name' => 'Silver / Black',        'slug' => 'silver-black',        'hex' => '#c0c0c2', 'image' => $img('a-town', 'silver-black.png')],
-                // 3-tone
-                ['name' => 'Cream / Sage / Black',  'slug' => 'cream-sage-black',    'hex' => '#f0e6d2', 'image' => $img('a-town', 'cream-sage-black.png')],
-                ['name' => 'White / Red / Black',   'slug' => 'white-red-black',     'hex' => '#f2f0ea', 'image' => $img('a-town', 'white-red-black.png')],
             ],
         ],
 
         /* -------------------------------------------------------------- 1b */
+        [
+            'slug'  => 'a-town-2-tone',
+            'name'  => 'A-Town 2-Tone',
+            'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
+            'price' => 7,
+            'pricing' => $tiers(7, 6.75, 6.25), // @TODO price — not on the sheet, matched to base A-TOWN rate pending client confirmation
+            'sku'   => 'CB-ATOWN2T', // placeholder pending client SKU
+            'description' => 'The A-Town silhouette in contrast two-tone colourways — mid-profile 6-panel mesh-back snapback with a curved brim.',
+            'specs' => [
+                'Material' => 'Cotton Twill Front / Poly Mesh Back',
+                'Size'     => 'One Size (Adjustable)',
+                'Profile'  => 'Mid',
+                'Bill'     => 'Curved',
+                'Panels'   => '6',
+                'Closure'  => 'Snapback',
+            ],
+            'colors' => [
+                ['name' => 'Black / Grey',          'slug' => 'black-grey',          'hex' => '#1a1a1a', 'image' => $img('a-town-2-tone', 'black-grey.png')],
+                ['name' => 'Caramel / Black',       'slug' => 'caramel-black',       'hex' => '#a4682f', 'image' => $img('a-town-2-tone', 'caramel-black.png')],
+                ['name' => 'Coyote / Black',        'slug' => 'coyote-black',        'hex' => '#7c5a3a', 'image' => $img('a-town-2-tone', 'coyote-black.png')],
+                ['name' => 'Heather Grey / Black',  'slug' => 'heather-grey-black',  'hex' => '#9a9a9c', 'image' => $img('a-town-2-tone', 'heather-grey-black.png')],
+                ['name' => 'Maroon / Black',        'slug' => 'maroon-black',        'hex' => '#6b1f2a', 'image' => $img('a-town-2-tone', 'maroon-black.png')],
+                ['name' => 'Moss / Khaki',          'slug' => 'moss-khaki',          'hex' => '#6b6b3a', 'image' => $img('a-town-2-tone', 'moss-khaki.png')],
+                ['name' => 'Navy / Caramel',        'slug' => 'navy-caramel',        'hex' => '#1c2a3f', 'image' => $img('a-town-2-tone', 'navy-caramel.png')],
+                ['name' => 'Pink / White',          'slug' => 'pink-white',          'hex' => '#e8a0b4', 'image' => $img('a-town-2-tone', 'pink-white.png')],
+                ['name' => 'Red / Black',           'slug' => 'red-black',           'hex' => '#b5202c', 'image' => $img('a-town-2-tone', 'red-black.png')],
+                ['name' => 'Sage / Black',          'slug' => 'sage-black',          'hex' => '#9caf88', 'image' => $img('a-town-2-tone', 'sage-black.png')],
+                ['name' => 'Silver / Black',        'slug' => 'silver-black',        'hex' => '#c0c0c2', 'image' => $img('a-town-2-tone', 'silver-black.png')],
+            ],
+        ],
+
+        /* -------------------------------------------------------------- 1c */
+        [
+            'slug'  => 'a-town-3-tone',
+            'name'  => 'A-Town 3-Tone',
+            'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
+            'price' => 7,
+            'pricing' => $tiers(7, 6.75, 6.25), // @TODO price — not on the sheet, matched to base A-TOWN rate pending client confirmation
+            'sku'   => 'CB-ATOWN3T', // placeholder pending client SKU
+            'description' => 'The A-Town silhouette in contrast three-tone colourways — mid-profile 6-panel mesh-back snapback with a curved brim.',
+            'specs' => [
+                'Material' => 'Cotton Twill Front / Poly Mesh Back',
+                'Size'     => 'One Size (Adjustable)',
+                'Profile'  => 'Mid',
+                'Bill'     => 'Curved',
+                'Panels'   => '6',
+                'Closure'  => 'Snapback',
+            ],
+            'colors' => [
+                ['name' => 'Cream / Sage / Black',  'slug' => 'cream-sage-black',    'hex' => '#f0e6d2', 'image' => $img('a-town-3-tone', 'cream-sage-black.png')],
+                ['name' => 'White / Red / Black',   'slug' => 'white-red-black',     'hex' => '#f2f0ea', 'image' => $img('a-town-3-tone', 'white-red-black.png')],
+            ],
+        ],
+
+        /* -------------------------------------------------------------- 1d */
         [
             'slug'  => 'a-town-rope',
             'name'  => 'A-Town Rope',
@@ -219,10 +265,31 @@ return [
                 ['name' => 'Black',    'slug' => 'black',    'hex' => '#1a1a1a', 'image' => $img('king-peak-a-frame', 'black.png')],
                 ['name' => 'Charcoal', 'slug' => 'charcoal', 'hex' => '#48484a', 'image' => $img('king-peak-a-frame', 'charcoal.png')],
                 ['name' => 'Navy',     'slug' => 'navy',     'hex' => '#1c2a3f', 'image' => $img('king-peak-a-frame', 'navy.png')],
-                // 2-tone
-                ['name' => 'Cream / Black',  'slug' => 'cream-black',  'hex' => '#f0e6d2', 'image' => $img('king-peak-a-frame', 'cream-black.png')],
-                ['name' => 'Cream / Navy',   'slug' => 'cream-navy',   'hex' => '#f0e6d2', 'image' => $img('king-peak-a-frame', 'cream-navy.png')],
-                ['name' => 'Cream / Spruce', 'slug' => 'cream-spruce', 'hex' => '#f0e6d2', 'image' => $img('king-peak-a-frame', 'cream-spruce.png')],
+            ],
+        ],
+
+        /* --------------------------------------------------------------- 4b */
+        [
+            'slug'  => 'king-peak-2-tone-a-frame',
+            'name'  => 'King Peak 2-Tone A-Frame',
+            'brand' => 'CapBeast',
+            'card_label' => 'E.SIDE',
+            'price' => 9,
+            'pricing' => $tiers(9, 8.5, 7.5), // @TODO price — not on the sheet, matched to base King Peak rate pending client confirmation
+            'sku'   => 'CB-KINGPEAK2T', // placeholder pending client SKU
+            'description' => 'The King Peak A-Frame silhouette in contrast cream two-tone colourways — high-profile, curved brim, tall peaked crown.',
+            'specs' => [
+                'Material' => 'Cotton Twill',
+                'Size'     => 'One Size (Adjustable)',
+                'Profile'  => 'High',
+                'Bill'     => 'Curved',
+                'Crown'    => 'A-Frame',
+                'Closure'  => 'Snapback',
+            ],
+            'colors' => [
+                ['name' => 'Cream / Black',  'slug' => 'cream-black',  'hex' => '#f0e6d2', 'image' => $img('king-peak-2-tone-a-frame', 'cream-black.png')],
+                ['name' => 'Cream / Navy',   'slug' => 'cream-navy',   'hex' => '#f0e6d2', 'image' => $img('king-peak-2-tone-a-frame', 'cream-navy.png')],
+                ['name' => 'Cream / Spruce', 'slug' => 'cream-spruce', 'hex' => '#f0e6d2', 'image' => $img('king-peak-2-tone-a-frame', 'cream-spruce.png')],
             ],
         ],
 
