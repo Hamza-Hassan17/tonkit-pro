@@ -143,9 +143,13 @@
                         <button type="button" @click="decorationLocation = '{{ $key }}'"
                                 :class="decorationLocation === '{{ $key }}' ? 'border-brand-orange ring-2 ring-brand-orange/30' : 'border-gray-200 hover:border-gray-400'"
                                 class="border rounded-md bg-brand-gray p-2 transition-colors">
+                            @php($mirrored = $loc['mirror'] ?? false)
                             <span class="relative block aspect-square">
-                                <x-cap-diagram view="{{ $loc['view'] }}" :mirror="$loc['mirror'] ?? false" />
-                                <x-cb-marker :x="$loc['x']" :y="$loc['y']" />
+                                <x-cap-diagram view="{{ $loc['view'] }}" :mirror="$mirrored" />
+                                {{-- Marker is a sibling of the SVG, not inside it, so a mirrored
+                                     diagram's CSS flip doesn't carry the marker with it -- flip
+                                     its x position to match by hand. --}}
+                                <x-cb-marker :x="$mirrored ? 100 - $loc['x'] : $loc['x']" :y="$loc['y']" />
                             </span>
                             <span class="block mt-1 text-center text-[9px] font-semibold leading-tight"
                                   :class="decorationLocation === '{{ $key }}' ? 'text-brand-dark' : 'text-gray-500'">
