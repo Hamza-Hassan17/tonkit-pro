@@ -18,6 +18,14 @@
 | the opposite side. `x`/`y` are the marker's position as a percentage
 | of the diagram's viewBox, tuned to sit on the panel/side described.
 |
+| Values below (2026-09-23) are Rohan's own DevTools-measured positions
+| against the actual rendered picker, not recomputed geometry -- trust
+| these over redrawing the math by hand. One wrinkle: `right-side`
+| renders mirrored (see resources/views/products/show.blade.php, which
+| flips the marker's x as `100 - x` to match the CSS-mirrored SVG), so
+| its `x` here is `100 - <the rendered position Rohan measured>`, not
+| the rendered position itself.
+|
 | These are flat illustrated diagrams, not real product photography --
 | his own original reference (a generic grey cap graphic) used the same
 | approach. Swapping in real S&S Activewear photos later is a follow-up
@@ -30,40 +38,40 @@ return [
     'center' => [
         'label' => 'Center (Front)',
         'view'  => 'front',
-        'x'     => 50,
-        'y'     => 38,
+        'x'     => 51,
+        'y'     => 33,
     ],
     'left-panel' => [
         'label' => 'Left Panel',
         'view'  => 'front',
-        'x'     => 33,
-        'y'     => 42,
+        'x'     => 31,
+        'y'     => 35,
     ],
     'right-panel' => [
         'label' => 'Right Panel',
         'view'  => 'front',
         'x'     => 67,
-        'y'     => 42,
+        'y'     => 35,
     ],
     'back' => [
         'label' => 'Back',
         'view'  => 'back',
-        'x'     => 50,
-        'y'     => 33,
+        'x'     => 42,
+        'y'     => 22,
     ],
     'left-side' => [
         'label'  => 'Left Side',
         'view'   => 'side',
         'mirror' => false,
-        'x'      => 65,
-        'y'      => 38,
+        'x'      => 61,
+        'y'      => 30,
     ],
     'right-side' => [
         'label'  => 'Right Side',
         'view'   => 'side',
         'mirror' => true,
-        'x'      => 65,
-        'y'      => 38,
+        'x'      => 78, // renders at 100-78=22, matching left-side's mirror
+        'y'      => 30,
     ],
 
 ];
