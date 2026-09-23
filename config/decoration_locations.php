@@ -38,26 +38,26 @@ return [
     'center' => [
         'label' => 'Center (Front)',
         'view'  => 'front',
-        'x'     => 51,
+        'x'     => 52.5,
         'y'     => 33,
     ],
     'left-panel' => [
         'label' => 'Left Panel',
         'view'  => 'front',
-        'x'     => 31,
-        'y'     => 35,
+        'x'     => 32.5,
+        'y'     => 34,
     ],
     'right-panel' => [
         'label' => 'Right Panel',
         'view'  => 'front',
-        'x'     => 67,
-        'y'     => 35,
+        'x'     => 70,
+        'y'     => 38,
     ],
     'back' => [
         'label' => 'Back',
         'view'  => 'back',
-        'x'     => 42,
-        'y'     => 22,
+        'x'     => 43,
+        'y'     => 23.5,
     ],
     'left-side' => [
         'label'  => 'Left Side',
