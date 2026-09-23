@@ -46,7 +46,12 @@
                                         </div>
                                     @endif
                                     @if ($item['decoration'] !== 'none')
-                                        <div class="text-xs text-gray-500 mt-0.5">{{ $item['decoration_label'] }}</div>
+                                        <div class="text-xs text-gray-500 mt-0.5">
+                                            {{ $item['decoration_label'] }}
+                                            @if ($item['decoration_location_label'])
+                                                — {{ $item['decoration_location_label'] }}
+                                            @endif
+                                        </div>
                                     @endif
                                     @if ($item['decoration'] === 'print')
                                         <div class="text-[11px] font-semibold text-red-600 mt-0.5">{{ config('pricing.decoration.print.warning') }}</div>
@@ -60,6 +65,7 @@
                                 @csrf @method('PATCH')
                                 <input type="hidden" name="color" value="{{ $item['color'] }}">
                                 <input type="hidden" name="decoration" value="{{ $item['decoration'] }}">
+                                <input type="hidden" name="decoration_location" value="{{ $item['decoration_location'] }}">
                                 <input type="number" name="qty" value="{{ $item['qty'] }}" min="{{ config('pricing.moq') }}"
                                        class="w-16 rounded border-gray-300 text-sm text-center focus:border-brand-orange focus:ring-brand-orange">
                                 <button type="submit" class="text-xs text-gray-400 hover:text-brand-orange underline">Update</button>
@@ -69,6 +75,7 @@
                                 @csrf @method('DELETE')
                                 <input type="hidden" name="color" value="{{ $item['color'] }}">
                                 <input type="hidden" name="decoration" value="{{ $item['decoration'] }}">
+                                <input type="hidden" name="decoration_location" value="{{ $item['decoration_location'] }}">
                                 <button type="submit" aria-label="Remove" class="text-gray-300 hover:text-red-500">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                                 </button>

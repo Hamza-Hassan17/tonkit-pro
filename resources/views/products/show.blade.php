@@ -28,6 +28,9 @@
         p: {{ Illuminate\Support\Js::from($pricingData) }},
         qty: {{ $pricingData['moq'] }},
         decoration: 'none',
+        decorationLocation: '',
+        get needsLocation() { return this.decoration !== 'none'; },
+        get canAddToCart() { return !this.needsLocation || this.decorationLocation !== ''; },
         get current() { return this.colors[this.active]; },
         select(i) { this.active = (i + this.colors.length) % this.colors.length; },
         get tierIdx() {
@@ -105,6 +108,7 @@
             @csrf
             <input type="hidden" name="color" :value="current.slug">
             <input type="hidden" name="decoration" :value="decoration">
+            <input type="hidden" name="decoration_location" :value="decorationLocation">
 
             <div class="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -115,7 +119,7 @@
                 </div>
                 <div>
                     <label for="decoration" class="block text-sm font-semibold uppercase tracking-wide mb-1">Decoration</label>
-                    <select id="decoration" x-model="decoration"
+                    <select id="decoration" x-model="decoration" @change="decorationLocation = ''"
                             class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange">
                         @foreach ($pricingData['decorations'] as $key => $d)
                             <option value="{{ $key }}">{{ $d['label'] }}</option>
@@ -126,6 +130,33 @@
 
             <p x-show="p.decorations[decoration].warning" x-cloak x-text="p.decorations[decoration].warning"
                class="text-xs font-semibold text-red-600 -mt-2"></p>
+
+            {{-- Decoration location picker --}}
+            <div x-show="needsLocation" x-cloak class="-mt-1">
+                <label class="block text-sm font-semibold uppercase tracking-wide mb-1">
+                    Decoration location <span class="text-red-500">*</span>
+                </label>
+                <p class="text-[11px] text-gray-400 mb-3">Pick where on the cap your <span x-text="p.decorations[decoration].label.toLowerCase()"></span> goes.</p>
+
+                <div class="grid grid-cols-3 gap-2.5">
+                    @foreach (config('decoration_locations') as $key => $loc)
+                        <button type="button" @click="decorationLocation = '{{ $key }}'"
+                                :class="decorationLocation === '{{ $key }}' ? 'border-brand-orange ring-2 ring-brand-orange/30' : 'border-gray-200 hover:border-gray-400'"
+                                class="border rounded-md bg-brand-gray p-2 transition-colors">
+                            <span class="relative block aspect-square">
+                                <x-cap-diagram view="{{ $loc['view'] }}" :mirror="$loc['mirror'] ?? false" />
+                                <x-cb-marker :x="$loc['x']" :y="$loc['y']" />
+                            </span>
+                            <span class="block mt-1 text-center text-[9px] font-semibold leading-tight"
+                                  :class="decorationLocation === '{{ $key }}' ? 'text-brand-dark' : 'text-gray-500'">
+                                {{ $loc['label'] }}
+                            </span>
+                        </button>
+                    @endforeach
+                </div>
+                <p x-show="needsLocation && decorationLocation === ''" x-cloak
+                   class="text-[11px] text-red-500 mt-3">Select a location to continue.</p>
+            </div>
 
             {{-- Tier table --}}
             <div class="text-xs">
@@ -151,7 +182,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-orange w-full">Add to Cart</button>
+            <button type="submit" class="btn-orange w-full" :disabled="!canAddToCart" :class="!canAddToCart && 'opacity-50 cursor-not-allowed'">Add to Cart</button>
             <p class="text-[11px] text-gray-400 text-center">Shipping is calculated at checkout, on your full order. Prices in CAD.</p>
         </form>
 

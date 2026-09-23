@@ -29,15 +29,29 @@ class CartController extends Controller
         $color = ProductController::color($product, $request->input('color'));
         $dec   = array_key_exists($request->input('decoration'), config('pricing.decoration'))
                     ? $request->input('decoration') : 'none';
+
+        $loc = $request->input('decoration_location');
+        if ($dec !== 'none') {
+            // A location is required for any decorated line -- "so we know
+            // when we receive the order" (client). Reject rather than
+            // silently drop it; the front-end already disables the button
+            // for this, this is the server-side backstop.
+            abort_unless(array_key_exists($loc, config('decoration_locations')), Response::HTTP_UNPROCESSABLE_ENTITY,
+                'Please choose a decoration location.');
+        } else {
+            $loc = null;
+        }
+
         $qty   = max(Pricing::moq(), (int) $request->input('qty', Pricing::moq()));
-        $key   = $this->key($slug, $color['slug'], $dec);
+        $key   = $this->key($slug, $color['slug'], $dec, $loc);
 
         $cart = Session::get(self::SESSION_KEY, []);
         $cart[$key] = [
-            'slug'       => $slug,
-            'color'      => $color['slug'],
-            'decoration' => $dec,
-            'qty'        => ($cart[$key]['qty'] ?? 0) + $qty,
+            'slug'               => $slug,
+            'color'              => $color['slug'],
+            'decoration'         => $dec,
+            'decoration_location'=> $loc,
+            'qty'                => ($cart[$key]['qty'] ?? 0) + $qty,
         ];
         Session::put(self::SESSION_KEY, $cart);
 
@@ -47,7 +61,7 @@ class CartController extends Controller
 
     public function update(Request $request, string $slug)
     {
-        $key = $this->key($slug, $request->input('color'), $request->input('decoration'));
+        $key = $this->key($slug, $request->input('color'), $request->input('decoration'), $request->input('decoration_location'));
         $qty = max(Pricing::moq(), (int) $request->input('qty', Pricing::moq()));
 
         $cart = Session::get(self::SESSION_KEY, []);
@@ -61,7 +75,7 @@ class CartController extends Controller
 
     public function remove(Request $request, string $slug)
     {
-        $key = $this->key($slug, $request->input('color'), $request->input('decoration'));
+        $key = $this->key($slug, $request->input('color'), $request->input('decoration'), $request->input('decoration_location'));
 
         $cart = Session::get(self::SESSION_KEY, []);
         unset($cart[$key]);
@@ -87,24 +101,27 @@ class CartController extends Controller
 
             $color = ProductController::color($product, $line['color'] ?? null);
             $dec   = $line['decoration'] ?? 'none';
+            $loc   = $dec !== 'none' ? ($line['decoration_location'] ?? null) : null;
 
             $items[] = array_merge($product, [
-                'qty'              => (int) $line['qty'],
-                'color'            => $color['slug'],
-                'color_name'       => $color['name'],
-                'color_hex'        => $color['hex'] ?? null,
-                'image'            => $color['image'] ?? $product['image'],
-                'decoration'       => $dec,
-                'decoration_label' => Pricing::decoration($dec)['label'],
-                'cart_key'         => $this->key($line['slug'], $color['slug'], $dec),
+                'qty'                     => (int) $line['qty'],
+                'color'                   => $color['slug'],
+                'color_name'              => $color['name'],
+                'color_hex'               => $color['hex'] ?? null,
+                'image'                   => $color['image'] ?? $product['image'],
+                'decoration'              => $dec,
+                'decoration_label'        => Pricing::decoration($dec)['label'],
+                'decoration_location'     => $loc,
+                'decoration_location_label' => $loc ? (config("decoration_locations.$loc.label") ?? $loc) : null,
+                'cart_key'                => $this->key($line['slug'], $color['slug'], $dec, $loc),
             ]);
         }
 
         return $items;
     }
 
-    private function key(string $slug, ?string $colorSlug, ?string $decoration): string
+    private function key(string $slug, ?string $colorSlug, ?string $decoration, ?string $location = null): string
     {
-        return $slug.'::'.($colorSlug ?: 'default').'::'.($decoration ?: 'none');
+        return $slug.'::'.($colorSlug ?: 'default').'::'.($decoration ?: 'none').'::'.($location ?: '-');
     }
 }

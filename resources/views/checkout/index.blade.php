@@ -127,6 +127,9 @@
                                     <div class="text-xs text-gray-400">
                                         {{ $item['color_name'] ? $item['color_name'].' · ' : '' }}{{ $item['decoration'] !== 'none' ? $item['decoration_label'].' · ' : '' }}<x-price :amount="$item['unit_price']" />/ea
                                     </div>
+                                    @if ($item['decoration_location_label'])
+                                        <div class="text-xs text-gray-400">Location: {{ $item['decoration_location_label'] }}</div>
+                                    @endif
                                 </div>
                                 <div class="text-sm font-semibold"><x-price :amount="$item['line_subtotal']" /></div>
                             </div>

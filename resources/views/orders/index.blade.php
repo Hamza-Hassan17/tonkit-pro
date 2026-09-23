@@ -30,6 +30,7 @@
                                     {{ $item->product_name }}
                                     @if ($item->color_name)<span class="text-gray-400">({{ $item->color_name }})</span>@endif
                                     @if ($item->decoration_label)<span class="text-gray-400">+ {{ $item->decoration_label }}</span>@endif
+                                    @if ($item->decoration_location_label)<span class="text-gray-400">({{ $item->decoration_location_label }})</span>@endif
                                     <span class="text-gray-400">× {{ $item->qty }}</span>
                                 </span>
                                 <span><x-price :amount="$item->price * $item->qty" /></span>

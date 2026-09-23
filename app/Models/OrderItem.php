@@ -18,6 +18,8 @@ class OrderItem extends Model
         'color_name',
         'decoration',
         'decoration_label',
+        'decoration_location',
+        'decoration_location_label',
         'unit_price',
         'price',
         'qty',
