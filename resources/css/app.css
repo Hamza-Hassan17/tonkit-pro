@@ -59,9 +59,6 @@
     .product-card {
         @apply relative bg-white border border-gray-200 rounded-md p-4 flex flex-col transition-shadow hover:shadow-xl;
     }
-    .badge-new {
-        @apply absolute top-3 right-3 bg-brand-orange text-brand-dark text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full;
-    }
     .badge-brand {
         @apply absolute top-3 left-3 h-8 w-8 rounded-full bg-brand-dark text-white text-sm font-extrabold flex items-center justify-center ring-2 ring-white;
     }

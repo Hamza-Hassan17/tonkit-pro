@@ -10,6 +10,7 @@ class ProductController extends Controller
     public function index(\Illuminate\Http\Request $request)
     {
         $query = trim((string) $request->input('q', ''));
+        $tag   = trim((string) $request->input('tag', ''));
 
         $products = self::all();
 
@@ -21,7 +22,13 @@ class ProductController extends Controller
             ))->values();
         }
 
-        return view('products.index', compact('products', 'query'));
+        if ($tag !== '' && array_key_exists($tag, config('product_tags'))) {
+            $products = $products->filter(fn ($p) => in_array($tag, $p['tags'], true))->values();
+        } else {
+            $tag = '';
+        }
+
+        return view('products.index', compact('products', 'query', 'tag'));
     }
 
     public function show(string $slug)
@@ -46,6 +53,7 @@ class ProductController extends Controller
     {
         return collect(config('products.list'))->map(function ($p) {
             $p['image'] = $p['colors'][0]['image'] ?? null;
+            $p['tags']  = $p['tags'] ?? [];
             return $p;
         });
     }

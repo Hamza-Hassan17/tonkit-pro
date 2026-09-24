@@ -8,6 +8,7 @@
         @if (! empty($product['card_label'] ?? $product['brand'] ?? null))
             <span class="absolute top-0 left-0 text-[10px] font-bold uppercase tracking-wider text-gray-400">{{ $product['card_label'] ?? $product['brand'] }}</span>
         @endif
+        <x-tag-badges :tags="$product['tags'] ?? []" position="top-3 right-0" />
         <img src="{{ asset($image) }}" alt="{{ $product['name'] }}"
              class="w-full h-44 object-contain transition-transform group-hover:scale-105">
     </a>

@@ -54,7 +54,7 @@
     <div>
         <button type="button" @click="lightbox = true"
                 class="relative block w-full bg-brand-gray border border-gray-200 rounded-lg p-8 group cursor-zoom-in">
-            <span class="badge-new">New</span>
+            <x-tag-badges :tags="$product['tags'] ?? []" />
             <img :src="'{{ asset('') }}' + current.image" :alt="current.name + ' {{ $product['name'] }}'"
                  class="w-full max-w-md mx-auto aspect-square object-contain">
             <span class="absolute bottom-3 right-3 h-9 w-9 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-brand-dark opacity-0 group-hover:opacity-100 transition-opacity">

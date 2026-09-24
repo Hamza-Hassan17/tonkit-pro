@@ -12,6 +12,11 @@
 | (public/images/products/<slug>/<color-slug>.png). The first color is
 | used as the product's default/thumbnail image.
 |
+| Optional `tags` array (see config/product_tags.php for the vocabulary
+| and badge styling): 'new', 'best-seller', 'liquidation', 'back-order'.
+| Omit the key entirely for an untagged product -- none are tagged as of
+| 2026-09-24, pending the client saying which caps get which tag.
+|
 | Blank-cap prices are in CAD, quantity-tiered (see config/pricing.php for
 | the tier bounds, decoration add-ons, setup fees and shipping).
 | `price` is the entry unit price (tier 0), used for "from $X" on cards.
