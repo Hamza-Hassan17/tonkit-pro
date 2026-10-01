@@ -24,9 +24,11 @@
 | 2026-10-01: client flagged all 6 as sitting too high/near the top seam
 | (screenshot with circles marking where they should go instead -- lower,
 | more centered on the crown, like a real embroidered logo placement).
-| Shifted from a visual read of that screenshot, not a DevTools measurement
-| -- less precise than the 09-23 pass, so expect another round of exact
-| measured values if this isn't quite right.
+| First shifted from a visual read of that screenshot, then corrected
+| same-day with his own DevTools-measured mobile-view values (below) --
+| trust these. Same positions are used for web view too, per his
+| instruction; only the CB badge's size grows on larger screens (see
+| resources/views/components/cb-marker.blade.php).
 | One wrinkle either way: `right-side` renders mirrored (see
 | resources/views/products/show.blade.php, which flips the marker's x as
 | `100 - x` to match the CSS-mirrored SVG), so its `x` here is
@@ -44,40 +46,40 @@ return [
     'center' => [
         'label' => 'Center (Front)',
         'view'  => 'front',
-        'x'     => 52,
-        'y'     => 47,
+        'x'     => 50,
+        'y'     => 42,
     ],
     'left-panel' => [
         'label' => 'Left Panel',
         'view'  => 'front',
-        'x'     => 38,
-        'y'     => 50,
+        'x'     => 40,
+        'y'     => 38,
     ],
     'right-panel' => [
         'label' => 'Right Panel',
         'view'  => 'front',
-        'x'     => 64,
-        'y'     => 52,
+        'x'     => 63,
+        'y'     => 40,
     ],
     'back' => [
         'label' => 'Back',
         'view'  => 'back',
-        'x'     => 46,
-        'y'     => 42,
+        'x'     => 49,
+        'y'     => 31,
     ],
     'left-side' => [
         'label'  => 'Left Side',
         'view'   => 'side',
         'mirror' => false,
-        'x'      => 56,
-        'y'      => 48,
+        'x'      => 47,
+        'y'      => 39,
     ],
     'right-side' => [
         'label'  => 'Right Side',
         'view'   => 'side',
         'mirror' => true,
-        'x'      => 52, // renders at 100-52=48
-        'y'      => 48,
+        'x'      => 51, // renders at 100-51=49
+        'y'      => 38,
     ],
 
 ];
