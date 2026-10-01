@@ -18,13 +18,19 @@
 | the opposite side. `x`/`y` are the marker's position as a percentage
 | of the diagram's viewBox, tuned to sit on the panel/side described.
 |
-| Values below (2026-09-23) are Rohan's own DevTools-measured positions
-| against the actual rendered picker, not recomputed geometry -- trust
-| these over redrawing the math by hand. One wrinkle: `right-side`
-| renders mirrored (see resources/views/products/show.blade.php, which
-| flips the marker's x as `100 - x` to match the CSS-mirrored SVG), so
-| its `x` here is `100 - <the rendered position Rohan measured>`, not
-| the rendered position itself.
+| 2026-09-23: values were Rohan's own DevTools-measured positions against
+| the rendered picker -- trust measured values like that over recomputed
+| geometry when he sends them.
+| 2026-10-01: client flagged all 6 as sitting too high/near the top seam
+| (screenshot with circles marking where they should go instead -- lower,
+| more centered on the crown, like a real embroidered logo placement).
+| Shifted from a visual read of that screenshot, not a DevTools measurement
+| -- less precise than the 09-23 pass, so expect another round of exact
+| measured values if this isn't quite right.
+| One wrinkle either way: `right-side` renders mirrored (see
+| resources/views/products/show.blade.php, which flips the marker's x as
+| `100 - x` to match the CSS-mirrored SVG), so its `x` here is
+| `100 - <the rendered/target position>`, not the rendered position itself.
 |
 | These are flat illustrated diagrams, not real product photography --
 | his own original reference (a generic grey cap graphic) used the same
@@ -38,40 +44,40 @@ return [
     'center' => [
         'label' => 'Center (Front)',
         'view'  => 'front',
-        'x'     => 52.5,
-        'y'     => 33,
+        'x'     => 52,
+        'y'     => 47,
     ],
     'left-panel' => [
         'label' => 'Left Panel',
         'view'  => 'front',
-        'x'     => 32.5,
-        'y'     => 34,
+        'x'     => 38,
+        'y'     => 50,
     ],
     'right-panel' => [
         'label' => 'Right Panel',
         'view'  => 'front',
-        'x'     => 70,
-        'y'     => 38,
+        'x'     => 64,
+        'y'     => 52,
     ],
     'back' => [
         'label' => 'Back',
         'view'  => 'back',
-        'x'     => 43,
-        'y'     => 23.5,
+        'x'     => 46,
+        'y'     => 42,
     ],
     'left-side' => [
         'label'  => 'Left Side',
         'view'   => 'side',
         'mirror' => false,
-        'x'      => 61,
-        'y'      => 30,
+        'x'      => 56,
+        'y'      => 48,
     ],
     'right-side' => [
         'label'  => 'Right Side',
         'view'   => 'side',
         'mirror' => true,
-        'x'      => 78, // renders at 100-78=22, matching left-side's mirror
-        'y'      => 30,
+        'x'      => 52, // renders at 100-52=48
+        'y'      => 48,
     ],
 
 ];
