@@ -59,11 +59,21 @@ class Pricing
         return round(self::unit($product, $qty, $decoration) * $qty, 2);
     }
 
+    /** Discount percent (0-100) for a code, or 0 if it doesn't exist. */
+    public static function discountPercent(?string $code): float
+    {
+        if (! $code) {
+            return 0.0;
+        }
+
+        return (float) (config('discounts.codes.'.strtoupper(trim($code))) ?? 0);
+    }
+
     /**
      * Full order breakdown from cart items (each: [...product, qty, decoration]).
-     * Returns lines, one-time setup fees, shipping and grand total.
+     * Returns lines, one-time setup fees, shipping, discount and grand total.
      */
-    public static function breakdown(array $items): array
+    public static function breakdown(array $items, ?string $discountCode = null): array
     {
         $lines = [];
         $itemsSubtotal = 0.0;
@@ -107,14 +117,21 @@ class Pricing
             $shipping = 0.0;
         }
 
+        $discountPercent = self::discountPercent($discountCode);
+        $discountCode    = $discountPercent > 0 ? strtoupper(trim($discountCode)) : null;
+        $discountTotal   = round($itemsSubtotal * $discountPercent / 100, 2);
+
         return [
-            'lines'          => $lines,
-            'items_subtotal' => round($itemsSubtotal, 2),
-            'setup_fees'     => $setupFees,
-            'setup_total'    => round($setupTotal, 2),
-            'shipping'       => $shipping,
-            'total_qty'      => $totalQty,
-            'total'          => round($itemsSubtotal + $setupTotal + $shipping, 2),
+            'lines'            => $lines,
+            'items_subtotal'   => round($itemsSubtotal, 2),
+            'setup_fees'       => $setupFees,
+            'setup_total'      => round($setupTotal, 2),
+            'shipping'         => $shipping,
+            'discount_code'    => $discountCode,
+            'discount_percent' => $discountPercent,
+            'discount_total'   => $discountTotal,
+            'total_qty'        => $totalQty,
+            'total'            => round($itemsSubtotal - $discountTotal + $setupTotal + $shipping, 2),
         ];
     }
 }

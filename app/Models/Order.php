@@ -20,6 +20,8 @@ class Order extends Model
         'items_subtotal',
         'setup_fees_total',
         'shipping_total',
+        'discount_code',
+        'discount_total',
         'pricing_breakdown',
         'total',
         'status',
@@ -34,6 +36,7 @@ class Order extends Model
         'items_subtotal'    => 'decimal:2',
         'setup_fees_total'  => 'decimal:2',
         'shipping_total'    => 'decimal:2',
+        'discount_total'    => 'decimal:2',
         'pricing_breakdown' => 'array',
     ];
 

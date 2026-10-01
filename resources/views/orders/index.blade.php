@@ -42,6 +42,12 @@
                                 <span><x-price :amount="$order->setup_fees_total + $order->shipping_total" /></span>
                             </div>
                         @endif
+                        @if ($order->discount_total > 0)
+                            <div class="flex justify-between text-xs text-green-600 font-semibold py-1">
+                                <span>Discount ({{ $order->discount_code }})</span>
+                                <span>&minus;<x-price :amount="$order->discount_total" /></span>
+                            </div>
+                        @endif
                         <div class="flex justify-between pt-3 mt-2 border-t border-gray-200 font-bold">
                             <span>Total</span>
                             <span class="text-brand-orange"><x-price :amount="$order->total" /></span>

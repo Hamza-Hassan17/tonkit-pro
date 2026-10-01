@@ -100,7 +100,34 @@
                                 <span class="text-gray-500">Shipping</span>
                                 <span>@if ($breakdown['shipping'] > 0)<x-price :amount="$breakdown['shipping']" />@else <span class="text-green-600 font-semibold">Free</span> @endif</span>
                             </div>
+                            @if ($breakdown['discount_total'] > 0)
+                                <div class="flex justify-between text-green-600 font-semibold">
+                                    <span>Discount ({{ $breakdown['discount_code'] }} · {{ $breakdown['discount_percent'] }}%)</span>
+                                    <span>&minus;<x-price :amount="$breakdown['discount_total']" /></span>
+                                </div>
+                            @endif
                         </div>
+
+                        {{-- Discount code --}}
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            @if ($discountCode)
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600">Code <span class="font-semibold text-brand-dark">{{ $discountCode }}</span> applied</span>
+                                    <form method="POST" action="{{ route('cart.discount.remove') }}">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="text-xs text-gray-400 hover:text-red-500 underline">Remove</button>
+                                    </form>
+                                </div>
+                            @else
+                                <form method="POST" action="{{ route('cart.discount.apply') }}" class="flex gap-2">
+                                    @csrf
+                                    <input type="text" name="discount_code" placeholder="Discount code"
+                                           class="flex-1 rounded border-gray-300 text-sm focus:border-brand-orange focus:ring-brand-orange">
+                                    <button type="submit" class="btn-outline-orange !py-2 !px-4 text-sm shrink-0">Apply</button>
+                                </form>
+                            @endif
+                        </div>
+
                         <div class="flex justify-between pt-4 mt-4 border-t border-gray-200 font-bold text-lg">
                             <span>Total</span><span class="text-brand-orange"><x-price :amount="$breakdown['total']" /></span>
                         </div>

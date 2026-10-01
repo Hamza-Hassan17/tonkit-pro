@@ -24,7 +24,7 @@ class CheckoutController extends Controller
 
         return view('checkout.index', [
             'items'     => $items,
-            'breakdown' => Pricing::breakdown($items),
+            'breakdown' => Pricing::breakdown($items, Session::get(CartController::DISCOUNT_SESSION_KEY)),
             'user'      => Auth::user(),
         ]);
     }
@@ -37,7 +37,7 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
 
-        $breakdown = Pricing::breakdown($items);
+        $breakdown = Pricing::breakdown($items, Session::get(CartController::DISCOUNT_SESSION_KEY));
         $hasPrint  = collect($breakdown['lines'])->contains(fn ($l) => ($l['decoration'] ?? 'none') === 'print');
 
         $data = $request->validate([
@@ -75,7 +75,7 @@ class CheckoutController extends Controller
                 'status'         => 'pending_payment',
                 'payment_method' => 'unpaid',
             ]);
-            Session::forget(['cart', 'pending_order']);
+            Session::forget(['cart', 'pending_order', CartController::DISCOUNT_SESSION_KEY]);
 
             return redirect()->route('checkout.success')->with('order_id', $order->id);
         }
@@ -118,14 +118,31 @@ class CheckoutController extends Controller
             ];
         }
 
-        $session = StripeSession::create([
+        $sessionParams = [
             'mode'                => 'payment',
             'customer_email'      => $data['customer_email'],
             'client_reference_id' => Auth::id(),
             'line_items'          => $lineItems,
             'success_url'         => route('checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url'          => route('checkout.cancel'),
-        ]);
+        ];
+
+        // Discount is a flat CAD amount (already computed against the items
+        // subtotal only -- see Pricing::breakdown), applied as a one-time
+        // Stripe coupon rather than a percent-off coupon, so it doesn't also
+        // discount setup fees or shipping, which aren't line items Stripe
+        // can selectively exclude from a percentage coupon.
+        if ($breakdown['discount_total'] > 0) {
+            $coupon = \Stripe\Coupon::create([
+                'amount_off' => (int) round($breakdown['discount_total'] * 100),
+                'currency'   => $currency,
+                'duration'   => 'once',
+                'name'       => "Discount ({$breakdown['discount_code']})",
+            ]);
+            $sessionParams['discounts'] = [['coupon' => $coupon->id]];
+        }
+
+        $session = StripeSession::create($sessionParams);
 
         Session::put('pending_order', array_merge($pending, ['stripe_session_id' => $session->id]));
 
@@ -148,6 +165,8 @@ class CheckoutController extends Controller
             'items_subtotal'   => $b['items_subtotal'],
             'setup_fees_total' => $b['setup_total'],
             'shipping_total'   => $b['shipping'],
+            'discount_code'    => $b['discount_code'] ?? null,
+            'discount_total'   => $b['discount_total'] ?? 0,
             'pricing_breakdown'=> $b,
             'total'            => $b['total'],
             'status'           => 'paid',

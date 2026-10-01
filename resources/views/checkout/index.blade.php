@@ -144,6 +144,14 @@
                             <span class="text-gray-500">Shipping</span>
                             <span>@if ($breakdown['shipping'] > 0)<x-price :amount="$breakdown['shipping']" />@else <span class="text-green-600 font-semibold">Free</span> @endif</span>
                         </div>
+                        @if ($breakdown['discount_total'] > 0)
+                            <div class="flex justify-between text-green-600 font-semibold">
+                                <span>Discount ({{ $breakdown['discount_code'] }})</span>
+                                <span>&minus;<x-price :amount="$breakdown['discount_total']" /></span>
+                            </div>
+                        @else
+                            <p class="text-xs text-gray-400">Have a discount code? <a href="{{ route('cart.index') }}" class="text-brand-orange hover:underline">Apply it in your cart</a>.</p>
+                        @endif
                     </div>
                     <div class="flex justify-between pt-4 mt-4 border-t border-gray-200 font-bold text-lg">
                         <span>Total</span><span class="text-brand-orange"><x-price :amount="$breakdown['total']" /></span>

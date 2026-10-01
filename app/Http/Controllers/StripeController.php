@@ -43,7 +43,7 @@ class StripeController extends Controller
             'stripe_payment_intent' => is_string($session->payment_intent ?? null) ? $session->payment_intent : null,
         ]);
 
-        Session::forget(['cart', 'pending_order']);
+        Session::forget(['cart', 'pending_order', CartController::DISCOUNT_SESSION_KEY]);
 
         return view('checkout.success', ['order' => $order->load('items')]);
     }

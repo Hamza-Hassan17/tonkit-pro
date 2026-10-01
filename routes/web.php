@@ -22,6 +22,8 @@ Route::get('/products/{slug}', [ProductController::class, 'show'])->name('produc
 
 // ── Cart (session-based, no login required to browse/add) ───────
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/discount', [CartController::class, 'applyDiscount'])->name('cart.discount.apply');
+Route::delete('/cart/discount', [CartController::class, 'removeDiscount'])->name('cart.discount.remove');
 Route::post('/cart/{slug}', [CartController::class, 'add'])->name('cart.add');
 Route::patch('/cart/{slug}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/{slug}', [CartController::class, 'remove'])->name('cart.remove');

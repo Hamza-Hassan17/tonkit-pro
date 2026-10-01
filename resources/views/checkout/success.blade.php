@@ -41,6 +41,9 @@
                         <div class="flex justify-between"><span class="text-gray-500">Setup fees</span><span><x-price :amount="$order->setup_fees_total" /></span></div>
                     @endif
                     <div class="flex justify-between"><span class="text-gray-500">Shipping</span><span>@if ($order->shipping_total > 0)<x-price :amount="$order->shipping_total" />@else Free @endif</span></div>
+                    @if ($order->discount_total > 0)
+                        <div class="flex justify-between text-green-600 font-semibold"><span>Discount ({{ $order->discount_code }})</span><span>&minus;<x-price :amount="$order->discount_total" /></span></div>
+                    @endif
                 </div>
                 <div class="flex justify-between pt-3 mt-2 border-t border-gray-200 font-bold text-lg">
                     <span>Total</span>

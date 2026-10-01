@@ -10,15 +10,42 @@ use Symfony\Component\HttpFoundation\Response;
 class CartController extends Controller
 {
     const SESSION_KEY = 'cart';
+    const DISCOUNT_SESSION_KEY = 'discount_code';
 
     public function index()
     {
         $items = $this->cartWithProductData();
+        $code  = Session::get(self::DISCOUNT_SESSION_KEY);
 
         return view('cart.index', [
             'items'     => $items,
-            'breakdown' => Pricing::breakdown($items),
+            'breakdown' => Pricing::breakdown($items, $code),
+            'discountCode' => $code,
         ]);
+    }
+
+    public function applyDiscount(Request $request)
+    {
+        $code = trim((string) $request->input('discount_code'));
+
+        if ($code === '') {
+            return back()->with('error', 'Enter a discount code.');
+        }
+
+        if (Pricing::discountPercent($code) <= 0) {
+            return back()->with('error', "\"{$code}\" isn't a valid discount code.");
+        }
+
+        Session::put(self::DISCOUNT_SESSION_KEY, strtoupper($code));
+
+        return back()->with('success', "Discount code \"{$code}\" applied.");
+    }
+
+    public function removeDiscount()
+    {
+        Session::forget(self::DISCOUNT_SESSION_KEY);
+
+        return back()->with('success', 'Discount code removed.');
     }
 
     public function add(Request $request, string $slug)
