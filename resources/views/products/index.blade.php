@@ -4,6 +4,8 @@
 
 @section('content')
 
+    @php($tagDefs = \App\Models\Tag::asConfigArray())
+
     {{-- ── Hero banner ────────────────────────────────────────── --}}
     <section class="hero-banner">
         <div class="container-site py-12 relative z-10">
@@ -19,7 +21,7 @@
             <span class="mx-1">/</span>
             <a href="{{ route('products.index') }}" class="hover:text-brand-orange">Shop</a>
             <span class="mx-1">/</span>
-            <span class="text-brand-orange">{{ $tag ? config('product_tags')[$tag]['label'] : 'All Caps' }}</span>
+            <span class="text-brand-orange">{{ $tag ? $tagDefs[$tag]['label'] : 'All Caps' }}</span>
         </nav>
         <p class="text-sm text-gray-500">Showing {{ $products->count() }} result{{ $products->count() === 1 ? '' : 's' }}</p>
     </div>
@@ -30,7 +32,7 @@
            class="text-xs font-semibold uppercase tracking-wide px-3 py-1.5 rounded-full border transition-colors {{ $tag === '' ? 'bg-brand-dark text-white border-brand-dark' : 'border-gray-300 text-gray-500 hover:border-brand-orange hover:text-brand-orange' }}">
             All
         </a>
-        @foreach (config('product_tags') as $key => $def)
+        @foreach ($tagDefs as $key => $def)
             <a href="{{ route('products.index', array_filter(['q' => $query, 'tag' => $key])) }}"
                class="text-xs font-semibold uppercase tracking-wide px-3 py-1.5 rounded-full border transition-colors {{ $tag === $key ? 'bg-brand-dark text-white border-brand-dark' : 'border-gray-300 text-gray-500 hover:border-brand-orange hover:text-brand-orange' }}">
                 {{ $def['label'] }}
@@ -93,7 +95,7 @@
                     @if ($query !== '')
                         No products matched <span class="font-semibold text-brand-dark">"{{ $query }}"</span>.
                     @elseif ($tag !== '')
-                        No products are currently tagged <span class="font-semibold text-brand-dark">{{ config('product_tags')[$tag]['label'] }}</span>.
+                        No products are currently tagged <span class="font-semibold text-brand-dark">{{ $tagDefs[$tag]['label'] }}</span>.
                     @else
                         No products found.
                     @endif

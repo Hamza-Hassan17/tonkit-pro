@@ -2,7 +2,16 @@
 
 /*
 |--------------------------------------------------------------------------
-| Static product catalog
+| HISTORICAL -- no longer read by the app (2026-10-02)
+|--------------------------------------------------------------------------
+| The catalog moved to the database (products/product_colors/tags tables,
+| see app/Models/Product.php and ProductController) as part of the admin
+| panel build. This file is kept only as the import source for
+| `php artisan catalog:import-from-config` and as a rollback reference --
+| ProductController::all()/find() no longer touch it. Do not edit this
+| expecting it to affect the live site; use /admin/products instead.
+|--------------------------------------------------------------------------
+| Static product catalog (original doc, left for context)
 |--------------------------------------------------------------------------
 | There are 21 products and no admin panel, so this file IS the product
 | database. Cart/orders still use the real DB (see migrations) because

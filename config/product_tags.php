@@ -2,7 +2,13 @@
 
 /*
 |--------------------------------------------------------------------------
-| Product tags
+| HISTORICAL -- no longer read by the app (2026-10-02)
+|--------------------------------------------------------------------------
+| Tag vocabulary moved to the database (tags table, see app/Models/Tag.php,
+| Tag::asConfigArray() for the same shape this file used to provide).
+| Manage tags at /admin/tags instead.
+|--------------------------------------------------------------------------
+| Product tags (original doc, left for context)
 |--------------------------------------------------------------------------
 | Client's 2026-09 request: an option to mark caps as Back Order (BO --
 | out of stock), New, Best Seller, or Liquidation, shown as a badge on

@@ -2,7 +2,13 @@
 
 /*
 |--------------------------------------------------------------------------
-| Discount codes
+| HISTORICAL -- no longer read by the app (2026-10-02)
+|--------------------------------------------------------------------------
+| Discount codes moved to the database (discount_codes table, see
+| app/Models/DiscountCode.php). Pricing::discountPercent() no longer
+| touches this file. Manage codes at /admin/discount-codes instead.
+|--------------------------------------------------------------------------
+| Discount codes (original doc, left for context)
 |--------------------------------------------------------------------------
 | Simple sitewide percent-off codes, entered in the cart. No expiry or
 | usage-limit tracking yet -- client asked for "simple sitewide % off

@@ -59,14 +59,16 @@ class Pricing
         return round(self::unit($product, $qty, $decoration) * $qty, 2);
     }
 
-    /** Discount percent (0-100) for a code, or 0 if it doesn't exist. */
+    /** Discount percent (0-100) for an active code, or 0 if it doesn't exist/isn't active. */
     public static function discountPercent(?string $code): float
     {
         if (! $code) {
             return 0.0;
         }
 
-        return (float) (config('discounts.codes.'.strtoupper(trim($code))) ?? 0);
+        return (float) (\App\Models\DiscountCode::where('code', strtoupper(trim($code)))
+            ->where('active', true)
+            ->value('percent_off') ?? 0);
     }
 
     /**
