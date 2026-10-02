@@ -24,8 +24,9 @@ class CheckoutController extends Controller
 
         return view('checkout.index', [
             'items'     => $items,
-            'breakdown' => Pricing::breakdown($items, Session::get(CartController::DISCOUNT_SESSION_KEY)),
+            'breakdown' => Pricing::breakdown($items, Session::get(CartController::DISCOUNT_SESSION_KEY), old('province')),
             'user'      => Auth::user(),
+            'provinces' => config('tax.provinces'),
         ]);
     }
 
@@ -37,8 +38,7 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
 
-        $breakdown = Pricing::breakdown($items, Session::get(CartController::DISCOUNT_SESSION_KEY));
-        $hasPrint  = collect($breakdown['lines'])->contains(fn ($l) => ($l['decoration'] ?? 'none') === 'print');
+        $hasPrint = collect(Pricing::breakdown($items)['lines'])->contains(fn ($l) => ($l['decoration'] ?? 'none') === 'print');
 
         $data = $request->validate([
             'customer_name'  => ['required', 'string', 'max:120'],
@@ -46,16 +46,20 @@ class CheckoutController extends Controller
             'customer_phone' => ['required', 'string', 'max:40'],
             'address_line'   => ['required', 'string', 'max:200'],
             'city'           => ['required', 'string', 'max:80'],
+            'province'       => ['required', 'in:'.implode(',', config('tax.provinces'))],
             'postal_code'    => ['nullable', 'string', 'max:20'],
             'country'        => ['required', 'in:Canada'],
             'dtf_ack'        => [$hasPrint ? 'accepted' : 'nullable'],
         ], [
+            'province.in'      => 'Please select a valid Canadian province or territory.',
             'country.in'       => 'We currently ship within Canada only.',
             'dtf_ack.accepted' => 'Please confirm you understand the DTF print notice before continuing.',
         ]);
 
+        $breakdown = Pricing::breakdown($items, Session::get(CartController::DISCOUNT_SESSION_KEY), $data['province']);
+
         $shippingAddress = trim(implode(', ', array_filter([
-            $data['address_line'], $data['city'], $data['postal_code'] ?? null, $data['country'],
+            $data['address_line'], $data['city'], $data['province'], $data['postal_code'] ?? null, $data['country'],
         ])));
 
         $pending = [
@@ -64,6 +68,7 @@ class CheckoutController extends Controller
             'customer_email'   => $data['customer_email'],
             'customer_phone'   => $data['customer_phone'],
             'shipping_address' => $shippingAddress,
+            'province'         => $data['province'],
             'breakdown'        => $breakdown,
         ];
 
@@ -117,6 +122,26 @@ class CheckoutController extends Controller
                 ],
             ];
         }
+        if ($breakdown['gst_total'] > 0) {
+            $lineItems[] = [
+                'quantity'   => 1,
+                'price_data' => [
+                    'currency'     => $currency,
+                    'unit_amount'  => (int) round($breakdown['gst_total'] * 100),
+                    'product_data' => ['name' => 'GST (5%)'],
+                ],
+            ];
+        }
+        if ($breakdown['qst_total'] > 0) {
+            $lineItems[] = [
+                'quantity'   => 1,
+                'price_data' => [
+                    'currency'     => $currency,
+                    'unit_amount'  => (int) round($breakdown['qst_total'] * 100),
+                    'product_data' => ['name' => 'QST (9.975%)'],
+                ],
+            ];
+        }
 
         $sessionParams = [
             'mode'                => 'payment',
@@ -167,6 +192,9 @@ class CheckoutController extends Controller
             'shipping_total'   => $b['shipping'],
             'discount_code'    => $b['discount_code'] ?? null,
             'discount_total'   => $b['discount_total'] ?? 0,
+            'province'         => $pending['province'] ?? null,
+            'gst_total'        => $b['gst_total'] ?? 0,
+            'qst_total'        => $b['qst_total'] ?? 0,
             'pricing_breakdown'=> $b,
             'total'            => $b['total'],
             'status'           => 'paid',

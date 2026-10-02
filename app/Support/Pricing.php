@@ -75,7 +75,7 @@ class Pricing
      * Full order breakdown from cart items (each: [...product, qty, decoration]).
      * Returns lines, one-time setup fees, shipping, discount and grand total.
      */
-    public static function breakdown(array $items, ?string $discountCode = null): array
+    public static function breakdown(array $items, ?string $discountCode = null, ?string $province = null): array
     {
         $lines = [];
         $itemsSubtotal = 0.0;
@@ -123,6 +123,10 @@ class Pricing
         $discountCode    = $discountPercent > 0 ? strtoupper(trim($discountCode)) : null;
         $discountTotal   = round($itemsSubtotal * $discountPercent / 100, 2);
 
+        $preTaxTotal = $itemsSubtotal - $discountTotal + $setupTotal + $shipping;
+        [$gstTotal, $qstTotal] = self::taxAmounts($preTaxTotal, $province);
+        $taxTotal = round($gstTotal + $qstTotal, 2);
+
         return [
             'lines'            => $lines,
             'items_subtotal'   => round($itemsSubtotal, 2),
@@ -132,8 +136,33 @@ class Pricing
             'discount_code'    => $discountCode,
             'discount_percent' => $discountPercent,
             'discount_total'   => $discountTotal,
+            'province'         => $province,
+            'gst_total'        => $gstTotal,
+            'qst_total'        => $qstTotal,
+            'tax_total'        => $taxTotal,
             'total_qty'        => $totalQty,
-            'total'            => round($itemsSubtotal - $discountTotal + $setupTotal + $shipping, 2),
+            'total'            => round($preTaxTotal + $taxTotal, 2),
         ];
+    }
+
+    /**
+     * [gst, qst] for a pre-tax amount in the given province. GST (5%,
+     * federal) always applies in Canada; QST (9.975%) only applies when
+     * the province is Quebec -- CapBeast is tax-registered there only,
+     * so no other province's PST/HST gets charged regardless of where
+     * the order ships. See config/tax.php for sourcing.
+     */
+    public static function taxAmounts(float $preTaxAmount, ?string $province): array
+    {
+        if (! $province || $preTaxAmount <= 0) {
+            return [0.0, 0.0];
+        }
+
+        $gst = round($preTaxAmount * config('tax.gst_rate', 0.05), 2);
+        $qst = $province === config('tax.qst_province', 'Quebec')
+            ? round($preTaxAmount * config('tax.qst_rate', 0.09975), 2)
+            : 0.0;
+
+        return [$gst, $qst];
     }
 }

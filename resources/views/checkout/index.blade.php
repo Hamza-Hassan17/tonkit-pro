@@ -51,6 +51,17 @@
                                    class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange @error('city') border-red-400 @enderror">
                         </div>
                         <div>
+                            <label class="block text-sm font-semibold mb-1">Province</label>
+                            <select name="province" required
+                                    class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange @error('province') border-red-400 @enderror">
+                                <option value="">Select…</option>
+                                @foreach ($provinces as $p)
+                                    <option value="{{ $p }}" {{ old('province') === $p ? 'selected' : '' }}>{{ $p }}</option>
+                                @endforeach
+                            </select>
+                            <p class="text-xs text-gray-400 mt-1">Used to calculate GST/QST.</p>
+                        </div>
+                        <div>
                             <label class="block text-sm font-semibold mb-1">Postal code <span class="text-gray-400 font-normal">(optional)</span></label>
                             <input type="text" name="postal_code" value="{{ old('postal_code') }}"
                                    class="w-full rounded border-gray-300 focus:border-brand-orange focus:ring-brand-orange">
@@ -151,6 +162,16 @@
                             </div>
                         @else
                             <p class="text-xs text-gray-400">Have a discount code? <a href="{{ route('cart.index') }}" class="text-brand-orange hover:underline">Apply it in your cart</a>.</p>
+                        @endif
+                        @if ($breakdown['province'])
+                            @if ($breakdown['gst_total'] > 0)
+                                <div class="flex justify-between"><span class="text-gray-500">GST (5%)</span><span><x-price :amount="$breakdown['gst_total']" /></span></div>
+                            @endif
+                            @if ($breakdown['qst_total'] > 0)
+                                <div class="flex justify-between"><span class="text-gray-500">QST (9.975%)</span><span><x-price :amount="$breakdown['qst_total']" /></span></div>
+                            @endif
+                        @else
+                            <p class="text-xs text-gray-400">Tax is calculated once you select your province above.</p>
                         @endif
                     </div>
                     <div class="flex justify-between pt-4 mt-4 border-t border-gray-200 font-bold text-lg">

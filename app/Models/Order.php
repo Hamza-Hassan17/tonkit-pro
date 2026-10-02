@@ -17,11 +17,14 @@ class Order extends Model
         'customer_email',
         'customer_phone',
         'shipping_address',
+        'province',
         'items_subtotal',
         'setup_fees_total',
         'shipping_total',
         'discount_code',
         'discount_total',
+        'gst_total',
+        'qst_total',
         'pricing_breakdown',
         'total',
         'status',
@@ -37,6 +40,8 @@ class Order extends Model
         'setup_fees_total'  => 'decimal:2',
         'shipping_total'    => 'decimal:2',
         'discount_total'    => 'decimal:2',
+        'gst_total'         => 'decimal:2',
+        'qst_total'         => 'decimal:2',
         'pricing_breakdown' => 'array',
     ];
 

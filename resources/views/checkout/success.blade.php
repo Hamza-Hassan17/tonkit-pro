@@ -44,6 +44,12 @@
                     @if ($order->discount_total > 0)
                         <div class="flex justify-between text-green-600 font-semibold"><span>Discount ({{ $order->discount_code }})</span><span>&minus;<x-price :amount="$order->discount_total" /></span></div>
                     @endif
+                    @if ($order->gst_total > 0)
+                        <div class="flex justify-between"><span class="text-gray-500">GST (5%)</span><span><x-price :amount="$order->gst_total" /></span></div>
+                    @endif
+                    @if ($order->qst_total > 0)
+                        <div class="flex justify-between"><span class="text-gray-500">QST (9.975%)</span><span><x-price :amount="$order->qst_total" /></span></div>
+                    @endif
                 </div>
                 <div class="flex justify-between pt-3 mt-2 border-t border-gray-200 font-bold text-lg">
                     <span>Total</span>
